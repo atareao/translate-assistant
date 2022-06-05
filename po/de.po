@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: battery-status@atareao.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-28 10:27+0200\n"
+"POT-Creation-Date: 2022-06-05 10:20+0200\n"
 "PO-Revision-Date: 2022-03-28 10:22+0200\n"
 "Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
 "Language-Team: German\n"
@@ -18,11 +18,147 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0\n"
 
+#: schemas/es.atareao.translate-assistant.gschema.xml:70
+msgid "Source language"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:71
+msgid "Language of the text to be translated"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:75
+msgid "Target language"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:76
+msgid "The language into which the text should be translated"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:80
+msgid "Split sentences"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:81
+msgid ""
+"Sets whether the translation engine should first split the input into "
+"sentences"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:85
+#, fuzzy
+msgid "Preserve formatting"
+msgstr "Weitere Informationen"
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:86
+msgid ""
+"Sets whether the translation engine should respect the original formatting, "
+"even if it would usually correct some aspects"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:90
+msgid "Formality"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:91
+msgid ""
+"Sets whether the translated text should lean towards formal or informal "
+"language"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:95
+msgid "DeepL API key"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:96
+msgid "Set DeepL API key"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:100
+msgid "Shortcut"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:101
+msgid "Shortcut to translate the content of the clipboard"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:105
+msgid "Dark theme"
+msgstr "Dunkles Thema"
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:106
+msgid "Enable dark theme otherwise light theme"
+msgstr "Dunkles Thema verwenden, andernfalls helles Thema"
+
+#: dialogwidgets.js:55
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: dialogwidgets.js:56
+msgid "Ok"
+msgstr "OK"
+
+#: prefs.js:50
+msgid "Indicator options"
+msgstr "Indikator-Optionen"
+
+#: prefs.js:69
+msgid "Theme"
+msgstr "Thema"
+
+#: prefs.js:72
+#, fuzzy
+msgid "Translate Assistant Preferences"
+msgstr "Akkustatus-Einstellungen"
+
+#: prefs.js:75
+msgid "Check time"
+msgstr "Überprüfungsintervall"
+
+#: prefs.js:76
+msgid "Style"
+msgstr "Stil"
+
+#: prefs.js:77
+msgid "About"
+msgstr "Info"
+
+#: prefs.js:86
+#, fuzzy
+msgid "Translate Assistant Configuration"
+msgstr "Akkustatus-Konfiguration"
+
+#: preferenceswidget.js:245
+msgid "Nothing"
+msgstr "Nichts"
+
+#: preferenceswidget.js:258
+msgid "True"
+msgstr "Wahr"
+
+#: preferenceswidget.js:271
+msgid "False"
+msgstr "Falsch"
+
+#: preferenceswidget.js:465 preferenceswidget.js:996
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: preferenceswidget.js:512 preferenceswidget.js:530 preferenceswidget.js:559
+msgid "Name"
+msgstr "Name"
+
+#: preferenceswidget.js:518 preferenceswidget.js:530 preferenceswidget.js:559
+msgid "Service"
+msgstr "Dienst"
+
+#: preferenceswidget.js:1006
+msgid "Remove"
+msgstr "Entfernen"
+
 #: aboutpage.js:47
 msgid "Buy me a coffee"
 msgstr "Spendieren Sie mir einen Kaffee"
 
-#. Translators: This string precedes the version of the extension.
 #: aboutpage.js:53
 msgid "Version"
 msgstr "Version"
@@ -31,12 +167,10 @@ msgstr "Version"
 msgid "GNOME Version"
 msgstr "GNOME-Version"
 
-#. Translators: This string precedes the OS (Distro + version)
 #: aboutpage.js:58
 msgid "OS"
 msgstr "OS"
 
-#. Translators: This string precedes the Session type (either "Wayland" or "X11")
 #: aboutpage.js:60
 msgid "SessionType"
 msgstr "Sitzungstyp"
@@ -85,168 +219,77 @@ msgstr "Weitere Informationen"
 msgid "Report an issue"
 msgstr "Einen Fehler melden"
 
-#: dialogwidgets.js:55
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: dialogwidgets.js:56
-msgid "Ok"
-msgstr "OK"
-
-#: extension.js:80
+#: extension.js:78
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: extension.js:125
+#: extension.js:123
 msgid "Battery health"
 msgstr "Akkugesundheit"
 
-#. Translators: The current maximum battery capacity
-#: extension.js:138
+#: extension.js:136
 msgid "Current max:"
 msgstr "Aktuelle Kapazität:"
 
-#. Translators: The original maximum battery capacity
-#: extension.js:147
+#: extension.js:145
 msgid "Original max:"
 msgstr "Ursprüngliche Kapazität:"
 
-#: extension.js:164
+#: extension.js:162
 msgid "Voltage now:"
 msgstr "Aktuelle Spannung:"
 
-#: extension.js:172
+#: extension.js:170
 msgid "Original voltage:"
 msgstr "Ursprüngliche Spannung:"
 
-#: extension.js:188
-msgid "Battery charge"
-msgstr "Akkuladung"
+#~ msgid "Battery charge"
+#~ msgstr "Akkuladung"
 
-#: extension.js:203
-msgid "Current charge:"
-msgstr "Aktuelle Akkuladung:"
+#~ msgid "Current charge:"
+#~ msgstr "Aktuelle Akkuladung:"
 
-#: extension.js:277 extension.js:279
-msgid "V"
-msgstr "V"
+#~ msgid "V"
+#~ msgstr "V"
 
-#: extension.js:282 extension.js:286 extension.js:290
-msgid "mAh"
-msgstr "mAh"
+#~ msgid "mAh"
+#~ msgstr "mAh"
 
-#: preferenceswidget.js:205
-msgid "Nothing"
-msgstr "Nichts"
+#~ msgid "Power supply path"
+#~ msgstr "Stromversorgung"
 
-#: preferenceswidget.js:218
-msgid "True"
-msgstr "Wahr"
+#~ msgid "Path of the power supply"
+#~ msgstr "Stromversorgung"
 
-#: preferenceswidget.js:231
-msgid "False"
-msgstr "Falsch"
+#~ msgid "Set the check time to test the battery status"
+#~ msgstr "Zeit, nach der der Akkustatus überprüft wird"
 
-#: preferenceswidget.js:425 preferenceswidget.js:956
-msgid "Edit"
-msgstr "Bearbeiten"
+#~ msgid "Normal color"
+#~ msgstr "Normale Farbe"
 
-#: preferenceswidget.js:472 preferenceswidget.js:490 preferenceswidget.js:519
-msgid "Name"
-msgstr "Name"
+#~ msgid "Normal color for pie"
+#~ msgstr "Normale Farbe für Diagramm"
 
-#: preferenceswidget.js:478 preferenceswidget.js:490 preferenceswidget.js:519
-msgid "Service"
-msgstr "Dienst"
+#~ msgid "Warning"
+#~ msgstr "Warnung"
 
-#: preferenceswidget.js:966
-msgid "Remove"
-msgstr "Entfernen"
+#~ msgid "Show warning color when space over this value"
+#~ msgstr "Ab diesem Wert Farbe für Warnung anzeigen"
 
-#: prefs.js:50
-msgid "Indicator options"
-msgstr "Indikator-Optionen"
+#~ msgid "Warning color"
+#~ msgstr "Farbe bei Warnung"
 
-#: prefs.js:69 prefs.js:81 schemas/battery-status.gschema.xml:11
-msgid "Check time"
-msgstr "Überprüfungsintervall"
+#~ msgid "Warning color for pie"
+#~ msgstr "Warnung bei Gefahr für Diagramm"
 
-#: prefs.js:75
-msgid "Theme"
-msgstr "Thema"
+#~ msgid "Danger"
+#~ msgstr "Gefahr"
 
-#: prefs.js:78
-msgid "Battery Status Preferences"
-msgstr "Akkustatus-Einstellungen"
+#~ msgid "Show danger color when space over this value"
+#~ msgstr "Ab diesem Wert Farbe für Gefahr anzeigen"
 
-#: prefs.js:82
-msgid "Style"
-msgstr "Stil"
+#~ msgid "Danger color"
+#~ msgstr "Farbe bei Gefahr"
 
-#: prefs.js:83
-msgid "About"
-msgstr "Info"
-
-#: prefs.js:92
-msgid "Battery Status Configuration"
-msgstr "Akkustatus-Konfiguration"
-
-#: schemas/battery-status.gschema.xml:6
-msgid "Power supply path"
-msgstr "Stromversorgung"
-
-#: schemas/battery-status.gschema.xml:7
-msgid "Path of the power supply"
-msgstr "Stromversorgung"
-
-#: schemas/battery-status.gschema.xml:12
-msgid "Set the check time to test the battery status"
-msgstr "Zeit, nach der der Akkustatus überprüft wird"
-
-#: schemas/battery-status.gschema.xml:16
-msgid "Dark theme"
-msgstr "Dunkles Thema"
-
-#: schemas/battery-status.gschema.xml:17
-msgid "Enable dark theme otherwise light theme"
-msgstr "Dunkles Thema verwenden, andernfalls helles Thema"
-
-#: schemas/battery-status.gschema.xml:21
-msgid "Normal color"
-msgstr "Normale Farbe"
-
-#: schemas/battery-status.gschema.xml:22
-msgid "Normal color for pie"
-msgstr "Normale Farbe für Diagramm"
-
-#: schemas/battery-status.gschema.xml:26
-msgid "Warning"
-msgstr "Warnung"
-
-#: schemas/battery-status.gschema.xml:27
-msgid "Show warning color when space over this value"
-msgstr "Ab diesem Wert Farbe für Warnung anzeigen"
-
-#: schemas/battery-status.gschema.xml:31
-msgid "Warning color"
-msgstr "Farbe bei Warnung"
-
-#: schemas/battery-status.gschema.xml:32
-msgid "Warning color for pie"
-msgstr "Warnung bei Gefahr für Diagramm"
-
-#: schemas/battery-status.gschema.xml:36
-msgid "Danger"
-msgstr "Gefahr"
-
-#: schemas/battery-status.gschema.xml:37
-msgid "Show danger color when space over this value"
-msgstr "Ab diesem Wert Farbe für Gefahr anzeigen"
-
-#: schemas/battery-status.gschema.xml:41
-msgid "Danger color"
-msgstr "Farbe bei Gefahr"
-
-#: schemas/battery-status.gschema.xml:42
-msgid "Danger color for pie"
-msgstr "Farbe bei Gefahr für Diagramm"
+#~ msgid "Danger color for pie"
+#~ msgstr "Farbe bei Gefahr für Diagramm"

@@ -32,8 +32,6 @@ const PopupMenu = imports.ui.popupMenu;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Extension = ExtensionUtils.getCurrentExtension();
-const Convenience = Extension.imports.convenience;
-const PieChart = Extension.imports.piechart.PieChart;
 
 const Gettext = imports.gettext.domain(Extension.uuid);
 const _ = Gettext.gettext;
@@ -53,7 +51,7 @@ var TranslateAssistant = GObject.registerClass(
     class TranslateAssistant extends PanelMenu.Button{
         _init(){
             super._init(St.Align.START);
-            this._settings = Convenience.getSettings();
+            this._settings = ExtensionUtils.getSettings();
             this._loadPreferences();
 
             /* Icon indicator */
@@ -68,11 +66,11 @@ var TranslateAssistant = GObject.registerClass(
             this.add_child(box);
 
             /* Start Menu */
-            let itemBatteryCharge = this._getBatteryChargeMenuItem();
-            this.menu.addMenuItem(itemBatteryCharge);
+            //let itemBatteryCharge = this._getBatteryChargeMenuItem();
+            //this.menu.addMenuItem(itemBatteryCharge);
 
-            let itemBatteryHealth = this._getBatteryHealthMenuItem();
-            this.menu.addMenuItem(itemBatteryHealth);
+            //let itemBatteryHealth = this._getBatteryHealthMenuItem();
+            //this.menu.addMenuItem(itemBatteryHealth);
 
             /* Separator */
             this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
@@ -93,14 +91,14 @@ var TranslateAssistant = GObject.registerClass(
         }
 
         _loadPreferences(){
-            this._path = this._getValue('path');
-            this._checktime = this._getValue('checktime');
+            this._source_lang = this._getValue('source-lang');
+            this._target_lang = this._getValue('targe-lang');
+            this._split_sentences = this._getValue('split-sentences');
+            this._preserve_formatting = this._getValue('preserve-formatting');
+            this._formality = this._getValue('formality');
+            this._apikey = this._getValue('apikey');
+            this._keybinding_translate_clipboard = this._getValue('keybinding-translate-clipboard');
             this._darktheme = this._getValue('darktheme');
-            this._normalColor = this._getValue('normal-color');
-            this._warning = this._getValue('warning');
-            this._warningColor = this._getValue('warning-color');
-            this._danger = this._getValue('danger');
-            this._dangerColor = this._getValue('danger-color');
         }
 
         _getRow(label, value){
@@ -176,175 +174,15 @@ var TranslateAssistant = GObject.registerClass(
         }
 
 
-        _getBatteryChargeMenuItem(){
-            let itemBatteryCharge = new PopupMenu.PopupBaseMenuItem({
-                reactive: false
-            });
-            let batteryCharge = new St.BoxLayout({
-                vertical:true
-            });
-            itemBatteryCharge.actor.add_actor(batteryCharge);
-            batteryCharge.add_actor(new St.Label({
-                                text: _('Battery charge')
-            }));
-            /* */
-            let batteryChargeInner = new St.BoxLayout({
-                                vertical: true,
-                                style_class: 'message battery-box'
-                            });
-            batteryCharge.add_actor(batteryChargeInner);
-            let batteryChargeInnerInfo= new St.BoxLayout();
-            batteryChargeInner.add_actor(batteryChargeInnerInfo);
-            this._currentCharge = new St.Label({
-                text: '4159 mAh',
-               x_expand: true,
-               x_align: Clutter.ActorAlign.END });
-            batteryChargeInner.add_actor(this._getRow(
-                _('Current charge:'),
-                this._currentCharge
-            ));
-            let cc = new St.BoxLayout({
-                                x_align: Clutter.ActorAlign.CENTER,
-                                y_align: Clutter.ActorAlign.CENTER,
-                            });
-            batteryChargeInner.add_actor(cc);
-            this._currentChargePie = new PieChart(70, 70, 30, this._warning,
-                this._danger, this._normalColor, this._warningColor,
-                this._dangerColor);
-            cc.add_actor(this._currentChargePie);
-
-            let dd = new St.BoxLayout({
-                                x_align: Clutter.ActorAlign.CENTER,
-                                y_align: Clutter.ActorAlign.CENTER,
-                            });
-            batteryChargeInner.add_actor(dd);
-            this._teoricalChargePie = new PieChart(70, 70, 30, this._warning,
-                this._danger, this._normalColor, this._warningColor,
-                this._dangerColor);
-            cc.add_actor(this._teoricalChargePie);
-
-            return itemBatteryCharge;
-        }
-
         _getValue(keyName){
-            this._settings = Convenience.getSettings();
+            this._settings = ExtensionUtils.getSettings();
             return this._settings.get_value(keyName).deep_unpack();
         }
 
-        _update(){
-            if(!this._path.endsWith('/')){
-                this._path = this._path + '/';
-            }
-            try {
-                let file = Gio.File.new_for_path(this._path + 'uevent');
-                if(file.query_exists(null)){
-                    file.load_contents_async(null, (source_object, res) => {
-                        try{
-                            res = source_object.load_contents_finish(res);
-                            let [ok, contents, etag_out] = res;
-                            contents = String.fromCharCode.apply(null, contents);
-                            let discharging = contents.match(/POWER_SUPPLY_STATUS=Discharging/);
-                            let power_supply_voltage_min_design = contents.match(/POWER_SUPPLY_VOLTAGE_MIN_DESIGN=\d*/);
-                            if(power_supply_voltage_min_design != null){
-                                power_supply_voltage_min_design = power_supply_voltage_min_design.toString().substring(32);
-                            }
-                            let power_supply_voltage_now = contents.match(/POWER_SUPPLY_VOLTAGE_NOW=\d*/);
-                            if(power_supply_voltage_now != null){
-                                power_supply_voltage_now = power_supply_voltage_now.toString().substring(25);
-                            }
-                            let power_supply_current_now = contents.match(/POWER_SUPPLY_CURRENT_NOW=\d*/);
-                            if(power_supply_current_now != null){
-                                power_supply_current_now = power_supply_current_now.toString().substring(25);
-                            }
-                            let power_supply_charge_full_design = contents.match(/POWER_SUPPLY_CHARGE_FULL_DESIGN=\d*/);
-                            if(power_supply_charge_full_design != null){
-                                power_supply_charge_full_design = power_supply_charge_full_design.toString().substring(32);
-                            }
-                            let power_supply_charge_full = contents.match(/POWER_SUPPLY_CHARGE_FULL=\d*/);
-                            if(power_supply_charge_full != null){
-                                power_supply_charge_full = power_supply_charge_full.toString().substring(25);
-                            }
-                            let power_supply_charge_now = contents.match(/POWER_SUPPLY_CHARGE_NOW=\d*/);
-                            if(power_supply_charge_now != null){
-                                power_supply_charge_now = power_supply_charge_now.toString().substring(24);
-                            }
-                            let power_supply_capacity = contents.match(/POWER_SUPPLY_CAPACITY=\d*/);
-                            if(power_supply_capacity != null){
-                                power_supply_capacity = power_supply_capacity.toString().substring(22);
-                            }
-                            this._set_icon_indicator(discharging != null);
-                            let voltageDesign = parseFloat(power_supply_voltage_min_design) / 1000 / 1000;
-                            this._originalVoltage.set_text(voltageDesign.toString() + ' ' + _('V'));
-                            let voltageNow = parseFloat(power_supply_voltage_now) / 1000 /1000;
-                            this._voltageNow.set_text(voltageNow.toString() + ' ' + _('V'));
-                            if(power_supply_charge_full != null){
-                                let currentMax = parseFloat(power_supply_charge_full) / 1000;
-                                this._currentMax.set_text(currentMax.toString() + ' ' + _('mAh'));
-                            }
-                            if(power_supply_charge_full_design != null){
-                                let originalMax = parseFloat(power_supply_charge_full_design) / 1000;
-                                this._originalMax.set_text(originalMax.toString() + ' ' + _('mAh'));
-                            }
-                            if(power_supply_charge_now != null){
-                                let currentCharge = parseFloat(power_supply_charge_now) / 1000;
-                                this._currentCharge.set_text(currentCharge.toString() + ' ' + _('mAh'));
-                            }
-                            if(power_supply_charge_full != null && power_supply_charge_full_design != null){
-                                let currentMax = parseFloat(power_supply_charge_full) / 1000;
-                                let originalMax = parseFloat(power_supply_charge_full_design) / 1000;
-                                this._batteryHealthPie.setPercentage(Math.round(currentMax / originalMax * 100));
-                                this._batteryHealthPie.redraw()
-                            }
-                            if(power_supply_charge_full != null && power_supply_charge_now != null){
-                                let currentMax = parseFloat(power_supply_charge_full) / 1000.0;
-                                let currentCharge = parseFloat(power_supply_charge_now) / 1000.0;
-                                this._currentChargePie.setPercentage(Math.round(currentCharge / currentMax * 100));
-                                this._currentChargePie.redraw()
-                            }
-                            if(power_supply_charge_full_design != null && power_supply_charge_now != null){
-                                let currentMax = parseFloat(power_supply_charge_full_design) / 1000.0;
-                                let currentCharge = parseFloat(power_supply_charge_now) / 1000.0;
-                                this._teoricalChargePie.setPercentage(Math.round(currentCharge / currentMax * 100));
-                                this._teoricalChargePie.redraw()
-                            }
-                            if(power_supply_current_now != null && power_supply_charge_now != null){
-                                let currentNow = parseFloat(power_supply_current_now) / 1000.0;
-                                if(parseInt(currentNow) > 1){
-                                    let chargeNow = parseFloat(power_supply_charge_now) / 1000.0;
-                                    let timeleft = chargeNow / currentNow
-                                    let hours = parseInt(timeleft);
-                                    let minutes = parseInt((timeleft - hours)*60);
-                                    if(minutes >= 60){
-                                        hours = hours + 1;
-                                        minutes = 0;
-                                    }
-                                    hours = hours.toString();
-                                    if(hours.length < 2){
-                                        hours = '0'.repeat(2 - hours.length) + hours;
-                                    }
-                                    minutes = minutes.toString();
-                                    if(minutes.length <  2){
-                                        minutes = '0'.repeat(2 - minutes.length) + minutes;
-                                    }
-                                    this._timeLeft.set_text(hours + ':' + minutes);
-                                }else{
-                                    this._timeLeft.set_text('');
-                                }
-                            }
-                        }catch(e){
-                            logError(e);
-                        }
-                    });
-                }
-            } catch (e) {
-                logError(e);
-            }
-            return true;
-        }
         _set_icon_indicator(active){
             let themeString = (this._darktheme?'dark': 'light');
             let statusString = (active ? 'active' : 'paused');
-            let iconString = `battery-status-${statusString}-${themeString}`;
+            let iconString = `translate-assistant-${statusString}-${themeString}`;
             this.icon.set_gicon(this._get_icon(iconString));
         }
 
@@ -364,36 +202,6 @@ var TranslateAssistant = GObject.registerClass(
 
         _settingsChanged(){
             this._loadPreferences();
-
-            this._batteryHealthPie.setNormalColor(this._normalColor);
-            this._batteryHealthPie.setWarningColor(this._warningColor);
-            this._batteryHealthPie.setDangerColor(this._dangerColor);
-            this._batteryHealthPie.setWarning(this._warning);
-            this._batteryHealthPie.setDanger(this._danger);
-            this._batteryHealthPie.redraw();
-
-            this._currentChargePie.setNormalColor(this._normalColor);
-            this._currentChargePie.setWarningColor(this._warningColor);
-            this._currentChargePie.setDangerColor(this._dangerColor);
-            this._currentChargePie.setWarning(this._warning);
-            this._currentChargePie.setDanger(this._danger);
-            this._currentChargePie.redraw();
-
-            this._teoricalChargePie.setNormalColor(this._normalColor);
-            this._teoricalChargePie.setWarningColor(this._warningColor);
-            this._teoricalChargePie.setDangerColor(this._dangerColor);
-            this._teoricalChargePie.setWarning(this._warning);
-            this._teoricalChargePie.setDanger(this._danger);
-            this._teoricalChargePie.redraw();
-
-            this._update();
-
-            if(this._sourceId > 0){
-                GLib.source_remove(this._sourceId);
-            }
-            this._sourceId = GLib.timeout_add_seconds(
-                GLib.PRIORITY_DEFAULT, this._checktime,
-                this._update.bind(this));
         }
 
         disableUpdate(){
@@ -407,7 +215,7 @@ var TranslateAssistant = GObject.registerClass(
 let translateAssistant;
 
 function init(){
-    Convenience.initTranslations();
+    ExtensionUtils.initTranslations();
 }
 
 function enable(){
@@ -418,4 +226,5 @@ function enable(){
 function disable() {
     translateAssistant.disableUpdate();
     translateAssistant.destroy();
+    translateAssistant = null;
 }

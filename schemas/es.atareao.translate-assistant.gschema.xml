@@ -87,7 +87,7 @@
         </key>
         <key name="formality" enum="es.atareao.translate-assistant.formality">
             <default>'default'</default>
-            <summary>Formaliy</summary>
+            <summary>Formality</summary>
             <description>Sets whether the translated text should lean towards formal or informal language</description>
         </key>
         <key name="apikey" type="s">

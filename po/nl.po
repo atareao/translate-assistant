@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Translate assistant package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-26 07:03+0200\n"
+"POT-Creation-Date: 2022-06-05 10:20+0200\n"
 "PO-Revision-Date: 2022-02-25 17:55+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -18,109 +18,76 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: schemas/battery-status.gschema.xml:6
-msgid "Power supply path"
-msgstr "Locatie van netstroomadapter"
+#: schemas/es.atareao.translate-assistant.gschema.xml:70
+msgid "Source language"
+msgstr ""
 
-#: schemas/battery-status.gschema.xml:7
-msgid "Path of the power supply"
-msgstr "De bestandslocatie van de netstroomadapter"
+#: schemas/es.atareao.translate-assistant.gschema.xml:71
+msgid "Language of the text to be translated"
+msgstr ""
 
-#: schemas/battery-status.gschema.xml:11 prefs.js:69 prefs.js:81
-msgid "Check time"
-msgstr "Controleren, elke"
+#: schemas/es.atareao.translate-assistant.gschema.xml:75
+msgid "Target language"
+msgstr ""
 
-#: schemas/battery-status.gschema.xml:12
-msgid "Set the check time to test the battery status"
-msgstr "Geef aan hoe vaak de accustatus moet worden gecontroleerd"
+#: schemas/es.atareao.translate-assistant.gschema.xml:76
+msgid "The language into which the text should be translated"
+msgstr ""
 
-#: schemas/battery-status.gschema.xml:16
+#: schemas/es.atareao.translate-assistant.gschema.xml:80
+msgid "Split sentences"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:81
+msgid ""
+"Sets whether the translation engine should first split the input into "
+"sentences"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:85
+#, fuzzy
+msgid "Preserve formatting"
+msgstr "Meer informatie"
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:86
+msgid ""
+"Sets whether the translation engine should respect the original formatting, "
+"even if it would usually correct some aspects"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:90
+msgid "Formality"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:91
+msgid ""
+"Sets whether the translated text should lean towards formal or informal "
+"language"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:95
+msgid "DeepL API key"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:96
+msgid "Set DeepL API key"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:100
+msgid "Shortcut"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:101
+msgid "Shortcut to translate the content of the clipboard"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:105
 msgid "Dark theme"
 msgstr "Donker thema gebruiken"
 
-#: schemas/battery-status.gschema.xml:17
+#: schemas/es.atareao.translate-assistant.gschema.xml:106
 msgid "Enable dark theme otherwise light theme"
 msgstr "Gebruik het donkere thema in plaats van het lichte"
-
-#: schemas/battery-status.gschema.xml:21
-msgid "Normal color"
-msgstr "Normale kleur"
-
-#: schemas/battery-status.gschema.xml:22
-msgid "Normal color for pie"
-msgstr "De normale kleur binnen het cirkeldiagram"
-
-#: schemas/battery-status.gschema.xml:26
-msgid "Warning"
-msgstr "Waarschuwing"
-
-#: schemas/battery-status.gschema.xml:27
-msgid "Show warning color when space over this value"
-msgstr "Toon een waarschuwingskleur als deze waarde wordt overschreden"
-
-#: schemas/battery-status.gschema.xml:31
-msgid "Warning color"
-msgstr "Waarschuwingskleur"
-
-#: schemas/battery-status.gschema.xml:32
-msgid "Warning color for pie"
-msgstr "De waarschuwingskleur binnen het cirkeldiagram"
-
-#: schemas/battery-status.gschema.xml:36
-msgid "Danger"
-msgstr "Gevaar"
-
-#: schemas/battery-status.gschema.xml:37
-msgid "Show danger color when space over this value"
-msgstr "Toon een gevarenkleur als deze waarde wordt overschreden"
-
-#: schemas/battery-status.gschema.xml:41
-msgid "Danger color"
-msgstr "Gevarenkleur"
-
-#: schemas/battery-status.gschema.xml:42
-msgid "Danger color for pie"
-msgstr "De gevarenkleur binnen het cirkeldiagram"
-
-#: extension.js:88
-msgid "Settings"
-msgstr "Voorkeuren"
-
-#: extension.js:131
-msgid "Battery health"
-msgstr "Accugezondheid"
-
-#: extension.js:143
-msgid "Current max:"
-msgstr "Huidig maximum:"
-
-#: extension.js:151
-msgid "Original max:"
-msgstr "Oorspronkelijk maximum:"
-
-#: extension.js:168
-msgid "Voltage now:"
-msgstr "Huidig voltage:"
-
-#: extension.js:176
-msgid "Original voltage:"
-msgstr "Oorspronkelijk voltage:"
-
-#: extension.js:192
-msgid "Battery charge"
-msgstr "Acculading"
-
-#: extension.js:207
-msgid "Current charge:"
-msgstr "Huidige acculading:"
-
-#: extension.js:281 extension.js:283
-msgid "V"
-msgstr "V"
-
-#: extension.js:286 extension.js:290 extension.js:294
-msgid "mAh"
-msgstr "mAh"
 
 #: dialogwidgets.js:55
 msgid "Cancel"
@@ -130,118 +97,199 @@ msgstr "Annuleren"
 msgid "Ok"
 msgstr "Oké"
 
-#: aboutpage.js:47
-msgid "Buy me a coffee"
-msgstr "Doneren"
-
-#: aboutpage.js:52
-msgid "Version"
-msgstr "Versie"
-
-#: aboutpage.js:54
-msgid "GNOME Version"
-msgstr "GNOME-versie"
-
-#: aboutpage.js:56
-msgid "OS"
-msgstr "Besturingssyteem"
-
-#: aboutpage.js:57
-msgid "SessionType"
-msgstr "Sessietype"
-
-#: aboutpage.js:89
-msgid "Developers"
-msgstr "Ontwikkelaars"
-
-#: aboutpage.js:96
-msgid "Contributors"
-msgstr "Bijdragers"
-
-#: aboutpage.js:97
-msgid "Thank you to all contributors!"
-msgstr "Met dank aan alle bijdragers!"
-
-#: aboutpage.js:98
-msgid "For a list of all contributors, please visit"
-msgstr "De lijst met bijdragers is te bekijken op"
-
-#: aboutpage.js:107
-msgid "Supporters"
-msgstr "Ondersteuners"
-
-#: aboutpage.js:108
-msgid "Thank you to all supporters!"
-msgstr "Met dank aan alle ondersteuners!"
-
-#: aboutpage.js:109
-msgid "For a list of all supporters, please visit"
-msgstr "De lijst met ondersteuners is te bekijken op"
-
-#: aboutpage.js:116
-msgid "License"
-msgstr "Licentie"
-
-#: aboutpage.js:129
-msgid "More info"
-msgstr "Meer informatie"
-
-#: aboutpage.js:139
-msgid "More information"
-msgstr "Meer informatie"
-
-#: aboutpage.js:142
-msgid "Report an issue"
-msgstr "Probleem melden"
-
 #: prefs.js:50
 msgid "Indicator options"
 msgstr "Indicatorvoorkeuren"
 
-#: prefs.js:75
+#: prefs.js:69
 msgid "Theme"
 msgstr "Thema"
 
-#: prefs.js:78
-msgid "Battery Status Preferences"
+#: prefs.js:72
+#, fuzzy
+msgid "Translate Assistant Preferences"
 msgstr "Accustatusvoorkeuren"
 
-#: prefs.js:82
+#: prefs.js:75
+msgid "Check time"
+msgstr "Controleren, elke"
+
+#: prefs.js:76
 msgid "Style"
 msgstr "Stijl"
 
-#: prefs.js:83
+#: prefs.js:77
 msgid "About"
 msgstr "Over"
 
-#: prefs.js:92
-msgid "Battery Status Configuration"
+#: prefs.js:86
+#, fuzzy
+msgid "Translate Assistant Configuration"
 msgstr "Accustatusvoorkeuren"
 
-#: preferenceswidget.js:205
+#: preferenceswidget.js:245
 msgid "Nothing"
 msgstr "Niets"
 
-#: preferenceswidget.js:218
+#: preferenceswidget.js:258
 msgid "True"
 msgstr "Waar"
 
-#: preferenceswidget.js:231
+#: preferenceswidget.js:271
 msgid "False"
 msgstr "Niet waar"
 
-#: preferenceswidget.js:425 preferenceswidget.js:956
+#: preferenceswidget.js:465 preferenceswidget.js:996
 msgid "Edit"
 msgstr "Bewerken"
 
-#: preferenceswidget.js:472 preferenceswidget.js:490 preferenceswidget.js:519
+#: preferenceswidget.js:512 preferenceswidget.js:530 preferenceswidget.js:559
 msgid "Name"
 msgstr "Naam"
 
-#: preferenceswidget.js:478 preferenceswidget.js:490 preferenceswidget.js:519
+#: preferenceswidget.js:518 preferenceswidget.js:530 preferenceswidget.js:559
 msgid "Service"
 msgstr "Dienst"
 
-#: preferenceswidget.js:966
+#: preferenceswidget.js:1006
 msgid "Remove"
 msgstr "Verwijderen"
+
+#: aboutpage.js:47
+msgid "Buy me a coffee"
+msgstr "Doneren"
+
+#: aboutpage.js:53
+msgid "Version"
+msgstr "Versie"
+
+#: aboutpage.js:55
+msgid "GNOME Version"
+msgstr "GNOME-versie"
+
+#: aboutpage.js:58
+msgid "OS"
+msgstr "Besturingssyteem"
+
+#: aboutpage.js:60
+msgid "SessionType"
+msgstr "Sessietype"
+
+#: aboutpage.js:92
+msgid "Developers"
+msgstr "Ontwikkelaars"
+
+#: aboutpage.js:99
+msgid "Contributors"
+msgstr "Bijdragers"
+
+#: aboutpage.js:100
+msgid "Thank you to all contributors!"
+msgstr "Met dank aan alle bijdragers!"
+
+#: aboutpage.js:101
+msgid "For a list of all contributors, please visit"
+msgstr "De lijst met bijdragers is te bekijken op"
+
+#: aboutpage.js:110
+msgid "Supporters"
+msgstr "Ondersteuners"
+
+#: aboutpage.js:111
+msgid "Thank you to all supporters!"
+msgstr "Met dank aan alle ondersteuners!"
+
+#: aboutpage.js:112
+msgid "For a list of all supporters, please visit"
+msgstr "De lijst met ondersteuners is te bekijken op"
+
+#: aboutpage.js:119
+msgid "License"
+msgstr "Licentie"
+
+#: aboutpage.js:132
+msgid "More info"
+msgstr "Meer informatie"
+
+#: aboutpage.js:142
+msgid "More information"
+msgstr "Meer informatie"
+
+#: aboutpage.js:145
+msgid "Report an issue"
+msgstr "Probleem melden"
+
+#: extension.js:78
+msgid "Settings"
+msgstr "Voorkeuren"
+
+#: extension.js:123
+msgid "Battery health"
+msgstr "Accugezondheid"
+
+#: extension.js:136
+msgid "Current max:"
+msgstr "Huidig maximum:"
+
+#: extension.js:145
+msgid "Original max:"
+msgstr "Oorspronkelijk maximum:"
+
+#: extension.js:162
+msgid "Voltage now:"
+msgstr "Huidig voltage:"
+
+#: extension.js:170
+msgid "Original voltage:"
+msgstr "Oorspronkelijk voltage:"
+
+#~ msgid "Power supply path"
+#~ msgstr "Locatie van netstroomadapter"
+
+#~ msgid "Path of the power supply"
+#~ msgstr "De bestandslocatie van de netstroomadapter"
+
+#~ msgid "Set the check time to test the battery status"
+#~ msgstr "Geef aan hoe vaak de accustatus moet worden gecontroleerd"
+
+#~ msgid "Normal color"
+#~ msgstr "Normale kleur"
+
+#~ msgid "Normal color for pie"
+#~ msgstr "De normale kleur binnen het cirkeldiagram"
+
+#~ msgid "Warning"
+#~ msgstr "Waarschuwing"
+
+#~ msgid "Show warning color when space over this value"
+#~ msgstr "Toon een waarschuwingskleur als deze waarde wordt overschreden"
+
+#~ msgid "Warning color"
+#~ msgstr "Waarschuwingskleur"
+
+#~ msgid "Warning color for pie"
+#~ msgstr "De waarschuwingskleur binnen het cirkeldiagram"
+
+#~ msgid "Danger"
+#~ msgstr "Gevaar"
+
+#~ msgid "Show danger color when space over this value"
+#~ msgstr "Toon een gevarenkleur als deze waarde wordt overschreden"
+
+#~ msgid "Danger color"
+#~ msgstr "Gevarenkleur"
+
+#~ msgid "Danger color for pie"
+#~ msgstr "De gevarenkleur binnen het cirkeldiagram"
+
+#~ msgid "Battery charge"
+#~ msgstr "Acculading"
+
+#~ msgid "Current charge:"
+#~ msgstr "Huidige acculading:"
+
+#~ msgid "V"
+#~ msgstr "V"
+
+#~ msgid "mAh"
+#~ msgstr "mAh"
