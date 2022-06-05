@@ -1,16 +1,14 @@
 {
-  "description": "Get information about your battery status",
-  "extension-id": "battery-status@atareao.es",
-  "gettext-domain": "battery-status@atareao.es",
-  "name": "Battery Status",
-  "settings-schema": "es.atareao.battery-status",
+  "description": "Translate with DeepL Translator",
+  "extension-id": "translate-assistant@atareao.es",
+  "gettext-domain": "translate-assistant@atareao.es",
+  "name": "Translate assistant",
+  "settings-schema": "es.atareao.translate-assistant",
   "shell-version": [
-    "40",
-    "41",
     "42"
   ],
-  "url": "https://github.com/atareao/battery-status",
-  "uuid": "battery-status@atareao.es",
-  "icon": "battery-status-icon",
-  "version": 6
+  "url": "https://github.com/atareao/translate-assistant",
+  "uuid": "translate-assistant@atareao.es",
+  "icon": "translate-assistant-icon",
+  "version": 1
 }
