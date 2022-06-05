@@ -1,7 +1,7 @@
 /*
- * battery-status@atareao.es
+ * translate-assistant@atareao.es
  *
- * Copyright (c) 2020 Lorenzo Carbonell Cerezo <a.k.a. atareao>
+ * Copyright (c) 2022 Lorenzo Carbonell Cerezo <a.k.a. atareao>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -41,7 +41,7 @@ const _ = Gettext.gettext;
 var button;
 
 
-function notify(msg, details, icon='battery-status-icon') {
+function notify(msg, details, icon='translate-assistant-icon') {
     let source = new MessageTray.Source(Extension.uuid, icon);
     Main.messageTray.add(source);
     let notification = new MessageTray.Notification(source, msg, details);
@@ -49,8 +49,8 @@ function notify(msg, details, icon='battery-status-icon') {
     source.notify(notification);
 }
 
-var BatteryStatus = GObject.registerClass(
-    class BatteryStatus extends PanelMenu.Button{
+var TranslateAssistant = GObject.registerClass(
+    class TranslateAssistant extends PanelMenu.Button{
         _init(){
             super._init(St.Align.START);
             this._settings = Convenience.getSettings();
@@ -70,7 +70,7 @@ var BatteryStatus = GObject.registerClass(
             /* Start Menu */
             let itemBatteryCharge = this._getBatteryChargeMenuItem();
             this.menu.addMenuItem(itemBatteryCharge);
-            
+
             let itemBatteryHealth = this._getBatteryHealthMenuItem();
             this.menu.addMenuItem(itemBatteryHealth);
 
@@ -404,18 +404,18 @@ var BatteryStatus = GObject.registerClass(
     }
 );
 
-let batteryStatus;
+let translateAssistant;
 
 function init(){
     Convenience.initTranslations();
 }
 
 function enable(){
-    batteryStatus = new BatteryStatus();
-    Main.panel.addToStatusArea('batteryStatus', batteryStatus, 0, 'right');
+    translateAssistant = new TranslateAssistant();
+    Main.panel.addToStatusArea('translateAssistant', translateAssistant, 0, 'right');
 }
 
 function disable() {
-    batteryStatus.disableUpdate();
-    batteryStatus.destroy();
+    translateAssistant.disableUpdate();
+    translateAssistant.destroy();
 }

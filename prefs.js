@@ -1,7 +1,7 @@
 /*
- * battery-status@atareao.es
+ * translate-assistant@atareao.es
  *
- * Copyright (c) 2020 Lorenzo Carbonell Cerezo <a.k.a. atareao>
+ * Copyright (c) 2022 Lorenzo Carbonell Cerezo <a.k.a. atareao>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -37,15 +37,15 @@ function init() {
     Convenience.initTranslations();
 }
 
-var BatteryStatusPreferencesWidget = GObject.registerClass(
-    class BatteryStatusPreferencesWidget extends Widgets.ListWithStack{
+var TranslateAssistantPreferencesWidget = GObject.registerClass(
+    class TranslateAssistantPreferencesWidget extends Widgets.ListWithStack{
         _init(){
             super._init({});
 
             let preferencesPage = new Widgets.Page();
 
             var settings = Convenience.getSettings();
-            
+
             let indicatorSection = preferencesPage.addFrame(
                 _("Indicator options"));
             indicatorSection.addGSetting(settings, "path");
@@ -65,17 +65,11 @@ var BatteryStatusPreferencesWidget = GObject.registerClass(
                 "danger-color",
                 new Widgets.ColorSetting(settings, "danger-color"));
 
-            const checkPage = new Widgets.Page();
-            const checkSection = checkPage.addFrame(_("Check time"));
-            checkSection.addWidgetSetting(
-                settings, "checktime",
-                new Widgets.NumberSetting(settings, "checktime", 5, 60 * 100));
-
             const themePage = new Widgets.Page();
             const styleSection = themePage.addFrame(_("Theme"));
             styleSection.addGSetting(settings, "darktheme");
 
-            this.add(_("Battery Status Preferences"),
+            this.add(_("Translate Assistant Preferences"),
                      "preferences-other-symbolic",
                      preferencesPage);
             this.add(_("Check time"), "time", checkPage);
@@ -86,10 +80,10 @@ var BatteryStatusPreferencesWidget = GObject.registerClass(
 );
 
 function buildPrefsWidget() {
-    let preferencesWidget = new BatteryStatusPreferencesWidget();
+    let preferencesWidget = new TranslateAssistantPreferencesWidget();
     preferencesWidget.connect("realize", ()=>{
         const window = preferencesWidget.get_root();
-        window.set_title(_("Battery Status Configuration"));
+        window.set_title(_("Translate Assistant Configuration"));
         window.default_height = 800;
         window.default_width = 850;
     });
