@@ -712,7 +712,7 @@ var OtherSetting = GObject.registerClass(
 );
 
 /**
- * Convenience classes for widgets similar to Gnome Control Center
+ * Interesting classes for widgets similar to Gnome Control Center
  */
 var Row = GObject.registerClass(
     {
