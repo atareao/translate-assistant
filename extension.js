@@ -36,6 +36,9 @@ const Extension = ExtensionUtils.getCurrentExtension();
 const Gettext = imports.gettext.domain(Extension.uuid);
 const _ = Gettext.gettext;
 
+const SHELL_KEYBINDINGS_SCHEMA = "org.gnome.shell.keybindings";
+const SHORTCUT_SETTING_KEY = "translate-assistant-clipboard";
+
 var button;
 
 
@@ -82,9 +85,6 @@ var TranslateAssistant = GObject.registerClass(
             this.menu.addMenuItem(this.settingsMenuItem);
             /* Init */
             this._set_icon_indicator(false);
-            this._timeLeft.set_text("");
-            this._update();
-            this._sourceId = 0;
             this._settingsChanged();
             this._settings.connect('changed',
                                    this._settingsChanged.bind(this));
@@ -92,23 +92,33 @@ var TranslateAssistant = GObject.registerClass(
 
         _loadPreferences(){
             this._source_lang = this._getValue('source-lang');
-            this._target_lang = this._getValue('targe-lang');
+            this._target_lang = this._getValue('target-lang');
             this._split_sentences = this._getValue('split-sentences');
             this._preserve_formatting = this._getValue('preserve-formatting');
             this._formality = this._getValue('formality');
             this._apikey = this._getValue('apikey');
             this._keybinding_translate_clipboard = this._getValue('keybinding-translate-clipboard');
             this._darktheme = this._getValue('darktheme');
+
+            this._unbindShortcut();
+            this._bindShortcut();
         }
 
-        _getRow(label, value){
-            let row = new St.BoxLayout();
-            row.add_actor(new St.Label({
-                text: label,
-                style_class: 'battery-label'
-            }));
-            row.add_actor(value);
-            return row;
+        _bindShortcut(){
+            Main.wm.addKeybinding("keybinding-translate-clipboard",
+                                  this._settings,
+                                  Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
+                                  Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW
+                                  this._translate.bind(this)
+            );
+        }
+
+        _unbindShortcut(){
+            Main.wm.removeKeybinding(SHORTCUT_SETTING_KEY);
+        }
+
+        _translate(){
+            log(`Combinación de teclas ${this._keybinding_translate_clipboard} pulsada`);
         }
 
         _getBatteryHealthMenuItem(){
@@ -173,9 +183,7 @@ var TranslateAssistant = GObject.registerClass(
             return itemBatteryHealth;
         }
 
-
         _getValue(keyName){
-            this._settings = ExtensionUtils.getSettings();
             return this._settings.get_value(keyName).deep_unpack();
         }
 
@@ -204,10 +212,8 @@ var TranslateAssistant = GObject.registerClass(
             this._loadPreferences();
         }
 
-        disableUpdate(){
-            if(this._sourceId > 0){
-                GLib.source_remove(this._sourceId);
-            }
+        disable(){
+            this._unbindShortcut();
         }
     }
 );
@@ -224,7 +230,6 @@ function enable(){
 }
 
 function disable() {
-    translateAssistant.disableUpdate();
-    translateAssistant.destroy();
+    translateAssistant.disable();
     translateAssistant = null;
 }

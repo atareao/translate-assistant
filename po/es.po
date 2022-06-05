@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WireGuard Indicator - 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-05 10:20+0200\n"
+"POT-Creation-Date: 2022-06-05 10:43+0200\n"
 "PO-Revision-Date: 2020-09-15 19:23+0200\n"
 "Last-Translator: Lorenzo <atareao@atareao.es>\n"
 "Language-Team: Spanish\n"
@@ -64,8 +64,7 @@ msgstr "Formal"
 msgid ""
 "Sets whether the translated text should lean towards formal or informal "
 "language"
-msgstr ""
-"Define si se tiene que utilizar un lenguaje mas o menos formal"
+msgstr "Define si se tiene que utilizar un lenguaje mas o menos formal"
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:95
 msgid "DeepL API key"
@@ -127,31 +126,31 @@ msgstr "Acerca de"
 msgid "Translate Assistant Configuration"
 msgstr "Configuración del Asistente de Traducción"
 
-#: preferenceswidget.js:245
+#: preferenceswidget.js:249
 msgid "Nothing"
 msgstr "Nada"
 
-#: preferenceswidget.js:258
+#: preferenceswidget.js:262
 msgid "True"
 msgstr "Cierto"
 
-#: preferenceswidget.js:271
+#: preferenceswidget.js:275
 msgid "False"
 msgstr "Falso"
 
-#: preferenceswidget.js:465 preferenceswidget.js:996
+#: preferenceswidget.js:469 preferenceswidget.js:1000
 msgid "Edit"
 msgstr "Editar"
 
-#: preferenceswidget.js:512 preferenceswidget.js:530 preferenceswidget.js:559
+#: preferenceswidget.js:516 preferenceswidget.js:534 preferenceswidget.js:563
 msgid "Name"
 msgstr "Nombre"
 
-#: preferenceswidget.js:518 preferenceswidget.js:530 preferenceswidget.js:559
+#: preferenceswidget.js:522 preferenceswidget.js:534 preferenceswidget.js:563
 msgid "Service"
 msgstr "Servicio"
 
-#: preferenceswidget.js:1006
+#: preferenceswidget.js:1010
 msgid "Remove"
 msgstr "Borrar"
 
@@ -223,22 +222,22 @@ msgstr "Informa de un error..."
 msgid "Settings"
 msgstr "Configuración"
 
-#: extension.js:123
+#: extension.js:120
 msgid "Battery health"
 msgstr "Salud de la batería"
 
-#: extension.js:136
+#: extension.js:133
 msgid "Current max:"
 msgstr "Corriente máxima:"
 
-#: extension.js:145
+#: extension.js:142
 msgid "Original max:"
 msgstr "Corriente original:"
 
-#: extension.js:162
+#: extension.js:159
 msgid "Voltage now:"
 msgstr "Voltaje actual:"
 
-#: extension.js:170
+#: extension.js:167
 msgid "Original voltage:"
 msgstr "Voltage original"

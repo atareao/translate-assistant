@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: battery-status@atareao.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-05 10:20+0200\n"
+"POT-Creation-Date: 2022-06-05 10:43+0200\n"
 "PO-Revision-Date: 2022-03-28 10:22+0200\n"
 "Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
 "Language-Team: German\n"
@@ -127,31 +127,31 @@ msgstr "Info"
 msgid "Translate Assistant Configuration"
 msgstr "Akkustatus-Konfiguration"
 
-#: preferenceswidget.js:245
+#: preferenceswidget.js:249
 msgid "Nothing"
 msgstr "Nichts"
 
-#: preferenceswidget.js:258
+#: preferenceswidget.js:262
 msgid "True"
 msgstr "Wahr"
 
-#: preferenceswidget.js:271
+#: preferenceswidget.js:275
 msgid "False"
 msgstr "Falsch"
 
-#: preferenceswidget.js:465 preferenceswidget.js:996
+#: preferenceswidget.js:469 preferenceswidget.js:1000
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: preferenceswidget.js:512 preferenceswidget.js:530 preferenceswidget.js:559
+#: preferenceswidget.js:516 preferenceswidget.js:534 preferenceswidget.js:563
 msgid "Name"
 msgstr "Name"
 
-#: preferenceswidget.js:518 preferenceswidget.js:530 preferenceswidget.js:559
+#: preferenceswidget.js:522 preferenceswidget.js:534 preferenceswidget.js:563
 msgid "Service"
 msgstr "Dienst"
 
-#: preferenceswidget.js:1006
+#: preferenceswidget.js:1010
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -223,23 +223,23 @@ msgstr "Einen Fehler melden"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: extension.js:123
+#: extension.js:120
 msgid "Battery health"
 msgstr "Akkugesundheit"
 
-#: extension.js:136
+#: extension.js:133
 msgid "Current max:"
 msgstr "Aktuelle Kapazität:"
 
-#: extension.js:145
+#: extension.js:142
 msgid "Original max:"
 msgstr "Ursprüngliche Kapazität:"
 
-#: extension.js:162
+#: extension.js:159
 msgid "Voltage now:"
 msgstr "Aktuelle Spannung:"
 
-#: extension.js:170
+#: extension.js:167
 msgid "Original voltage:"
 msgstr "Ursprüngliche Spannung:"
 

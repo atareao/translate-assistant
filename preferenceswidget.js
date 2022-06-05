@@ -24,7 +24,8 @@
 
 String.format = imports.format.format;
 
-const Extension = imports.misc.extensionUtils.getCurrentExtension();
+const ExtensionUtils = imports.misc.extensionUtils;
+const Extension = ExtensionUtils.getCurrentExtension();
 const {Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk} = imports.gi;
 const Gettext = imports.gettext.domain(Extension.metadata['gettext-domain']);
 const _ = Gettext.gettext;
@@ -35,41 +36,44 @@ var ShortcutSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.ShortcutSetting').replace(/[\W_]+/g,'_')
     },
-    _init(settings, keyName, params={}) {
-        super._init();
+    class ShortcutSetting extends Gtk.Box{
+        _init(settings, keyName, params={}) {
+            super._init();
 
-        let shortcut = settings.get_value(keyName).deep_unpack());
+            let shortcut = settings.get_value(keyName).deep_unpack();
 
-        let model = new Gtk.ListStore();
-        model.set_column_types([GObject.TYPE_STRING]);
-        let [_, key, mods] = Gtk.accelerator_parse(shortcut[0]);
-        model.set(model.insert(0), [0], [Gtk.accelerator_get_label(key, mods)]);
+            let model = new Gtk.ListStore();
+            model.set_column_types([GObject.TYPE_STRING]);
+            let [_, key, mods] = Gtk.accelerator_parse(shortcut[0]);
+            model.set(model.insert(0), [0], [Gtk.accelerator_get_label(key, mods)]);
 
-        let tree = new Gtk.TreeView({ model: model, headers_visible: false });
-        let acc = new Gtk.CellRendererAccel({
-            editable: true,
-            accel_mode: Gtk.CellRendererAccelMode.Gtk
-        });
-        let column = new Gtk.TreeViewColumn();
-        column.pack_start(acc, false);
-        column.add_attribute(acc, 'text', 0);
-        tree.append_column(column);
+            let tree = new Gtk.TreeView({ model: model, headers_visible: false });
+
+            let acc = new Gtk.CellRendererAccel({
+                editable: true,
+                accel_mode: Gtk.CellRendererAccelMode.GTK
+            });
+            let column = new Gtk.TreeViewColumn();
+            column.pack_start(acc, false);
+            column.add_attribute(acc, 'text', 0);
+            tree.append_column(column);
 
 
-        acc.connect('accel-edited', (acce, iter, key, mods) => {
-            if(key){
-                let name = Gtk.accelerator_name(key, mods);
-                let [, iterator] = model.get_iter_from_string(iter);
-                model.set(iterator, [0], [Gtk.accelerator_get_label(key, mods)]);
-                settings.set_value(
-                    keyName,
-                    new GLib.Variant("as", [name])
-                );
-            }
-        });
-        this.append(tree);
+            acc.connect('accel-edited', (acce, iter, key, mods) => {
+                if(key){
+                    let name = Gtk.accelerator_name(key, mods);
+                    let [, iterator] = model.get_iter_from_string(iter);
+                    model.set(iterator, [0], [Gtk.accelerator_get_label(key, mods)]);
+                    settings.set_value(
+                        keyName,
+                        new GLib.Variant("as", [name])
+                    );
+                }
+            });
+            this.append(tree);
+        }
     }
-)
+);
 
 var ColorSetting = GObject.registerClass(
     {
@@ -133,7 +137,6 @@ var EnumSetting = GObject.registerClass(
                 width_request: 160,
                 halign: Gtk.Align.END,
                 valign: Gtk.Align.CENTER,
-                expand: true,
                 visible: true
             });
 
@@ -723,7 +726,7 @@ var Row = GObject.registerClass(
         _init(params={}) {
             params = Object.assign({
                 activatable: false,
-                can_focus: false,
+                can_focus: true,
                 selectable: false,
                 height_request: 48,
                 marginStart: 12,
@@ -740,7 +743,7 @@ var Row = GObject.registerClass(
             });
 
             this.grid = new Gtk.Grid({
-                can_focus: false,
+                can_focus: true,
                 column_spacing: 12,
                 marginStart: params.marginStart,
                 marginTop: params.marginTop,
@@ -764,7 +767,7 @@ var Setting = GObject.registerClass(
             super._init({ height_request: 56 });
 
             this.summary = new Gtk.Label({
-                can_focus: false,
+                can_focus: true,
                 xalign: 0,
                 hexpand: true,
                 valign: Gtk.Align.CENTER,
@@ -799,7 +802,7 @@ var Frame = GObject.registerClass(
         _init(params){
             super._init(params);
             this._list = new Gtk.ListBox({
-                can_focus: false,
+                can_focus: true,
                 hexpand: true,
                 activate_on_single_click: true,
                 selection_mode: Gtk.SelectionMode.NONE,
@@ -1124,7 +1127,7 @@ var Page = GObject.registerClass(
                 vexpand: true,
             });
             this._mainBox = new Gtk.Box({
-                can_focus: false,
+                can_focus: true,
                 marginStart: 24,
                 marginEnd: 24,
                 marginTop: 32,
@@ -1215,7 +1218,7 @@ var Page = GObject.registerClass(
         addFrame(title, frame){
             if (typeof title === "string" && title != "") {
                 let label = new Gtk.Label({
-                    can_focus: false,
+                    can_focus: true,
                     marginBottom: 12,
                     marginStart: 3,
                     xalign: 0,

@@ -2,10 +2,10 @@
 <svg
    version="1.1"
    id="svg885"
-   width="22.000015"
-   height="22.000208"
-   viewBox="0 0 22.000015 22.000208"
-   sodipodi:docname="battery-status-active-light.svg"
+   width="26"
+   height="26"
+   viewBox="0 0 26 26"
+   sodipodi:docname="translate-assistant-active-light.svg"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04, custom)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -36,8 +36,8 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1665"
-     inkscape:window-height="973"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
      id="namedview887"
      showgrid="false"
      fit-margin-top="1"
@@ -45,11 +45,11 @@
      fit-margin-right="2"
      fit-margin-bottom="1"
      inkscape:zoom="5.7427327"
-     inkscape:cx="-3.1343963"
-     inkscape:cy="15.062515"
-     inkscape:window-x="35"
-     inkscape:window-y="32"
-     inkscape:window-maximized="0"
+     inkscape:cx="41.008351"
+     inkscape:cy="16.97798"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
      inkscape:current-layer="g893"
      inkscape:pagecheckerboard="0" />
   <g
@@ -60,7 +60,7 @@
     <g
        id="g114080"
        style="overflow:hidden;fill:currentColor"
-       transform="matrix(0.01788482,0,0,0.01788482,120.01253,68.011442)">
+       transform="matrix(0.02384642,0,0,0.02384642,122.04797,55.015858)">
       <path
          id="path83195"
          d="m 411.9421,2985.502 c 47.36,0 85.332,-37.974 85.332,-85.334 v -597.334 c 0,-47.36 -37.972,-85.3321 -85.332,-85.3321 l -520.44071,0.01 264.44081,767.9916 z"

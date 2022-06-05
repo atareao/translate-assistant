@@ -46,33 +46,48 @@ var TranslateAssistantPreferencesWidget = GObject.registerClass(
 
             var settings = ExtensionUtils.getSettings();
 
+            /*
+            source-lang
+            target-lang
+            split-sentences
+            preserve-formatting
+            formality
+            apikey
+            keybinding-translate-clipboard
+            BoolSetting => darktheme
+            */
+
             let indicatorSection = preferencesPage.addFrame(
                 _("Indicator options"));
-            indicatorSection.addGSetting(settings, "path");
-            //indicatorSection.addGSetting(settings, "normal");
             indicatorSection.addWidgetSetting(
                 settings,
-                "normal-color",
-                new Widgets.ColorSetting(settings, "normal-color"));
-            indicatorSection.addGSetting(settings, "warning");
+                "source-lang",
+                new Widgets.EnumSetting(settings, "source-lang"));
             indicatorSection.addWidgetSetting(
                 settings,
-                "warning-color",
-                new Widgets.ColorSetting(settings, "warning-color"));
-            indicatorSection.addGSetting(settings, "danger");
+                "target-lang",
+                new Widgets.EnumSetting(settings, "target-lang"));
+            indicatorSection.addGSetting(settings, "split-sentences");
+            indicatorSection.addGSetting(settings, "preserve-formatting");
             indicatorSection.addWidgetSetting(
                 settings,
-                "danger-color",
-                new Widgets.ColorSetting(settings, "danger-color"));
+                "formality",
+                new Widgets.EnumSetting(settings, "formality"));
+            indicatorSection.addGSetting(settings, "apikey");
+
 
             const themePage = new Widgets.Page();
             const styleSection = themePage.addFrame(_("Theme"));
             styleSection.addGSetting(settings, "darktheme");
+            styleSection.addWidgetSetting(
+                settings,
+                "keybinding-translate-clipboard",
+                new Widgets.ShortcutSetting(settings,
+                                            "keybinding-translate-clipboard"));
 
             this.add(_("Translate Assistant Preferences"),
                      "preferences-other-symbolic",
                      preferencesPage);
-            this.add(_("Check time"), "time", checkPage);
             this.add(_("Style"), "style", themePage);
             this.add(_("About"), "help-about-symbolic", new AboutPage());
         }
