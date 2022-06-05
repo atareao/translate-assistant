@@ -31,6 +31,46 @@ const _ = Gettext.gettext;
 
 const DialogWidgets = Extension.imports.dialogwidgets;
 
+var ShortcutSetting = GObject.registerClass(
+    {
+        GTypeName: (Extension.uuid + '.ShortcutSetting').replace(/[\W_]+/g,'_')
+    },
+    _init(settings, keyName, params={}) {
+        super._init();
+
+        let shortcut = settings.get_value(keyName).deep_unpack());
+
+        let model = new Gtk.ListStore();
+        model.set_column_types([GObject.TYPE_STRING]);
+        let [_, key, mods] = Gtk.accelerator_parse(shortcut[0]);
+        model.set(model.insert(0), [0], [Gtk.accelerator_get_label(key, mods)]);
+
+        let tree = new Gtk.TreeView({ model: model, headers_visible: false });
+        let acc = new Gtk.CellRendererAccel({
+            editable: true,
+            accel_mode: Gtk.CellRendererAccelMode.Gtk
+        });
+        let column = new Gtk.TreeViewColumn();
+        column.pack_start(acc, false);
+        column.add_attribute(acc, 'text', 0);
+        tree.append_column(column);
+
+
+        acc.connect('accel-edited', (acce, iter, key, mods) => {
+            if(key){
+                let name = Gtk.accelerator_name(key, mods);
+                let [, iterator] = model.get_iter_from_string(iter);
+                model.set(iterator, [0], [Gtk.accelerator_get_label(key, mods)]);
+                settings.set_value(
+                    keyName,
+                    new GLib.Variant("as", [name])
+                );
+            }
+        });
+        this.append(tree);
+    }
+)
+
 var ColorSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.ColorSetting').replace(/[\W_]+/g,'_')
@@ -1388,14 +1428,14 @@ var StackListBox = GObject.registerClass(
                 marginTop: 12,
                 marginBottom: 12,
                 marginStart: 12,
-                marginEnd: 12, 
+                marginEnd: 12,
                 column_spacing: 10
             });
             row1.set_child(row);
             row1.stackName = name;
             row1.translateableName = translateableName;
-            
-            let image = new Gtk.Image({ 
+
+            let image = new Gtk.Image({
                 icon_name: iconName
             });
 
@@ -1408,7 +1448,7 @@ var StackListBox = GObject.registerClass(
 
             if(nextPage){
                 row1.nextPage = nextPage;
-                let image2 = new Gtk.Image({ 
+                let image2 = new Gtk.Image({
                     gicon: Gio.icon_new_for_string('go-next-symbolic'),
                     halign: Gtk.Align.END,
                     hexpand: true
@@ -1424,7 +1464,7 @@ var StackListBox = GObject.registerClass(
                         let sep = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL);
                         sep.show();
                         _row.set_header(sep);
-                        
+
                     }
                 }
             });
