@@ -42,9 +42,6 @@ const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 const SHELL_KEYBINDINGS_SCHEMA = "org.gnome.shell.keybindings";
 const SHORTCUT_SETTING_KEY = "translate-assistant-clipboard";
 
-const PROTOCOL = 'https';
-const BASE_URL = 'www.googleapis.com/youtube/v3/search';
-const USER_AGENT = 'GNOME Shell - YouTubeSearchProvider - extension';
 const HTTP_TIMEOUT = 10;
 
 
@@ -64,8 +61,6 @@ var TranslateAssistant = GObject.registerClass(
         _init(){
             super._init(St.Align.START);
             this._settings = ExtensionUtils.getSettings();
-            this._session = null;
-            this._get_soup_session();
             this._loadPreferences();
 
             /* Icon indicator */
@@ -98,11 +93,12 @@ var TranslateAssistant = GObject.registerClass(
         }
 
         _loadPreferences(){
-            this._source_lang = this._getValue('source-lang');
-            this._target_lang = this._getValue('target-lang');
+            this._source_lang = this._get_country_code(this._getValue('source-lang'));
+            this._target_lang = this._get_country_code(this._getValue('target-lang'));
             this._split_sentences = this._getValue('split-sentences');
             this._preserve_formatting = this._getValue('preserve-formatting');
             this._formality = this._getValue('formality');
+            this._url = this._getValue('url');
             this._apikey = this._getValue('apikey');
             this._keybinding_translate_clipboard = this._getValue('keybinding-translate-clipboard');
             this._darktheme = this._getValue('darktheme');
@@ -127,10 +123,21 @@ var TranslateAssistant = GObject.registerClass(
         _translate(){
             Clipboard.get_text(CLIPBOARD_TYPE,(clipBoard, fromText) => {
                 if(fromText){
-                    let url = "https://api-free.deepl.com/v2/translate";
-                    let message = Soup.Message.new('POST', url);
-                    let data = `auth_key=${this._apikey}&text="${fromText}"&target_lang=ES`;
+                    let split_sentences = this._split_sentences?"1":"0";
+                    let preserve_formatting = this._preserve_formatting?"1":"0";
+                    let params = [];
+                    params.push(
+                        `auth_key=${this._apikey}`,
+                        `text=${fromText}`,
+                        `source_lang=${this._source_lang}`,
+                        `target_lang=${this._target_lang}`,
+                        `split_sentences=${split_sentences}`,
+                        `preserve_formatting=${preserve_formatting}`,
+                        `formality=${this._formality}`,
+                    );
+                    let data = params.join("&");
                     let content_type = "application/x-www-form-urlencoded";
+                    let message = Soup.Message.new('POST', this._url);
                     message.set_request(content_type, 2, data);
                     let httpSession = new Soup.Session();
                     httpSession.queue_message(message,
@@ -161,6 +168,17 @@ var TranslateAssistant = GObject.registerClass(
                     );
                 }
             });
+        }
+
+        _get_country_code(description){
+            const regex = /^[^(]*\(([^)]*)\)$/gm;
+            let m = regex.exec(description);
+            if(m.length > 1){
+                return m[1];
+            }
+            log("== ERROR ===");
+            log(description);
+            return null;
         }
 
         _update(from_text, to_text){
@@ -276,22 +294,6 @@ var TranslateAssistant = GObject.registerClass(
 
         disable(){
             this._unbindShortcut();
-            if(this._session){
-                this._session.run_dispose();
-                this._session = null;
-            }
-        }
-
-        _get_soup_session() {
-            if(this._session === null) {
-                this._session = new Soup.SessionAsync();
-                Soup.Session.prototype.add_feature.call(
-                    this._session,
-                    new Soup.ProxyResolverDefault()
-                );
-                this._session.user_agent = USER_AGENT;
-                this._session.timeout = HTTP_TIMEOUT;
-            }
         }
     }
 );

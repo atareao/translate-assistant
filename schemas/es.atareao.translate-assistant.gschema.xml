@@ -90,6 +90,11 @@
             <summary>Formality</summary>
             <description>Sets whether the translated text should lean towards formal or informal language</description>
         </key>
+        <key name="url" type="s">
+            <default>"https://api-free.deepl.com/v2/translate"</default>
+            <summary>Url</summary>
+            <description>The url of DeepL</description>
+        </key>
         <key name="apikey" type="s">
             <default>""</default>
             <summary>DeepL API key</summary>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WireGuard Indicator - 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-05 10:43+0200\n"
+"POT-Creation-Date: 2022-06-06 19:09+0200\n"
 "PO-Revision-Date: 2020-09-15 19:23+0200\n"
 "Last-Translator: Lorenzo <atareao@atareao.es>\n"
 "Language-Team: Spanish\n"
@@ -67,26 +67,34 @@ msgid ""
 msgstr "Define si se tiene que utilizar un lenguaje mas o menos formal"
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:95
-msgid "DeepL API key"
+msgid "Url"
 msgstr ""
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:96
+msgid "The url of DeepL"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:100
+msgid "DeepL API key"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:101
 msgid "Set DeepL API key"
 msgstr "Configura la clave API de DeepL"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:100
+#: schemas/es.atareao.translate-assistant.gschema.xml:105
 msgid "Shortcut"
 msgstr "Atajo de teclado"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:101
+#: schemas/es.atareao.translate-assistant.gschema.xml:106
 msgid "Shortcut to translate the content of the clipboard"
 msgstr "Atajo de teclado para traducir el contenido del portapapeles"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:105
+#: schemas/es.atareao.translate-assistant.gschema.xml:110
 msgid "Dark theme"
 msgstr "Tema oscuro"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:106
+#: schemas/es.atareao.translate-assistant.gschema.xml:111
 msgid "Enable dark theme otherwise light theme"
 msgstr "Establece el tema oscuro"
 
@@ -98,59 +106,55 @@ msgstr "Cancelar"
 msgid "Ok"
 msgstr "Aceptar"
 
-#: prefs.js:50
+#: prefs.js:61
 msgid "Indicator options"
 msgstr "Opciones del indicador"
 
-#: prefs.js:69
+#: prefs.js:81
 msgid "Theme"
 msgstr "Tema"
 
-#: prefs.js:72
+#: prefs.js:89
 msgid "Translate Assistant Preferences"
 msgstr "Preferencias del Asistente de Traducción"
 
-#: prefs.js:75
-msgid "Check time"
-msgstr "Intervalo de comprobación"
-
-#: prefs.js:76
+#: prefs.js:92
 msgid "Style"
 msgstr "Estilo"
 
-#: prefs.js:77
+#: prefs.js:93
 msgid "About"
 msgstr "Acerca de"
 
-#: prefs.js:86
+#: prefs.js:102
 msgid "Translate Assistant Configuration"
 msgstr "Configuración del Asistente de Traducción"
 
-#: preferenceswidget.js:249
+#: preferenceswidget.js:248
 msgid "Nothing"
 msgstr "Nada"
 
-#: preferenceswidget.js:262
+#: preferenceswidget.js:261
 msgid "True"
 msgstr "Cierto"
 
-#: preferenceswidget.js:275
+#: preferenceswidget.js:274
 msgid "False"
 msgstr "Falso"
 
-#: preferenceswidget.js:469 preferenceswidget.js:1000
+#: preferenceswidget.js:468 preferenceswidget.js:999
 msgid "Edit"
 msgstr "Editar"
 
-#: preferenceswidget.js:516 preferenceswidget.js:534 preferenceswidget.js:563
+#: preferenceswidget.js:515 preferenceswidget.js:533 preferenceswidget.js:562
 msgid "Name"
 msgstr "Nombre"
 
-#: preferenceswidget.js:522 preferenceswidget.js:534 preferenceswidget.js:563
+#: preferenceswidget.js:521 preferenceswidget.js:533 preferenceswidget.js:562
 msgid "Service"
 msgstr "Servicio"
 
-#: preferenceswidget.js:1010
+#: preferenceswidget.js:1009
 msgid "Remove"
 msgstr "Borrar"
 
@@ -218,26 +222,24 @@ msgstr "Mas información"
 msgid "Report an issue"
 msgstr "Informa de un error..."
 
-#: extension.js:78
+#: extension.js:85
 msgid "Settings"
 msgstr "Configuración"
 
-#: extension.js:120
-msgid "Battery health"
-msgstr "Salud de la batería"
+#~ msgid "Check time"
+#~ msgstr "Intervalo de comprobación"
 
-#: extension.js:133
-msgid "Current max:"
-msgstr "Corriente máxima:"
+#~ msgid "Battery health"
+#~ msgstr "Salud de la batería"
 
-#: extension.js:142
-msgid "Original max:"
-msgstr "Corriente original:"
+#~ msgid "Current max:"
+#~ msgstr "Corriente máxima:"
 
-#: extension.js:159
-msgid "Voltage now:"
-msgstr "Voltaje actual:"
+#~ msgid "Original max:"
+#~ msgstr "Corriente original:"
 
-#: extension.js:167
-msgid "Original voltage:"
-msgstr "Voltage original"
+#~ msgid "Voltage now:"
+#~ msgstr "Voltaje actual:"
+
+#~ msgid "Original voltage:"
+#~ msgstr "Voltage original"

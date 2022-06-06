@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-05 10:43+0200\n"
+"POT-Creation-Date: 2022-06-06 19:09+0200\n"
 "PO-Revision-Date: 2022-02-25 17:55+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -66,26 +66,34 @@ msgid ""
 msgstr ""
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:95
-msgid "DeepL API key"
+msgid "Url"
 msgstr ""
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:96
-msgid "Set DeepL API key"
+msgid "The url of DeepL"
 msgstr ""
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:100
-msgid "Shortcut"
+msgid "DeepL API key"
 msgstr ""
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:101
-msgid "Shortcut to translate the content of the clipboard"
+msgid "Set DeepL API key"
 msgstr ""
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:105
+msgid "Shortcut"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:106
+msgid "Shortcut to translate the content of the clipboard"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:110
 msgid "Dark theme"
 msgstr "Donker thema gebruiken"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:106
+#: schemas/es.atareao.translate-assistant.gschema.xml:111
 msgid "Enable dark theme otherwise light theme"
 msgstr "Gebruik het donkere thema in plaats van het lichte"
 
@@ -97,61 +105,57 @@ msgstr "Annuleren"
 msgid "Ok"
 msgstr "Oké"
 
-#: prefs.js:50
+#: prefs.js:61
 msgid "Indicator options"
 msgstr "Indicatorvoorkeuren"
 
-#: prefs.js:69
+#: prefs.js:81
 msgid "Theme"
 msgstr "Thema"
 
-#: prefs.js:72
+#: prefs.js:89
 #, fuzzy
 msgid "Translate Assistant Preferences"
 msgstr "Accustatusvoorkeuren"
 
-#: prefs.js:75
-msgid "Check time"
-msgstr "Controleren, elke"
-
-#: prefs.js:76
+#: prefs.js:92
 msgid "Style"
 msgstr "Stijl"
 
-#: prefs.js:77
+#: prefs.js:93
 msgid "About"
 msgstr "Over"
 
-#: prefs.js:86
+#: prefs.js:102
 #, fuzzy
 msgid "Translate Assistant Configuration"
 msgstr "Accustatusvoorkeuren"
 
-#: preferenceswidget.js:249
+#: preferenceswidget.js:248
 msgid "Nothing"
 msgstr "Niets"
 
-#: preferenceswidget.js:262
+#: preferenceswidget.js:261
 msgid "True"
 msgstr "Waar"
 
-#: preferenceswidget.js:275
+#: preferenceswidget.js:274
 msgid "False"
 msgstr "Niet waar"
 
-#: preferenceswidget.js:469 preferenceswidget.js:1000
+#: preferenceswidget.js:468 preferenceswidget.js:999
 msgid "Edit"
 msgstr "Bewerken"
 
-#: preferenceswidget.js:516 preferenceswidget.js:534 preferenceswidget.js:563
+#: preferenceswidget.js:515 preferenceswidget.js:533 preferenceswidget.js:562
 msgid "Name"
 msgstr "Naam"
 
-#: preferenceswidget.js:522 preferenceswidget.js:534 preferenceswidget.js:563
+#: preferenceswidget.js:521 preferenceswidget.js:533 preferenceswidget.js:562
 msgid "Service"
 msgstr "Dienst"
 
-#: preferenceswidget.js:1010
+#: preferenceswidget.js:1009
 msgid "Remove"
 msgstr "Verwijderen"
 
@@ -219,29 +223,27 @@ msgstr "Meer informatie"
 msgid "Report an issue"
 msgstr "Probleem melden"
 
-#: extension.js:78
+#: extension.js:85
 msgid "Settings"
 msgstr "Voorkeuren"
 
-#: extension.js:120
-msgid "Battery health"
-msgstr "Accugezondheid"
+#~ msgid "Check time"
+#~ msgstr "Controleren, elke"
 
-#: extension.js:133
-msgid "Current max:"
-msgstr "Huidig maximum:"
+#~ msgid "Battery health"
+#~ msgstr "Accugezondheid"
 
-#: extension.js:142
-msgid "Original max:"
-msgstr "Oorspronkelijk maximum:"
+#~ msgid "Current max:"
+#~ msgstr "Huidig maximum:"
 
-#: extension.js:159
-msgid "Voltage now:"
-msgstr "Huidig voltage:"
+#~ msgid "Original max:"
+#~ msgstr "Oorspronkelijk maximum:"
 
-#: extension.js:167
-msgid "Original voltage:"
-msgstr "Oorspronkelijk voltage:"
+#~ msgid "Voltage now:"
+#~ msgstr "Huidig voltage:"
+
+#~ msgid "Original voltage:"
+#~ msgstr "Oorspronkelijk voltage:"
 
 #~ msgid "Power supply path"
 #~ msgstr "Locatie van netstroomadapter"

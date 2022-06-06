@@ -73,6 +73,7 @@ var TranslateAssistantPreferencesWidget = GObject.registerClass(
                 settings,
                 "formality",
                 new Widgets.EnumSetting(settings, "formality"));
+            indicatorSection.addGSetting(settings, "url");
             indicatorSection.addGSetting(settings, "apikey");
 
 

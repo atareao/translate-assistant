@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-05 10:43+0200\n"
+"POT-Creation-Date: 2022-06-06 19:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,26 +64,34 @@ msgid ""
 msgstr ""
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:95
-msgid "DeepL API key"
+msgid "Url"
 msgstr ""
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:96
-msgid "Set DeepL API key"
+msgid "The url of DeepL"
 msgstr ""
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:100
-msgid "Shortcut"
+msgid "DeepL API key"
 msgstr ""
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:101
-msgid "Shortcut to translate the content of the clipboard"
+msgid "Set DeepL API key"
 msgstr ""
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:105
-msgid "Dark theme"
+msgid "Shortcut"
 msgstr ""
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:106
+msgid "Shortcut to translate the content of the clipboard"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:110
+msgid "Dark theme"
+msgstr ""
+
+#: schemas/es.atareao.translate-assistant.gschema.xml:111
 msgid "Enable dark theme otherwise light theme"
 msgstr ""
 
@@ -95,59 +103,55 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: prefs.js:50
+#: prefs.js:61
 msgid "Indicator options"
 msgstr ""
 
-#: prefs.js:69
+#: prefs.js:81
 msgid "Theme"
 msgstr ""
 
-#: prefs.js:72
+#: prefs.js:89
 msgid "Translate Assistant Preferences"
 msgstr ""
 
-#: prefs.js:75
-msgid "Check time"
-msgstr ""
-
-#: prefs.js:76
+#: prefs.js:92
 msgid "Style"
 msgstr ""
 
-#: prefs.js:77
+#: prefs.js:93
 msgid "About"
 msgstr ""
 
-#: prefs.js:86
+#: prefs.js:102
 msgid "Translate Assistant Configuration"
 msgstr ""
 
-#: preferenceswidget.js:249
+#: preferenceswidget.js:248
 msgid "Nothing"
 msgstr ""
 
-#: preferenceswidget.js:262
+#: preferenceswidget.js:261
 msgid "True"
 msgstr ""
 
-#: preferenceswidget.js:275
+#: preferenceswidget.js:274
 msgid "False"
 msgstr ""
 
-#: preferenceswidget.js:469 preferenceswidget.js:1000
+#: preferenceswidget.js:468 preferenceswidget.js:999
 msgid "Edit"
 msgstr ""
 
-#: preferenceswidget.js:516 preferenceswidget.js:534 preferenceswidget.js:563
+#: preferenceswidget.js:515 preferenceswidget.js:533 preferenceswidget.js:562
 msgid "Name"
 msgstr ""
 
-#: preferenceswidget.js:522 preferenceswidget.js:534 preferenceswidget.js:563
+#: preferenceswidget.js:521 preferenceswidget.js:533 preferenceswidget.js:562
 msgid "Service"
 msgstr ""
 
-#: preferenceswidget.js:1010
+#: preferenceswidget.js:1009
 msgid "Remove"
 msgstr ""
 
@@ -215,26 +219,6 @@ msgstr ""
 msgid "Report an issue"
 msgstr ""
 
-#: extension.js:78
+#: extension.js:85
 msgid "Settings"
-msgstr ""
-
-#: extension.js:120
-msgid "Battery health"
-msgstr ""
-
-#: extension.js:133
-msgid "Current max:"
-msgstr ""
-
-#: extension.js:142
-msgid "Original max:"
-msgstr ""
-
-#: extension.js:159
-msgid "Voltage now:"
-msgstr ""
-
-#: extension.js:167
-msgid "Original voltage:"
 msgstr ""
