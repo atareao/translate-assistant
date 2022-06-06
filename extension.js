@@ -125,10 +125,11 @@ var TranslateAssistant = GObject.registerClass(
                 if(fromText){
                     let split_sentences = this._split_sentences?"1":"0";
                     let preserve_formatting = this._preserve_formatting?"1":"0";
+                    let encodedFromText = encodeURIComponent(fromText);
                     let params = [];
                     params.push(
                         `auth_key=${this._apikey}`,
-                        `text=${fromText}`,
+                        `text=${encodedFromText}`,
                         `source_lang=${this._source_lang}`,
                         `target_lang=${this._target_lang}`,
                         `split_sentences=${split_sentences}`,
