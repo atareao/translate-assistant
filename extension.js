@@ -22,7 +22,7 @@
  * IN THE SOFTWARE.
  */
 
-const {Gtk, Gdk, Gio, Clutter, St, GObject, GLib, Pango, PangoCairo} = imports.gi;
+const {Gtk, Gdk, Gio, Clutter, St, GObject, GLib, Pango, PangoCairo, Meta, Shell, Soup} = imports.gi;
 const Cairo = imports.cairo;
 
 const MessageTray = imports.ui.messageTray;
@@ -36,8 +36,17 @@ const Extension = ExtensionUtils.getCurrentExtension();
 const Gettext = imports.gettext.domain(Extension.uuid);
 const _ = Gettext.gettext;
 
+const Clipboard = St.Clipboard.get_default();
+const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
+
 const SHELL_KEYBINDINGS_SCHEMA = "org.gnome.shell.keybindings";
 const SHORTCUT_SETTING_KEY = "translate-assistant-clipboard";
+
+const PROTOCOL = 'https';
+const BASE_URL = 'www.googleapis.com/youtube/v3/search';
+const USER_AGENT = 'GNOME Shell - YouTubeSearchProvider - extension';
+const HTTP_TIMEOUT = 10;
+
 
 var button;
 
@@ -55,6 +64,8 @@ var TranslateAssistant = GObject.registerClass(
         _init(){
             super._init(St.Align.START);
             this._settings = ExtensionUtils.getSettings();
+            this._session = null;
+            this._get_soup_session();
             this._loadPreferences();
 
             /* Icon indicator */
@@ -68,12 +79,8 @@ var TranslateAssistant = GObject.registerClass(
             box.add(this._timeLeft);
             this.add_child(box);
 
-            /* Start Menu */
-            //let itemBatteryCharge = this._getBatteryChargeMenuItem();
-            //this.menu.addMenuItem(itemBatteryCharge);
-
-            //let itemBatteryHealth = this._getBatteryHealthMenuItem();
-            //this.menu.addMenuItem(itemBatteryHealth);
+            let itemTranslation = this._buildMenu();
+            this.menu.addMenuItem(itemTranslation);
 
             /* Separator */
             this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
@@ -108,7 +115,7 @@ var TranslateAssistant = GObject.registerClass(
             Main.wm.addKeybinding("keybinding-translate-clipboard",
                                   this._settings,
                                   Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
-                                  Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW
+                                  Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW,
                                   this._translate.bind(this)
             );
         }
@@ -118,69 +125,125 @@ var TranslateAssistant = GObject.registerClass(
         }
 
         _translate(){
-            log(`Combinación de teclas ${this._keybinding_translate_clipboard} pulsada`);
+            Clipboard.get_text(CLIPBOARD_TYPE,(clipBoard, fromText) => {
+                log(fromText);
+                if(fromText){
+                    let url = "https://api-free.deepl.com/v2/translate";
+                    let message = Soup.Message.new('POST', url);
+                    log(this._apikey);
+                    let data = `auth_key=${this._apikey}&text="${fromText}"&target_lang=ES`;
+                    let content_type = "application/x-www-form-urlencoded";
+                    message.set_request(content_type, 2, data);
+                    let httpSession = new Soup.Session();
+                    httpSession.queue_message(message,
+                        (httpSession, message) => {
+                            if(message.status_code === Soup.KnownStatusCode.OK) {
+                                try {
+                                    let result = JSON.parse(message.response_body.data);
+                                    if(result){
+                                        let translations = result.translations;
+                                        let toText = null;
+                                        if (translations.length > 0){
+                                            toText = translations[0].text;
+                                        }else{
+                                            toText = "";
+                                        }
+                                        this._update(fromText, toText);
+                                    }
+                                } catch(e) {
+                                    log(e);
+                                }
+                            }else{
+                                log("Error in translate assistant");
+                                log(message.status_code);
+                                log(message.response_body.data);
+                            }
+                        }
+                    );
+                }
+            });
         }
 
-        _getBatteryHealthMenuItem(){
-            let itemBatteryHealth = new PopupMenu.PopupBaseMenuItem({
-                reactive: false
+        _update(from_text, to_text){
+            this.inputEntry.get_clutter_text().set_text(from_text);
+            this.outputEntry.get_clutter_text().set_text(to_text);
+        }
+
+        _buildMenu(){
+            let section = new PopupMenu.PopupBaseMenuItem({
+                reactive: false,
+                can_focus: false
             });
-            let batteryHealthBox = new St.BoxLayout({
+            let scrollI = new St.ScrollView({
+                width: 300,
+                height: 300
+            });
+            let scrollO = new St.ScrollView({
+                width: 300,
+                height: 300,
+            });
+            let actor = new St.BoxLayout({
+                reactive: true,
+                x_expand: true,
+                y_expand: true,
+                x_align: St.Align.END,
+                y_align: St.Align.MIDDLE,
                 vertical: true
             });
-            itemBatteryHealth.add_actor(batteryHealthBox);
-            batteryHealthBox.add_actor(new St.Label({
-                                text: _('Battery health')
-            }));
-           let batteryHealthInnerBox = new St.BoxLayout({
-                                vertical: true,
-                                style_class: 'message battery-box'
-                            });
-            batteryHealthBox.add_actor(batteryHealthInnerBox);
-            this._currentMax = new St.Label({
-                text: '5162 mAh',
-               x_expand: true,
-               x_align: Clutter.ActorAlign.END });
-               batteryHealthInnerBox.add_actor(this._getRow(
-                // Translators: The current maximum battery capacity
-                _('Current max:'),
-                this._currentMax
-            ));
-            this._originalMax = new St.Label({
-                text: '5770 mAh',
-               x_expand: true,
-               x_align: Clutter.ActorAlign.END });
-               batteryHealthInnerBox.add_actor(this._getRow(
-                // Translators: The original maximum battery capacity
-                _('Original max:'),
-                this._originalMax
-            ));
-            let cc = new St.BoxLayout({
-                                x_align: Clutter.ActorAlign.CENTER,
-                                y_align: Clutter.ActorAlign.CENTER,
-                            });
-            batteryHealthInnerBox.add_actor(cc);
-            this._batteryHealthPie = new PieChart(70, 70, 30, this._warning,
-                this._danger, this._normalColor, this._warningColor,
-                this._dangerColor);
-            cc.add_actor(this._batteryHealthPie);
-            this._voltageNow = new St.Label({
-                text: '7,498 V',
-               x_expand: true,
-               x_align: Clutter.ActorAlign.END });
-            batteryHealthInnerBox.add_actor(this._getRow(
-                _('Voltage now:'),
-                this._voltageNow
-            ));
-            this._originalVoltage = new St.Label({
-                text: '7,640 V',
-               x_expand: true,
-               x_align: Clutter.ActorAlign.END });
-            batteryHealthInnerBox.add_actor(this._getRow(
-                _('Original voltage:'),
-                this._originalVoltage
-            ));
-            return itemBatteryHealth;
+            actor.add_child(scrollI, {
+                x_fill: true,
+                y_fill: true,
+                expand: true
+            });
+            actor.add_child(scrollO, {
+                x_fill: true,
+                y_fill: true,
+                expand: true
+            });//Translate Input
+            this.inputEntry = new St.Entry({
+                name: 'inputEntry',
+                style_class: 'entry',
+                can_focus: true,
+                track_hover: true
+            });
+            this.inputEntry.get_clutter_text().set_line_wrap(true);
+            this.inputEntry.get_clutter_text().set_line_wrap_mode(Pango.WrapMode.WORD_CHAR);
+            this.inputEntry.get_clutter_text().set_single_line_mode(false);
+            this.inputEntry.get_clutter_text().set_activatable(true);
+            this.inputEntry.set_height(300);
+            //Translate Output
+            this.outputEntry = new St.Entry({
+                name: 'outputEntry',
+                style_class: 'entry',
+                can_focus: true,
+                track_hover: true
+            });
+            this.outputEntry.get_clutter_text().set_line_wrap(true);
+            this.outputEntry.get_clutter_text().set_line_wrap_mode(Pango.WrapMode.WORD_CHAR);
+            this.outputEntry.get_clutter_text().set_single_line_mode(false);
+            this.outputEntry.get_clutter_text().set_activatable(true);
+            this.outputEntry.set_height(300);
+
+            let _boxI = new St.BoxLayout({
+                vertical: true,
+            });
+            _boxI.add_child(this.inputEntry, {
+                y_align: St.Align.START,
+                y_fill: true,
+                x_fill: true,
+            });
+            let _boxO = new St.BoxLayout({
+                vertical: true,
+            });
+            _boxO.add_child(this.outputEntry, {
+                y_align: St.Align.START,
+                y_fill: true,
+                x_fill: true,
+            });
+            scrollI.add_actor(_boxI);
+            scrollO.add_actor(_boxO);
+            section.actor.add_actor(actor, { expand: true });
+            return section;
         }
 
         _getValue(keyName){
@@ -214,6 +277,22 @@ var TranslateAssistant = GObject.registerClass(
 
         disable(){
             this._unbindShortcut();
+            if(this._session){
+                this._session.run_dispose();
+                this._session = null;
+            }
+        }
+
+        _get_soup_session() {
+            if(this._session === null) {
+                this._session = new Soup.SessionAsync();
+                Soup.Session.prototype.add_feature.call(
+                    this._session,
+                    new Soup.ProxyResolverDefault()
+                );
+                this._session.user_agent = USER_AGENT;
+                this._session.timeout = HTTP_TIMEOUT;
+            }
         }
     }
 );
