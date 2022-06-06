@@ -126,11 +126,9 @@ var TranslateAssistant = GObject.registerClass(
 
         _translate(){
             Clipboard.get_text(CLIPBOARD_TYPE,(clipBoard, fromText) => {
-                log(fromText);
                 if(fromText){
                     let url = "https://api-free.deepl.com/v2/translate";
                     let message = Soup.Message.new('POST', url);
-                    log(this._apikey);
                     let data = `auth_key=${this._apikey}&text="${fromText}"&target_lang=ES`;
                     let content_type = "application/x-www-form-urlencoded";
                     message.set_request(content_type, 2, data);
@@ -151,6 +149,7 @@ var TranslateAssistant = GObject.registerClass(
                                         this._update(fromText, toText);
                                     }
                                 } catch(e) {
+                                    log("== Translate assistant error ==");
                                     log(e);
                                 }
                             }else{
