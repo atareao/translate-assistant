@@ -1,5 +1,3 @@
-#!/usr/bin/env gjs
-
 const {GObject, Gtk} = imports.gi;
 
 const ExtensionUtils = imports.misc.extensionUtils;

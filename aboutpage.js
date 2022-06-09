@@ -1,5 +1,3 @@
-#!/usr/bin/env gjs
-
 /*
  * Copyright (c) 2021 Lorenzo Carbonell <a.k.a. atareao>
  *
