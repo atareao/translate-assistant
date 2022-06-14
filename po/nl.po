@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-06 19:09+0200\n"
+"POT-Creation-Date: 2022-06-14 05:16+0200\n"
 "PO-Revision-Date: 2022-02-25 17:55+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -97,11 +97,11 @@ msgstr "Donker thema gebruiken"
 msgid "Enable dark theme otherwise light theme"
 msgstr "Gebruik het donkere thema in plaats van het lichte"
 
-#: dialogwidgets.js:55
+#: dialogwidgets.js:53
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: dialogwidgets.js:56
+#: dialogwidgets.js:54
 msgid "Ok"
 msgstr "Oké"
 
@@ -159,71 +159,71 @@ msgstr "Dienst"
 msgid "Remove"
 msgstr "Verwijderen"
 
-#: aboutpage.js:47
+#: aboutpage.js:45
 msgid "Buy me a coffee"
 msgstr "Doneren"
 
-#: aboutpage.js:53
+#: aboutpage.js:51
 msgid "Version"
 msgstr "Versie"
 
-#: aboutpage.js:55
+#: aboutpage.js:53
 msgid "GNOME Version"
 msgstr "GNOME-versie"
 
-#: aboutpage.js:58
+#: aboutpage.js:56
 msgid "OS"
 msgstr "Besturingssyteem"
 
-#: aboutpage.js:60
+#: aboutpage.js:58
 msgid "SessionType"
 msgstr "Sessietype"
 
-#: aboutpage.js:92
+#: aboutpage.js:90
 msgid "Developers"
 msgstr "Ontwikkelaars"
 
-#: aboutpage.js:99
+#: aboutpage.js:97
 msgid "Contributors"
 msgstr "Bijdragers"
 
-#: aboutpage.js:100
+#: aboutpage.js:98
 msgid "Thank you to all contributors!"
 msgstr "Met dank aan alle bijdragers!"
 
-#: aboutpage.js:101
+#: aboutpage.js:99
 msgid "For a list of all contributors, please visit"
 msgstr "De lijst met bijdragers is te bekijken op"
 
-#: aboutpage.js:110
+#: aboutpage.js:108
 msgid "Supporters"
 msgstr "Ondersteuners"
 
-#: aboutpage.js:111
+#: aboutpage.js:109
 msgid "Thank you to all supporters!"
 msgstr "Met dank aan alle ondersteuners!"
 
-#: aboutpage.js:112
+#: aboutpage.js:110
 msgid "For a list of all supporters, please visit"
 msgstr "De lijst met ondersteuners is te bekijken op"
 
-#: aboutpage.js:119
+#: aboutpage.js:117
 msgid "License"
 msgstr "Licentie"
 
-#: aboutpage.js:132
+#: aboutpage.js:130
 msgid "More info"
 msgstr "Meer informatie"
 
-#: aboutpage.js:142
+#: aboutpage.js:140
 msgid "More information"
 msgstr "Meer informatie"
 
-#: aboutpage.js:145
+#: aboutpage.js:143
 msgid "Report an issue"
 msgstr "Probleem melden"
 
-#: extension.js:85
+#: extension.js:83
 msgid "Settings"
 msgstr "Voorkeuren"
 

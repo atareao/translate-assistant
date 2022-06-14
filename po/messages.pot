@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-06 19:09+0200\n"
+"POT-Creation-Date: 2022-06-14 05:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,11 +95,11 @@ msgstr ""
 msgid "Enable dark theme otherwise light theme"
 msgstr ""
 
-#: dialogwidgets.js:55
+#: dialogwidgets.js:53
 msgid "Cancel"
 msgstr ""
 
-#: dialogwidgets.js:56
+#: dialogwidgets.js:54
 msgid "Ok"
 msgstr ""
 
@@ -155,70 +155,70 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: aboutpage.js:47
+#: aboutpage.js:45
 msgid "Buy me a coffee"
 msgstr ""
 
-#: aboutpage.js:53
+#: aboutpage.js:51
 msgid "Version"
 msgstr ""
 
-#: aboutpage.js:55
+#: aboutpage.js:53
 msgid "GNOME Version"
 msgstr ""
 
-#: aboutpage.js:58
+#: aboutpage.js:56
 msgid "OS"
 msgstr ""
 
-#: aboutpage.js:60
+#: aboutpage.js:58
 msgid "SessionType"
 msgstr ""
 
-#: aboutpage.js:92
+#: aboutpage.js:90
 msgid "Developers"
 msgstr ""
 
-#: aboutpage.js:99
+#: aboutpage.js:97
 msgid "Contributors"
 msgstr ""
 
-#: aboutpage.js:100
+#: aboutpage.js:98
 msgid "Thank you to all contributors!"
 msgstr ""
 
-#: aboutpage.js:101
+#: aboutpage.js:99
 msgid "For a list of all contributors, please visit"
 msgstr ""
 
-#: aboutpage.js:110
+#: aboutpage.js:108
 msgid "Supporters"
 msgstr ""
 
-#: aboutpage.js:111
+#: aboutpage.js:109
 msgid "Thank you to all supporters!"
 msgstr ""
 
-#: aboutpage.js:112
+#: aboutpage.js:110
 msgid "For a list of all supporters, please visit"
 msgstr ""
 
-#: aboutpage.js:119
+#: aboutpage.js:117
 msgid "License"
 msgstr ""
 
-#: aboutpage.js:132
+#: aboutpage.js:130
 msgid "More info"
 msgstr ""
 
-#: aboutpage.js:142
+#: aboutpage.js:140
 msgid "More information"
 msgstr ""
 
-#: aboutpage.js:145
+#: aboutpage.js:143
 msgid "Report an issue"
 msgstr ""
 
-#: extension.js:85
+#: extension.js:83
 msgid "Settings"
 msgstr ""

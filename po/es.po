@@ -1,13 +1,13 @@
 # Spanish translation for the Battery Status GNOME Shell Extension.
 # Copyright (C) 2022 Lorenzo Carbonell
-# This file is distributed under the same license as the battery-status@atareao.es package.
+# This file is distributed under the same license as the translate-assistant@atareao.es package.
 # Lorenzo <atareao@atareao.es>, 2020.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: WireGuard Indicator - 1\n"
+"Project-Id-Version: Translate Assistant - 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-06 19:09+0200\n"
+"POT-Creation-Date: 2022-06-14 05:16+0200\n"
 "PO-Revision-Date: 2020-09-15 19:23+0200\n"
 "Last-Translator: Lorenzo <atareao@atareao.es>\n"
 "Language-Team: Spanish\n"
@@ -68,15 +68,15 @@ msgstr "Define si se tiene que utilizar un lenguaje mas o menos formal"
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:95
 msgid "Url"
-msgstr ""
+msgstr "Url"
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:96
 msgid "The url of DeepL"
-msgstr ""
+msgstr "La url de DeepL"
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:100
 msgid "DeepL API key"
-msgstr ""
+msgstr "La clave API de DeepL"
 
 #: schemas/es.atareao.translate-assistant.gschema.xml:101
 msgid "Set DeepL API key"
@@ -98,11 +98,11 @@ msgstr "Tema oscuro"
 msgid "Enable dark theme otherwise light theme"
 msgstr "Establece el tema oscuro"
 
-#: dialogwidgets.js:55
+#: dialogwidgets.js:53
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: dialogwidgets.js:56
+#: dialogwidgets.js:54
 msgid "Ok"
 msgstr "Aceptar"
 
@@ -158,88 +158,70 @@ msgstr "Servicio"
 msgid "Remove"
 msgstr "Borrar"
 
-#: aboutpage.js:47
+#: aboutpage.js:45
 msgid "Buy me a coffee"
 msgstr "Apoya con un café"
 
-#: aboutpage.js:53
+#: aboutpage.js:51
 msgid "Version"
 msgstr "Versión"
 
-#: aboutpage.js:55
+#: aboutpage.js:53
 msgid "GNOME Version"
 msgstr "Versión de GNOME"
 
-#: aboutpage.js:58
+#: aboutpage.js:56
 msgid "OS"
 msgstr "OS"
 
-#: aboutpage.js:60
+#: aboutpage.js:58
 msgid "SessionType"
 msgstr "Tipo de sesión"
 
-#: aboutpage.js:92
+#: aboutpage.js:90
 msgid "Developers"
 msgstr "Desarrolladores"
 
-#: aboutpage.js:99
+#: aboutpage.js:97
 msgid "Contributors"
 msgstr "Contribuidores"
 
-#: aboutpage.js:100
+#: aboutpage.js:98
 msgid "Thank you to all contributors!"
 msgstr "Gracias a todos los contribuidores!"
 
-#: aboutpage.js:101
+#: aboutpage.js:99
 msgid "For a list of all contributors, please visit"
 msgstr "Para ver una lista de todos los contribuidores, por favor visita"
 
-#: aboutpage.js:110
+#: aboutpage.js:108
 msgid "Supporters"
 msgstr "Colaboradores"
 
-#: aboutpage.js:111
+#: aboutpage.js:109
 msgid "Thank you to all supporters!"
 msgstr "Gracias a todos los colaboradores!"
 
-#: aboutpage.js:112
+#: aboutpage.js:110
 msgid "For a list of all supporters, please visit"
 msgstr "Para ver una lista de todos los colaboradores, por favor visita"
 
-#: aboutpage.js:119
+#: aboutpage.js:117
 msgid "License"
 msgstr "Licencia"
 
-#: aboutpage.js:132
+#: aboutpage.js:130
 msgid "More info"
 msgstr "Mas información"
 
-#: aboutpage.js:142
+#: aboutpage.js:140
 msgid "More information"
 msgstr "Mas información"
 
-#: aboutpage.js:145
+#: aboutpage.js:143
 msgid "Report an issue"
 msgstr "Informa de un error..."
 
-#: extension.js:85
+#: extension.js:83
 msgid "Settings"
 msgstr "Configuración"
-
-#~ msgid "Check time"
-#~ msgstr "Intervalo de comprobación"
-
-#~ msgid "Battery health"
-#~ msgstr "Salud de la batería"
-
-#~ msgid "Current max:"
-#~ msgstr "Corriente máxima:"
-
-#~ msgid "Original max:"
-#~ msgstr "Corriente original:"
-
-#~ msgid "Voltage now:"
-#~ msgstr "Voltaje actual:"
-
-#~ msgid "Original voltage:"
-#~ msgstr "Voltage original"
