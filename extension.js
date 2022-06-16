@@ -61,7 +61,6 @@ var TranslateAssistant = GObject.registerClass(
         _init(){
             super._init(St.Align.START);
             this._settings = ExtensionUtils.getSettings();
-            this._loadPreferences();
 
             /* Icon indicator */
             let box = new St.BoxLayout();
@@ -232,22 +231,14 @@ var TranslateAssistant = GObject.registerClass(
             let _boxI = new St.BoxLayout({
                 vertical: true,
             });
-            _boxI.add_child(this.inputEntry, {
-                y_align: St.Align.START,
-                y_fill: true,
-                x_fill: true,
-            });
+            _boxI.add_child(this.inputEntry);
             let _boxO = new St.BoxLayout({
                 vertical: true,
             });
-            _boxO.add_child(this.outputEntry, {
-                y_align: St.Align.START,
-                y_fill: true,
-                x_fill: true,
-            });
+            _boxO.add_child(this.outputEntry);
             scrollI.add_actor(_boxI);
             scrollO.add_actor(_boxO);
-            section.actor.add_actor(actor, { expand: true });
+            section.actor.add_actor(actor);
             return section;
         }
 
