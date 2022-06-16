@@ -764,6 +764,8 @@ var Setting = GObject.registerClass(
     class Setting extends Row{
 
         _init(summary, description, widget) {
+            log(`Summary: ${summary}`);
+            log(`Description: ${description}`);
             super._init({ height_request: 56 });
 
             this.summary = new Gtk.Label({

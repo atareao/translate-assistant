@@ -67,11 +67,6 @@ var TranslateAssistant = GObject.registerClass(
             let box = new St.BoxLayout();
             this.icon = new St.Icon({style_class: 'system-status-icon'});
             box.add(this.icon);
-            this._timeLeft = new St.Label({
-                text: '-',
-                y_expand: true,
-                y_align: Clutter.ActorAlign.CENTER });
-            box.add(this._timeLeft);
             this.add_child(box);
 
             let itemTranslation = this._buildMenu();
@@ -208,16 +203,8 @@ var TranslateAssistant = GObject.registerClass(
                 y_align: St.Align.MIDDLE,
                 vertical: true
             });
-            actor.add_child(scrollI, {
-                x_fill: true,
-                y_fill: true,
-                expand: true
-            });
-            actor.add_child(scrollO, {
-                x_fill: true,
-                y_fill: true,
-                expand: true
-            });//Translate Input
+            actor.add_child(scrollI);
+            actor.add_child(scrollO);//Translate Input
             this.inputEntry = new St.Entry({
                 name: 'inputEntry',
                 style_class: 'entry',
