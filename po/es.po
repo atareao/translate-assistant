@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Translate Assistant - 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-18 13:09+0200\n"
+"POT-Creation-Date: 2022-06-18 18:40+0200\n"
 "PO-Revision-Date: 2020-09-15 19:23+0200\n"
 "Last-Translator: Lorenzo <atareao@atareao.es>\n"
 "Language-Team: Spanish\n"
@@ -230,30 +230,38 @@ msgstr "Mas información"
 msgid "Report an issue"
 msgstr "Informa de un error..."
 
-#: extension.js:65
+#: extension.js:58
+msgid "Auto Copy"
+msgstr "Copia automática"
+
+#: extension.js:73
 msgid "Settings"
 msgstr "Configuración"
 
-#: extension.js:148
+#: extension.js:157
 msgid "Set API Key of DeepL"
 msgstr "Introduce la clave API de DeepL"
 
-#: extension.js:173
+#: extension.js:182
 msgid "Translated"
 msgstr "Traducido"
 
-#: extension.js:183
+#: extension.js:196
+msgid "Paste"
+msgstr "Pegar"
+
+#: extension.js:208
 msgid "Translate"
 msgstr "Traducir"
 
-#: extension.js:199
+#: extension.js:224
 msgid "Copy"
 msgstr "Copiar"
 
-#: extension.js:238
+#: extension.js:263
 msgid "From"
 msgstr "De"
 
-#: extension.js:263
+#: extension.js:288
 msgid "To"
 msgstr "A"

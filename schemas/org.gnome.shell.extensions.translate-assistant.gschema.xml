@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="translate-assistant@atareao.es">
-    <enum id="es.atareao.translate-assistant.source-lang">
+    <enum id="org.gnome.shell.extensions.translate-assistant.source-lang">
         <value value="0" nick="Bulgarian (BG)"/>
         <value value="1" nick="Czech (CS)"/>
         <value value="2" nick="Danish (DA)"/>
@@ -28,7 +28,7 @@
         <value value="24" nick="Turkish (TR)"/>
         <value value="25" nick="Chinese (ZH)"/>
     </enum>
-    <enum id="es.atareao.translate-assistant.target-lang">
+    <enum id="org.gnome.shell.extensions.translate-assistant.target-lang">
         <value value="0" nick="Bulgarian (BG)"/>
         <value value="1" nick="Czech (CS)"/>
         <value value="2" nick="Danish (DA)"/>
@@ -58,19 +58,19 @@
         <value value="26" nick="Turkish (TR)"/>
         <value value="27" nick="Chinese (ZH)"/>
     </enum>
-    <enum id="es.atareao.translate-assistant.formality">
+    <enum id="org.gnome.shell.extensions.translate-assistant.formality">
         <value value="0" nick="default"/>
         <value value="1" nick="more"/>
         <value value="2" nick="less"/>
     </enum>
 
     <schema path="/org/gnome/shell/extensions/translate-assistant/" id="org.gnome.shell.extensions.translate-assistant">
-        <key name="source-lang" enum="es.atareao.translate-assistant.source-lang">
+        <key name="source-lang" enum="org.gnome.shell.extensions.translate-assistant.source-lang">
             <default>'English (EN)'</default>
             <summary>Source language</summary>
             <description>Language of the text to be translated</description>
         </key>
-        <key name="target-lang" enum="es.atareao.translate-assistant.target-lang">
+        <key name="target-lang" enum="org.gnome.shell.extensions.translate-assistant.target-lang">
             <default>'Spanish (ES)'</default>
             <summary>Target language</summary>
             <description>The language into which the text should be translated</description>
@@ -85,7 +85,7 @@
             <summary>Preserve formatting</summary>
             <description>Sets whether the translation engine should respect the original formatting, even if it would usually correct some aspects</description>
         </key>
-        <key name="formality" enum="es.atareao.translate-assistant.formality">
+        <key name="formality" enum="org.gnome.shell.extensions.translate-assistant.formality">
             <default>'default'</default>
             <summary>Formality</summary>
             <description>Sets whether the translated text should lean towards formal or informal language</description>

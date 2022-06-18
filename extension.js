@@ -55,6 +55,14 @@ var TranslateAssistant = GObject.registerClass(
             box.add(this.icon);
             this.add_child(box);
 
+            this.autoCopySwitch = new PopupMenu.PopupSwitchMenuItem(_('Auto Copy'),
+                                                                    {active: false})
+            this.menu.addMenuItem(this.autoCopySwitch)
+            this.autoCopySwitch.connect('toggled', () => {
+                this._set_icon_indicator();
+            });
+            /* Separator */
+            this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
             this.menu.addMenuItem(this._menuInput());
             this.menu.addMenuItem(this._menuIcons());
             this.menu.addMenuItem(this._menuOutput());
@@ -68,10 +76,11 @@ var TranslateAssistant = GObject.registerClass(
             });
             this.menu.addMenuItem(this.settingsMenuItem);
             /* Init */
-            this._set_icon_indicator(true);
+            this._set_icon_indicator();
             this._settingsChanged();
-            this._settings.connect('changed',
-                                   this._settingsChanged.bind(this));
+            this._settings.connect('changed', ()=>{
+                this._settingsChanged();
+            });
         }
 
         _loadPreferences(){
@@ -86,7 +95,7 @@ var TranslateAssistant = GObject.registerClass(
             this._notifications = this._getValue('notifications');
             this._darktheme = this._getValue('darktheme');
 
-            this._set_icon_indicator(true);
+            this._set_icon_indicator();
             this._unbindShortcut();
             this._bindShortcut();
         }
@@ -172,13 +181,30 @@ var TranslateAssistant = GObject.registerClass(
             if(this._notifications){
                 Main.notify("Translate Assistant", _("Translated"));
             }
+            if(this.autoCopySwitch._switch.state){
+                Clipboard.set_text(CLIPBOARD_TYPE, to_text);
+            }
         }
 
         _menuIcons(){
             let box = new St.BoxLayout({
                 vertical: false,
-                x_expand:true
+                x_expand: true,
+                trackHover: false,
+                canFocus: false
             });
+            let buttonPasteFromClipboard = new St.Button({
+                label:_("Paste"),
+                x_expand: true,
+                xAlign: Clutter.ActorAlign.CENTER,
+                reactive: true,
+                marginLeft: 10,
+                marginRight: 10
+            });
+            buttonPasteFromClipboard.connect('clicked', ()=>{
+                this._translate();
+            });
+            box.add_child(buttonPasteFromClipboard);
             let buttonTranslate = new St.Button({
                 label: _("Translate"),
                 x_expand: true,
@@ -210,8 +236,8 @@ var TranslateAssistant = GObject.registerClass(
                 }
             });
             box.add_child(buttonCopyToClipboard);
-            let iconsMenuItem = new PopupMenu.PopupBaseMenuItem();
-            iconsMenuItem.add_actor(box.actor);
+            let iconsMenuItem = new PopupMenu.PopupBaseMenuItem({});
+            iconsMenuItem.add_child(box);
             return iconsMenuItem;
         }
 
@@ -269,7 +295,8 @@ var TranslateAssistant = GObject.registerClass(
             return this._settings.get_value(keyName).deep_unpack();
         }
 
-        _set_icon_indicator(active){
+        _set_icon_indicator(){
+            let active = this.autoCopySwitch._switch.state;
             let themeString = (this._darktheme?'dark': 'light');
             let statusString = (active ? 'active' : 'paused');
             let iconString = `translate-assistant-${statusString}-${themeString}`;
