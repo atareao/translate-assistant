@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-18 18:41+0200\n"
+"POT-Creation-Date: 2022-06-18 19:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -243,22 +243,22 @@ msgstr ""
 msgid "Translated"
 msgstr ""
 
-#: extension.js:196
+#: extension.js:197
 msgid "Paste"
 msgstr ""
 
-#: extension.js:208
+#: extension.js:209
 msgid "Translate"
 msgstr ""
 
-#: extension.js:224
+#: extension.js:225
 msgid "Copy"
 msgstr ""
 
-#: extension.js:263
+#: extension.js:264
 msgid "From"
 msgstr ""
 
-#: extension.js:288
+#: extension.js:289
 msgid "To"
 msgstr ""
