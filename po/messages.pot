@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-18 12:58+0200\n"
+"POT-Creation-Date: 2022-06-18 13:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -231,26 +231,26 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: extension.js:147
+#: extension.js:148
 msgid "Set API Key of DeepL"
 msgstr ""
 
-#: extension.js:172
+#: extension.js:173
 msgid "Translated"
 msgstr ""
 
-#: extension.js:182
+#: extension.js:183
 msgid "Translate"
 msgstr ""
 
-#: extension.js:198
+#: extension.js:199
 msgid "Copy"
 msgstr ""
 
-#: extension.js:237
+#: extension.js:238
 msgid "From"
 msgstr ""
 
-#: extension.js:262
+#: extension.js:263
 msgid "To"
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Translate Assistant - 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-18 12:58+0200\n"
+"POT-Creation-Date: 2022-06-18 13:09+0200\n"
 "PO-Revision-Date: 2020-09-15 19:23+0200\n"
 "Last-Translator: Lorenzo <atareao@atareao.es>\n"
 "Language-Team: Spanish\n"
@@ -92,11 +92,11 @@ msgstr "Atajo de teclado para traducir el contenido del portapapeles"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:110
 msgid "Show notifications"
-msgstr ""
+msgstr "Mostrar notificaciones"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:111
 msgid "Show notifications on translation"
-msgstr ""
+msgstr "Mostrar notificaciones cuando se realiza una traducción"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:115
 msgid "Dark theme"
@@ -234,27 +234,26 @@ msgstr "Informa de un error..."
 msgid "Settings"
 msgstr "Configuración"
 
-#: extension.js:147
-#, fuzzy
+#: extension.js:148
 msgid "Set API Key of DeepL"
-msgstr "La url de DeepL"
+msgstr "Introduce la clave API de DeepL"
 
-#: extension.js:172
+#: extension.js:173
 msgid "Translated"
-msgstr ""
+msgstr "Traducido"
 
-#: extension.js:182
+#: extension.js:183
 msgid "Translate"
-msgstr ""
+msgstr "Traducir"
 
-#: extension.js:198
+#: extension.js:199
 msgid "Copy"
-msgstr ""
+msgstr "Copiar"
 
-#: extension.js:237
+#: extension.js:238
 msgid "From"
-msgstr ""
+msgstr "De"
 
-#: extension.js:262
+#: extension.js:263
 msgid "To"
-msgstr ""
+msgstr "A"
