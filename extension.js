@@ -42,19 +42,6 @@ const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 const SHELL_KEYBINDINGS_SCHEMA = "org.gnome.shell.keybindings";
 const SHORTCUT_SETTING_KEY = "translate-assistant-clipboard";
 
-const HTTP_TIMEOUT = 10;
-
-
-var button;
-
-
-function notify(msg, details, icon='translate-assistant-icon') {
-    let source = new MessageTray.Source(Extension.uuid, icon);
-    Main.messageTray.add(source);
-    let notification = new MessageTray.Notification(source, msg, details);
-    notification.setTransient(true);
-    source.notify(notification);
-}
 
 var TranslateAssistant = GObject.registerClass(
     class TranslateAssistant extends PanelMenu.Button{
@@ -69,6 +56,7 @@ var TranslateAssistant = GObject.registerClass(
             this.add_child(box);
 
             this.menu.addMenuItem(this._menuInput());
+            this.menu.addMenuItem(this._menuIcons());
             this.menu.addMenuItem(this._menuOutput());
 
             /* Separator */
@@ -80,7 +68,7 @@ var TranslateAssistant = GObject.registerClass(
             });
             this.menu.addMenuItem(this.settingsMenuItem);
             /* Init */
-            this._set_icon_indicator(false);
+            this._set_icon_indicator(true);
             this._settingsChanged();
             this._settings.connect('changed',
                                    this._settingsChanged.bind(this));
@@ -95,8 +83,10 @@ var TranslateAssistant = GObject.registerClass(
             this._url = this._getValue('url');
             this._apikey = this._getValue('apikey');
             this._keybinding_translate_clipboard = this._getValue('keybinding-translate-clipboard');
+            this._notifications = this._getValue('notifications');
             this._darktheme = this._getValue('darktheme');
 
+            this._set_icon_indicator(true);
             this._unbindShortcut();
             this._bindShortcut();
         }
@@ -151,13 +141,15 @@ var TranslateAssistant = GObject.registerClass(
                                         this._update(fromText, toText);
                                     }
                                 } catch(e) {
-                                    log("== Translate assistant error ==");
-                                    log(e);
+                                    Main.notify("Translate Assistant", `Error: ${e}`);
                                 }
                             }else{
-                                log("Error in translate assistant");
-                                log(message.status_code);
-                                log(message.response_body.data);
+                                if(message.status_code == 403){
+                                    Main.notify("Translate Assistant", _("Set API Key of DeepL"));
+                                }else{
+                                    const code = message.status_code;
+                                    Main.notify("Translate Assistant", `Error: ${code}`);
+                                }
                             }
                         }
                     );
@@ -171,14 +163,56 @@ var TranslateAssistant = GObject.registerClass(
             if(m.length > 1){
                 return m[1];
             }
-            log("== ERROR ===");
-            log(description);
             return null;
         }
 
         _update(from_text, to_text){
             this.inputEntry.get_clutter_text().set_text(from_text);
             this.outputEntry.get_clutter_text().set_text(to_text);
+            if(this._notifications){
+                Main.notify("Translate Assistant", _("Translated"));
+            }
+        }
+
+        _menuIcons(){
+            let box = new St.BoxLayout({
+                vertical: false,
+                x_expand:true
+            });
+            let buttonTranslate = new St.Button({
+                label: _("Translate"),
+                x_expand: true,
+                xAlign: Clutter.ActorAlign.CENTER,
+                reactive: true,
+                marginLeft: 10,
+                marginRight: 10
+            });
+            buttonTranslate.connect('clicked', ()=>{
+                let from_text = this.inputEntry.get_clutter_text().get_text();
+                if(from_text){
+                    Clipboard.set_text(CLIPBOARD_TYPE, from_text);
+                    this._translate();
+                }
+            });
+            box.add_child(buttonTranslate);
+            let buttonCopyToClipboard = new St.Button({
+                label:_("Copy"),
+                x_expand: true,
+                xAlign: Clutter.ActorAlign.CENTER,
+                reactive: true,
+                marginLeft: 10,
+                marginRight: 10
+            });
+            buttonCopyToClipboard.connect('clicked', ()=>{
+                let to_text = this.outputEntry.get_clutter_text().get_text();
+                if(to_text){
+                    Clipboard.set_text(CLIPBOARD_TYPE, to_text);
+                }
+            });
+            box.add_child(buttonCopyToClipboard);
+            let iconsMenuItem = new PopupMenu.PopupBaseMenuItem();
+            iconsMenuItem.add_actor(box.actor);
+            return iconsMenuItem;
         }
 
         _menuInput(){
@@ -192,7 +226,6 @@ var TranslateAssistant = GObject.registerClass(
             this.inputEntry.get_clutter_text().set_line_wrap_mode(Pango.WrapMode.WORD_CHAR);
             this.inputEntry.get_clutter_text().set_single_line_mode(false);
             this.inputEntry.get_clutter_text().set_activatable(true);
-            this.inputEntry.set_height(300);
             let box = new St.BoxLayout({
                 vertical: true,
             });
@@ -218,7 +251,6 @@ var TranslateAssistant = GObject.registerClass(
             this.outputEntry.get_clutter_text().set_line_wrap_mode(Pango.WrapMode.WORD_CHAR);
             this.outputEntry.get_clutter_text().set_single_line_mode(false);
             this.outputEntry.get_clutter_text().set_activatable(true);
-            //this.outputEntry.set_height(300);
             let box = new St.BoxLayout({
                 vertical: true,
             });

@@ -3,12 +3,12 @@
   "extension-id": "translate-assistant@atareao.es",
   "gettext-domain": "translate-assistant@atareao.es",
   "name": "Translate assistant",
-  "settings-schema": "es.atareao.translate-assistant",
+  "settings-schema": "org.gnome.shell.extensions.translate-assistant",
   "shell-version": [
     "42"
   ],
   "url": "https://github.com/atareao/translate-assistant",
   "uuid": "translate-assistant@atareao.es",
   "icon": "translate-assistant-icon",
-  "version": 2
+  "version": 3
 }

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Translate Assistant - 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-14 05:16+0200\n"
+"POT-Creation-Date: 2022-06-18 12:58+0200\n"
 "PO-Revision-Date: 2020-09-15 19:23+0200\n"
 "Last-Translator: Lorenzo <atareao@atareao.es>\n"
 "Language-Team: Spanish\n"
@@ -17,38 +17,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:70
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:70
 msgid "Source language"
 msgstr "Idioma origen"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:71
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:71
 msgid "Language of the text to be translated"
 msgstr "Idioma del cual quieres traducir"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:75
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:75
 msgid "Target language"
 msgstr "Idioma destino"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:76
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:76
 msgid "The language into which the text should be translated"
 msgstr "Idioma al cual quieres traducir"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:80
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:80
 msgid "Split sentences"
 msgstr "Dividir frases"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:81
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:81
 msgid ""
 "Sets whether the translation engine should first split the input into "
 "sentences"
 msgstr ""
 "Establece si el motor de traducción debería dividir la entrada en frases"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:85
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:85
 msgid "Preserve formatting"
 msgstr "Mantener el formato"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:86
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:86
 msgid ""
 "Sets whether the translation engine should respect the original formatting, "
 "even if it would usually correct some aspects"
@@ -56,45 +56,53 @@ msgstr ""
 "Establece si el motor de traducción debería respetar el formato original, "
 "incluso si se corrigen algunos aspectos"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:90
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:90
 msgid "Formality"
 msgstr "Formal"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:91
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:91
 msgid ""
 "Sets whether the translated text should lean towards formal or informal "
 "language"
 msgstr "Define si se tiene que utilizar un lenguaje mas o menos formal"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:95
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:95
 msgid "Url"
 msgstr "Url"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:96
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:96
 msgid "The url of DeepL"
 msgstr "La url de DeepL"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:100
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:100
 msgid "DeepL API key"
 msgstr "La clave API de DeepL"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:101
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:101
 msgid "Set DeepL API key"
 msgstr "Configura la clave API de DeepL"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:105
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:105
 msgid "Shortcut"
 msgstr "Atajo de teclado"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:106
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:106
 msgid "Shortcut to translate the content of the clipboard"
 msgstr "Atajo de teclado para traducir el contenido del portapapeles"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:110
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:110
+msgid "Show notifications"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:111
+msgid "Show notifications on translation"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:115
 msgid "Dark theme"
 msgstr "Tema oscuro"
 
-#: schemas/es.atareao.translate-assistant.gschema.xml:111
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:116
 msgid "Enable dark theme otherwise light theme"
 msgstr "Establece el tema oscuro"
 
@@ -106,27 +114,27 @@ msgstr "Cancelar"
 msgid "Ok"
 msgstr "Aceptar"
 
-#: prefs.js:61
+#: prefs.js:50
 msgid "Indicator options"
 msgstr "Opciones del indicador"
 
-#: prefs.js:81
+#: prefs.js:70
 msgid "Theme"
 msgstr "Tema"
 
-#: prefs.js:89
+#: prefs.js:79
 msgid "Translate Assistant Preferences"
 msgstr "Preferencias del Asistente de Traducción"
 
-#: prefs.js:92
+#: prefs.js:82
 msgid "Style"
 msgstr "Estilo"
 
-#: prefs.js:93
+#: prefs.js:83
 msgid "About"
 msgstr "Acerca de"
 
-#: prefs.js:102
+#: prefs.js:92
 msgid "Translate Assistant Configuration"
 msgstr "Configuración del Asistente de Traducción"
 
@@ -142,7 +150,7 @@ msgstr "Cierto"
 msgid "False"
 msgstr "Falso"
 
-#: preferenceswidget.js:468 preferenceswidget.js:999
+#: preferenceswidget.js:468 preferenceswidget.js:1001
 msgid "Edit"
 msgstr "Editar"
 
@@ -154,7 +162,7 @@ msgstr "Nombre"
 msgid "Service"
 msgstr "Servicio"
 
-#: preferenceswidget.js:1009
+#: preferenceswidget.js:1011
 msgid "Remove"
 msgstr "Borrar"
 
@@ -178,50 +186,75 @@ msgstr "OS"
 msgid "SessionType"
 msgstr "Tipo de sesión"
 
-#: aboutpage.js:90
+#: aboutpage.js:83
 msgid "Developers"
 msgstr "Desarrolladores"
 
-#: aboutpage.js:97
+#: aboutpage.js:90
 msgid "Contributors"
 msgstr "Contribuidores"
 
-#: aboutpage.js:98
+#: aboutpage.js:91
 msgid "Thank you to all contributors!"
 msgstr "Gracias a todos los contribuidores!"
 
-#: aboutpage.js:99
+#: aboutpage.js:92
 msgid "For a list of all contributors, please visit"
 msgstr "Para ver una lista de todos los contribuidores, por favor visita"
 
-#: aboutpage.js:108
+#: aboutpage.js:101
 msgid "Supporters"
 msgstr "Colaboradores"
 
-#: aboutpage.js:109
+#: aboutpage.js:102
 msgid "Thank you to all supporters!"
 msgstr "Gracias a todos los colaboradores!"
 
-#: aboutpage.js:110
+#: aboutpage.js:103
 msgid "For a list of all supporters, please visit"
 msgstr "Para ver una lista de todos los colaboradores, por favor visita"
 
-#: aboutpage.js:117
+#: aboutpage.js:110
 msgid "License"
 msgstr "Licencia"
 
-#: aboutpage.js:130
+#: aboutpage.js:123
 msgid "More info"
 msgstr "Mas información"
 
-#: aboutpage.js:140
+#: aboutpage.js:133
 msgid "More information"
 msgstr "Mas información"
 
-#: aboutpage.js:143
+#: aboutpage.js:136
 msgid "Report an issue"
 msgstr "Informa de un error..."
 
-#: extension.js:83
+#: extension.js:65
 msgid "Settings"
 msgstr "Configuración"
+
+#: extension.js:147
+#, fuzzy
+msgid "Set API Key of DeepL"
+msgstr "La url de DeepL"
+
+#: extension.js:172
+msgid "Translated"
+msgstr ""
+
+#: extension.js:182
+msgid "Translate"
+msgstr ""
+
+#: extension.js:198
+msgid "Copy"
+msgstr ""
+
+#: extension.js:237
+msgid "From"
+msgstr ""
+
+#: extension.js:262
+msgid "To"
+msgstr ""

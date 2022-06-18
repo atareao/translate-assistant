@@ -64,7 +64,7 @@
         <value value="2" nick="less"/>
     </enum>
 
-    <schema path="/es/atareao/translate-assistant/" id="es.atareao.translate-assistant">
+    <schema path="/org/gnome/shell/extensions/translate-assistant/" id="org.gnome.shell.extensions.translate-assistant">
         <key name="source-lang" enum="es.atareao.translate-assistant.source-lang">
             <default>'English (EN)'</default>
             <summary>Source language</summary>
@@ -104,6 +104,11 @@
             <default><![CDATA[['<Super>t']]]></default>
             <summary>Shortcut</summary>
             <description>Shortcut to translate the content of the clipboard</description>
+        </key>
+        <key name="notifications" type="b">
+            <default>false</default>
+            <summary>Show notifications</summary>
+            <description>Show notifications on translation</description>
         </key>
         <key name="darktheme" type="b">
             <default>false</default>

@@ -46,17 +46,6 @@ var TranslateAssistantPreferencesWidget = GObject.registerClass(
 
             var settings = ExtensionUtils.getSettings();
 
-            /*
-            source-lang
-            target-lang
-            split-sentences
-            preserve-formatting
-            formality
-            apikey
-            keybinding-translate-clipboard
-            BoolSetting => darktheme
-            */
-
             let indicatorSection = preferencesPage.addFrame(
                 _("Indicator options"));
             indicatorSection.addWidgetSetting(
@@ -79,6 +68,7 @@ var TranslateAssistantPreferencesWidget = GObject.registerClass(
 
             const themePage = new Widgets.Page();
             const styleSection = themePage.addFrame(_("Theme"));
+            styleSection.addGSetting(settings, "notifications");
             styleSection.addGSetting(settings, "darktheme");
             styleSection.addWidgetSetting(
                 settings,
