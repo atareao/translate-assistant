@@ -68,8 +68,8 @@ var TranslateAssistant = GObject.registerClass(
             box.add(this.icon);
             this.add_child(box);
 
-            let itemTranslation = this._buildMenu();
-            this.menu.addMenuItem(itemTranslation);
+            this.menu.addMenuItem(this._menuInput());
+            this.menu.addMenuItem(this._menuOutput());
 
             /* Separator */
             this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
@@ -181,29 +181,7 @@ var TranslateAssistant = GObject.registerClass(
             this.outputEntry.get_clutter_text().set_text(to_text);
         }
 
-        _buildMenu(){
-            let section = new PopupMenu.PopupBaseMenuItem({
-                reactive: false,
-                can_focus: false
-            });
-            let scrollI = new St.ScrollView({
-                width: 300,
-                height: 300
-            });
-            let scrollO = new St.ScrollView({
-                width: 300,
-                height: 300,
-            });
-            let actor = new St.BoxLayout({
-                reactive: true,
-                x_expand: true,
-                y_expand: true,
-                x_align: St.Align.END,
-                y_align: St.Align.MIDDLE,
-                vertical: true
-            });
-            actor.add_child(scrollI);
-            actor.add_child(scrollO);//Translate Input
+        _menuInput(){
             this.inputEntry = new St.Entry({
                 name: 'inputEntry',
                 style_class: 'entry',
@@ -215,7 +193,21 @@ var TranslateAssistant = GObject.registerClass(
             this.inputEntry.get_clutter_text().set_single_line_mode(false);
             this.inputEntry.get_clutter_text().set_activatable(true);
             this.inputEntry.set_height(300);
-            //Translate Output
+            let box = new St.BoxLayout({
+                vertical: true,
+            });
+            box.add_child(this.inputEntry);
+            let scroll = new St.ScrollView({
+                width: 300,
+                height: 300
+            });
+            scroll.add_actor(box);
+            this.menuInputExpander = new PopupMenu.PopupSubMenuMenuItem(_("From"));
+            this.menuInputExpander.menu.box.add(scroll);
+            return this.menuInputExpander;
+        }
+
+        _menuOutput(){
             this.outputEntry = new St.Entry({
                 name: 'outputEntry',
                 style_class: 'entry',
@@ -226,20 +218,19 @@ var TranslateAssistant = GObject.registerClass(
             this.outputEntry.get_clutter_text().set_line_wrap_mode(Pango.WrapMode.WORD_CHAR);
             this.outputEntry.get_clutter_text().set_single_line_mode(false);
             this.outputEntry.get_clutter_text().set_activatable(true);
-            this.outputEntry.set_height(300);
-
-            let _boxI = new St.BoxLayout({
+            //this.outputEntry.set_height(300);
+            let box = new St.BoxLayout({
                 vertical: true,
             });
-            _boxI.add_child(this.inputEntry);
-            let _boxO = new St.BoxLayout({
-                vertical: true,
+            box.add_child(this.outputEntry);
+            let scroll = new St.ScrollView({
+                width: 300,
+                height: 300
             });
-            _boxO.add_child(this.outputEntry);
-            scrollI.add_actor(_boxI);
-            scrollO.add_actor(_boxO);
-            section.actor.add_actor(actor);
-            return section;
+            scroll.add_actor(box);
+            this.menuOutputExpander = new PopupMenu.PopupSubMenuMenuItem(_("To"));
+            this.menuOutputExpander.menu.box.add(scroll);
+            return this.menuOutputExpander;
         }
 
         _getValue(keyName){
@@ -271,8 +262,9 @@ var TranslateAssistant = GObject.registerClass(
             this._loadPreferences();
         }
 
-        disable(){
+        destroy(){
             this._unbindShortcut();
+            super.destroy();
         }
     }
 );
@@ -289,6 +281,6 @@ function enable(){
 }
 
 function disable() {
-    translateAssistant.disable();
+    translateAssistant.destroy();
     translateAssistant = null;
 }
