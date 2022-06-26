@@ -199,7 +199,8 @@ var TranslateAssistant = GObject.registerClass(
                 xAlign: Clutter.ActorAlign.CENTER,
                 reactive: true,
                 marginLeft: 10,
-                marginRight: 10
+                marginRight: 10,
+                styleClass: "translate-assistant-button"
             });
             buttonPasteFromClipboard.connect('clicked', ()=>{
                 this._translate();
@@ -211,7 +212,8 @@ var TranslateAssistant = GObject.registerClass(
                 xAlign: Clutter.ActorAlign.CENTER,
                 reactive: true,
                 marginLeft: 10,
-                marginRight: 10
+                marginRight: 10,
+                styleClass: "translate-assistant-button"
             });
             buttonTranslate.connect('clicked', ()=>{
                 let from_text = this.inputEntry.get_clutter_text().get_text();
@@ -227,7 +229,8 @@ var TranslateAssistant = GObject.registerClass(
                 xAlign: Clutter.ActorAlign.CENTER,
                 reactive: true,
                 marginLeft: 10,
-                marginRight: 10
+                marginRight: 10,
+                styleClass: "translate-assistant-button"
             });
             buttonCopyToClipboard.connect('clicked', ()=>{
                 let to_text = this.outputEntry.get_clutter_text().get_text();

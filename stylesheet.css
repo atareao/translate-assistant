@@ -1,7 +1,11 @@
-.battery-box{
-	padding: 14px;
-	min-width: 200px;
+StButton.translate-assistant-button {
+    border-radius: 5px;
+    background-color: #474747;
+    transition-duration: 0.4s;
+    padding: 5px;
+    margin: 5px;
 }
-.battery-label{
-	margin-bottom: 10px;
+StButton.translate-assistant-button:hover{
+    background-color: #4CAF50;
+    color: white;
 }
