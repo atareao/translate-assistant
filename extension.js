@@ -40,7 +40,7 @@ const Clipboard = St.Clipboard.get_default();
 const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 
 const SHELL_KEYBINDINGS_SCHEMA = "org.gnome.shell.keybindings";
-const SHORTCUT_SETTING_KEY = "translate-assistant-clipboard";
+const SHORTCUT_SETTING_KEY = "keybinding-translate-clipboard";
 
 
 var TranslateAssistant = GObject.registerClass(
@@ -91,7 +91,8 @@ var TranslateAssistant = GObject.registerClass(
             this._formality = this._getValue('formality');
             this._url = this._getValue('url');
             this._apikey = this._getValue('apikey');
-            this._keybinding_translate_clipboard = this._getValue('keybinding-translate-clipboard');
+            this._keybinding_translate_clipboard = this._getValue(SHORTCUT_SETTING_KEY);
+            log(this._keybinding_translate_clipboard);
             this._notifications = this._getValue('notifications');
             this._darktheme = this._getValue('darktheme');
 
@@ -101,7 +102,7 @@ var TranslateAssistant = GObject.registerClass(
         }
 
         _bindShortcut(){
-            Main.wm.addKeybinding("keybinding-translate-clipboard",
+            Main.wm.addKeybinding(SHORTCUT_SETTING_KEY,
                                   this._settings,
                                   Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
                                   Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW,
@@ -114,8 +115,8 @@ var TranslateAssistant = GObject.registerClass(
         }
 
         _translate(){
-            Clipboard.get_text(CLIPBOARD_TYPE,(clipBoard, fromText) => {
-                if(fromText){
+            Clipboard.get_text(CLIPBOARD_TYPE,(_, fromText) => {
+                if(fromText && fromText !== ""){
                     let split_sentences = this._split_sentences?"1":"0";
                     let preserve_formatting = this._preserve_formatting?"1":"0";
                     let encodedFromText = encodeURIComponent(fromText);
@@ -135,7 +136,7 @@ var TranslateAssistant = GObject.registerClass(
                     message.set_request(content_type, 2, data);
                     let httpSession = new Soup.Session();
                     httpSession.queue_message(message,
-                        (httpSession, message) => {
+                        (_, message) => {
                             if(message.status_code === Soup.KnownStatusCode.OK) {
                                 try {
                                     let result = JSON.parse(message.response_body.data);
@@ -203,7 +204,11 @@ var TranslateAssistant = GObject.registerClass(
                 styleClass: "translate-assistant-button"
             });
             buttonPasteFromClipboard.connect('clicked', ()=>{
-                this._translate();
+                Clipboard.get_text(CLIPBOARD_TYPE,(_, fromText) => {
+                    if(fromText && fromText !== ""){
+                        this.inputEntry.get_clutter_text().set_text(fromText);
+                    }
+                });
             });
             box.add_child(buttonPasteFromClipboard);
             let buttonTranslate = new St.Button({
@@ -217,7 +222,7 @@ var TranslateAssistant = GObject.registerClass(
             });
             buttonTranslate.connect('clicked', ()=>{
                 let from_text = this.inputEntry.get_clutter_text().get_text();
-                if(from_text){
+                if(from_text && from_text !== ""){
                     Clipboard.set_text(CLIPBOARD_TYPE, from_text);
                     this._translate();
                 }
@@ -234,7 +239,7 @@ var TranslateAssistant = GObject.registerClass(
             });
             buttonCopyToClipboard.connect('clicked', ()=>{
                 let to_text = this.outputEntry.get_clutter_text().get_text();
-                if(to_text){
+                if(to_text && to_text !== ""){
                     Clipboard.set_text(CLIPBOARD_TYPE, to_text);
                 }
             });

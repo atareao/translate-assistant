@@ -2,6 +2,7 @@
   "description": "Translate with DeepL Translator",
   "extension-id": "translate-assistant@atareao.es",
   "gettext-domain": "translate-assistant@atareao.es",
+  "icon": "translate-assistant-icon",
   "name": "Translate assistant",
   "settings-schema": "org.gnome.shell.extensions.translate-assistant",
   "shell-version": [
@@ -9,6 +10,5 @@
   ],
   "url": "https://github.com/atareao/translate-assistant",
   "uuid": "translate-assistant@atareao.es",
-  "icon": "translate-assistant-icon",
-  "version": 5
+  "version": 6
 }
