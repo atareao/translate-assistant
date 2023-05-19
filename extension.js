@@ -119,29 +119,35 @@ var TranslateAssistant = GObject.registerClass(
                 if(fromText && fromText !== ""){
                     let split_sentences = this._split_sentences?"1":"0";
                     let preserve_formatting = this._preserve_formatting?"1":"0";
-                    let encodedFromText = encodeURIComponent(fromText);
-                    let params = [];
-                    params.push(
-                        `auth_key=${this._apikey}`,
-                        `text=${encodedFromText}`,
-                        `source_lang=${this._source_lang}`,
-                        `target_lang=${this._target_lang}`,
-                        `split_sentences=${split_sentences}`,
-                        `preserve_formatting=${preserve_formatting}`,
-                        `formality=${this._formality}`,
+                    let params = {
+                        auth_key: this._apikey,
+                        text: fromText,
+                        source_lang: this._source_lang,
+                        target_lang: this._target_lang,
+                        split_sentences: split_sentences,
+                        preserve_formatting: preserve_formatting,
+                        formality: this._formality,
+                    };
+                    let message = Soup.Message.new_from_encoded_form(
+                        'POST',
+                        this._url,
+                        Soup.form_encode_hash(params)
                     );
-                    let data = params.join("&");
-                    let content_type = "application/x-www-form-urlencoded";
-                    let message = Soup.Message.new('POST', this._url);
-                    message.set_request(content_type, 2, data);
-                    let httpSession = new Soup.Session();
-                    httpSession.queue_message(message,
-                        (_, message) => {
-                            if(message.status_code === Soup.KnownStatusCode.OK) {
+                    let session = new Soup.Session();
+
+                    session.send_and_read_async(
+                        message,
+                        GLib.PRIORITY_DEFAULT,
+                        null,
+                        (session, result) => {
+                            if(message.get_status() === Soup.Status.OK) {
                                 try {
-                                    let result = JSON.parse(message.response_body.data);
                                     if(result){
-                                        let translations = result.translations;
+                                        let bytes = session.send_and_read_finish(result);
+                                        let decoder = new TextDecoder("utf-8");
+                                        let response = decoder.decode(bytes.get_data());
+                                        let json = JSON.parse(response);
+                                        let translations = json.translations;
                                         let toText = null;
                                         if (translations.length > 0){
                                             toText = translations[0].text;
