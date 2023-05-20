@@ -99,26 +99,47 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- start table-contributors -->
 
 <table id="contributors">
-	<tr id="info_avatar">
-		<td id="atareao" align="center">
-			<a href="https://github.com/atareao">
-				<img src="https://avatars3.githubusercontent.com/u/298055?v=4" width="100px"/>
-			</a>
-		</td>
-	</tr>
-	<tr id="info_name">
-		<td id="atareao" align="center">
-			<a href="https://github.com/atareao">
-				<strong>Lorenzo Carbonell</strong>
-			</a>
-		</td>
-	</tr>
-	<tr id="info_commit">
-		<td id="atareao" align="center">
-			<a href="/commits?author=atareao">
-				<span id="role">💻</span>
-			</a>
-		</td>
-	</tr>
+    <tr id="info_avatar">
+        <td id="daPhipz" align="center">
+            <a href="https://github.com/daPhipz">
+                <img src="https://avatars3.githubusercontent.com/u/30795174?v=4" width="100px"/>
+            </a>
+        </td>
+    </tr>
+    <tr id="info_name">
+        <td id="daPhipz" align="center">
+            <a href="https://github.com/daPhipz">
+                <strong>Lorenzo Carbonell</strong>
+            </a>
+        </td>
+    </tr>
+    <tr id="info_commit">
+        <td id="daPhipz" align="center">
+            <a href="/commits?author=daPhipz">
+                <span id="role">💻</span>
+            </a>
+        </td>
+    </tr>
+    <tr id="info_avatar">
+        <td id="atareao" align="center">
+            <a href="https://github.com/atareao">
+                <img src="https://avatars3.githubusercontent.com/u/298055?v=4" width="100px"/>
+            </a>
+        </td>
+    </tr>
+    <tr id="info_name">
+        <td id="atareao" align="center">
+            <a href="https://github.com/atareao">
+                <strong>Lorenzo Carbonell</strong>
+            </a>
+        </td>
+    </tr>
+    <tr id="info_commit">
+        <td id="atareao" align="center">
+            <a href="/commits?author=atareao">
+                <span id="role">💻</span>
+            </a>
+        </td>
+    </tr>
 </table>
 <!-- end table-contributors -->
