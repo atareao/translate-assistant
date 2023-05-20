@@ -105,6 +105,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
                 <img src="https://avatars3.githubusercontent.com/u/30795174?v=4" width="100px"/>
             </a>
         </td>
+        <td id="fabricio8800" align="center">
+            <a href="https://github.com/fabricio8800">
+                <img src="https://avatars3.githubusercontent.com/u/7343464?v=4" width="100px"/>
+            </a>
+        </td>
         <td id="atareao" align="center">
             <a href="https://github.com/atareao">
                 <img src="https://avatars3.githubusercontent.com/u/298055?v=4" width="100px"/>
@@ -117,6 +122,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
                 <strong>Philipp Kiemle</strong>
             </a>
         </td>
+        <td id="fabricio8800" align="center">
+            <a href="https://github.com/fabricio8800">
+                <strong>Fabrício Müller</strong>
+            </a>
+        </td>
         <td id="atareao" align="center">
             <a href="https://github.com/atareao">
                 <strong>Lorenzo Carbonell</strong>
@@ -126,6 +136,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr id="info_commit">
         <td id="daPhipz" align="center">
             <a href="/commits?author=daPhipz">
+                <span id="role">💻</span>
+            </a>
+        </td>
+        <td id="fabricio8800" align="center">
+            <a href="/commits?author=fabricio8800">
                 <span id="role">💻</span>
             </a>
         </td>
