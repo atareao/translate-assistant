@@ -110,6 +110,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
                 <img src="https://avatars3.githubusercontent.com/u/7343464?v=4" width="100px"/>
             </a>
         </td>
+        <td id="Vistaus" align="center">
+            <a href="https://github.com/Vistaus">
+                <img src="https://avatars3.githubusercontent.com/u/298055?v=4" width="100px"/>
+            </a>
+        </td>
         <td id="atareao" align="center">
             <a href="https://github.com/atareao">
                 <img src="https://avatars3.githubusercontent.com/u/298055?v=4" width="100px"/>
@@ -127,6 +132,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
                 <strong>Fabrício Müller</strong>
             </a>
         </td>
+        <td id="Vistaus" align="center">
+            <a href="https://github.com/Vistaus">
+                <strong> Heimen Stoffels </strong>
+            </a>
+        </td>
         <td id="atareao" align="center">
             <a href="https://github.com/atareao">
                 <strong>Lorenzo Carbonell</strong>
@@ -141,6 +151,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
         </td>
         <td id="fabricio8800" align="center">
             <a href="/commits?author=fabricio8800">
+                <span id="role">💻</span>
+            </a>
+        </td>
+        <td id="Vistaus" align="center">
+            <a href="/commits?author=Vistaus">
                 <span id="role">💻</span>
             </a>
         </td>
