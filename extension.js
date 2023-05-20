@@ -60,14 +60,14 @@ var TranslateAssistant = GObject.registerClass(
             box.add(this.icon);
             this.add_child(box);
 
-            this.autoPasteSwitch = new PopupMenu.PopupSwitchMenuItem(_('Auto Paste'),
-                                                                    {active: false})
+            this.autoPasteSwitch = new PopupMenu.PopupSwitchMenuItem(
+                _('Auto Paste'), this._getValue("auto-paste"), {});
             this.menu.addMenuItem(this.autoPasteSwitch)
-            this.autoTranslateSwitch = new PopupMenu.PopupSwitchMenuItem(_('Auto Translate'),
-                                                                    {active: false})
+            this.autoTranslateSwitch = new PopupMenu.PopupSwitchMenuItem(
+                _('Auto Translate'), this._getValue("auto-translate"), {});
             this.menu.addMenuItem(this.autoTranslateSwitch)
-            this.autoCopySwitch = new PopupMenu.PopupSwitchMenuItem(_('Auto Copy'),
-                                                                    {active: false})
+            this.autoCopySwitch = new PopupMenu.PopupSwitchMenuItem(
+                _('Auto Copy'), this._getValue("auto-copy"), {});
             this.menu.addMenuItem(this.autoCopySwitch)
             this._source_lang = this._get_country_code(this._getValue('source-lang'));
             this._target_lang = this._get_country_code(this._getValue('target-lang'));

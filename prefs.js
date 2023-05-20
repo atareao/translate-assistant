@@ -84,7 +84,7 @@ var TranslateAssistantPreferencesWidget = GObject.registerClass(
             this.add(_("Translate Assistant Preferences"),
                      "preferences-other-symbolic",
                      preferencesPage);
-            this.add(_("Auto Options"), "conf", autoPage);
+            this.add(_("Auto Options"), "preferences-system-details-symbolic", autoPage);
             this.add(_("Style"), "style", themePage);
             this.add(_("About"), "help-about-symbolic", new AboutPage());
         }
