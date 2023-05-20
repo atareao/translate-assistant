@@ -107,36 +107,32 @@ msgid "Enable dark theme otherwise light theme"
 msgstr "Establece el tema oscuro"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:120
-#, fuzzy
 msgid "Auto paste"
-msgstr "Copia automática"
+msgstr "Pegado automático"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:121
-#, fuzzy
 msgid "Paste automatically the content of the clipboard in the input text box"
-msgstr "Atajo de teclado para traducir el contenido del portapapeles"
+msgstr "Pegar automáticamente el contenido del portapapeles en el cuadro de texto de entrada"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:125
-#, fuzzy
 msgid "Auto copy"
 msgstr "Copia automática"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:126
-#, fuzzy
 msgid "Copy automatically the content of the output box in the clipboard"
-msgstr "Atajo de teclado para traducir el contenido del portapapeles"
+msgstr "Copiar automáticamente el contenido del cuadro de salida en el portapapeles"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:130
-#, fuzzy
 msgid "Auto translate"
-msgstr "Traducir"
+msgstr "Traducción automática"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:131
-#, fuzzy
 msgid ""
 "Translate automatically the content of the input box and the set the result "
 "in the output box"
-msgstr "Atajo de teclado para traducir el contenido del portapapeles"
+msgstr ""
+"Traduce automáticamente el contenido de la casilla de entrada y "
+"el resultado se muestra en la casilla de salida"
 
 #: dialogwidgets.js:53
 msgid "Cancel"
