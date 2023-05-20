@@ -45,7 +45,7 @@ You need GNOME Shell
 
 To install <span id="project_title">Translate Assistant for GNOME Shell</span>, follow these steps:
 
-Goto [GNOME Extensions page](https://extensions.gnome.org/) and search for WireGuard Indicator.
+Goto [GNOME Extensions page](https://extensions.gnome.org/) and search for Translate Assistant, or go to [Translate Assistant in GNOME Shell](https://extensions.gnome.org/extension/5124/translate-assistant/)
 
 Enable the extension by click the switch.
 
@@ -68,7 +68,7 @@ There are a lot of options to configure <span id="project_title">Translate Assis
 
 About
 
-![Translate Assistant for GNOME Shell](./screenshots/screenshot-3.png)
+![Translate Assistant for GNOME Shell](./screenshots/screenshot-5.png)
 <!-- end using -->
 
 <!-- start contributing -->
