@@ -47,6 +47,11 @@ var TranslateAssistant = GObject.registerClass(
     class TranslateAssistant extends PanelMenu.Button{
         _init(){
             super._init(St.Align.START);
+
+            this._settingsChangedId = null;
+            this._clipboardTimeoutId = null;
+            this._selectionOwnerChangedId = null;
+
             this._settings = ExtensionUtils.getSettings();
 
             /* Icon indicator */
@@ -58,9 +63,8 @@ var TranslateAssistant = GObject.registerClass(
             this.autoCopySwitch = new PopupMenu.PopupSwitchMenuItem(_('Auto Copy'),
                                                                     {active: false})
             this.menu.addMenuItem(this.autoCopySwitch)
-            this.autoCopySwitch.connect('toggled', () => {
-                this._set_icon_indicator();
-            });
+            this._source_lang = this._get_country_code(this._getValue('source-lang'));
+            this._target_lang = this._get_country_code(this._getValue('target-lang'));
             /* Separator */
             this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
             this.menu.addMenuItem(this._menuInput());
@@ -78,9 +82,84 @@ var TranslateAssistant = GObject.registerClass(
             /* Init */
             this._set_icon_indicator();
             this._settingsChanged();
-            this._settings.connect('changed', ()=>{
+            this._settingsChangedId = this._settings.connect('changed', ()=>{
                 this._settingsChanged();
             });
+
+            this._setupListener();
+        }
+
+        _setupListener(){
+            const metaDisplay = Shell.Global.get().get_display();
+            if (typeof metaDisplay.get_selection === 'function') {
+                const selection = metaDisplay.get_selection();
+                this._setupSelectionTracking(selection);
+            }
+            else {
+                this._setupTimeout();
+            }
+        }
+
+        _setupSelectionTracking (selection) {
+            this.selection = selection;
+            this._selectionOwnerChangedId = selection.connect('owner-changed', (selection, selectionType, selectionSource) => {
+                this._onSelectionChange(selection, selectionType, selectionSource);
+            });
+        }
+
+        _translateIfAutoCopy(){
+            if(this.autoCopySwitch.state === true){ 
+                Clipboard.get_text(CLIPBOARD_TYPE,(_, fromText) => {
+                    if(fromText && fromText !== ""){
+                        this.inputEntry.get_clutter_text().set_text(fromText);
+                    }
+                });
+            }
+        }
+
+        _onSelectionChange(selection, selectionType, selectionSource){
+            if (selectionType === Meta.SelectionType.SELECTION_CLIPBOARD) {
+                this._translateIfAutoCopy();
+            }
+        }
+
+        _setupTimeout (reiterate) {
+            let that = this;
+            reiterate = typeof reiterate === 'boolean' ? reiterate : true;
+
+            this._clipboardTimeoutId = Mainloop.timeout_add(TIMEOUT_MS, function () {
+                that._translateIfAutoCopy();
+
+                // If the timeout handler returns `false`, the source is
+                // automatically removed, so we reset the timeout-id so it won't
+                // be removed on `.destroy()`
+                if (reiterate === false)
+                    that._clipboardTimeoutId = null;
+
+                // As long as the timeout handler returns `true`, the handler
+                // will be invoked again and again as an interval
+                return reiterate;
+            });
+        }
+        _clearClipboardTimeout () {
+            if (!this._clipboardTimeoutId)
+                return;
+
+            Mainloop.source_remove(this._clipboardTimeoutId);
+            this._clipboardTimeoutId = null;
+        }
+        _disconnectSelectionListener () {
+            if (!this._selectionOwnerChangedId)
+                return;
+
+            this.selection.disconnect(this._selectionOwnerChangedId);
+        }
+        _disconnectSettings () {
+            if (!this._settingsChangedId)
+                return;
+
+            this._settings.disconnect(this._settingsChangedId);
+            this._settingsChangedId = null;
         }
 
         _loadPreferences(){
@@ -112,6 +191,63 @@ var TranslateAssistant = GObject.registerClass(
 
         _unbindShortcut(){
             Main.wm.removeKeybinding(SHORTCUT_SETTING_KEY);
+        }
+
+        _translateText(fromOrTo, fromText, callback){
+            if(fromText && fromText !== ""){
+                let split_sentences = this._split_sentences?"1":"0";
+                let preserve_formatting = this._preserve_formatting?"1":"0";
+                let params = {
+                    auth_key: this._apikey,
+                    text: fromText,
+                    source_lang: fromOrTo === true?this._source_lang:this._target_lang,
+                    target_lang: fromOrTo === true?this._target_lang:this._source_lang,
+                    split_sentences: split_sentences,
+                    preserve_formatting: preserve_formatting,
+                    formality: this._formality,
+                };
+                let message = Soup.Message.new_from_encoded_form(
+                    'POST',
+                    this._url,
+                    Soup.form_encode_hash(params)
+                );
+                let session = new Soup.Session();
+                session.send_and_read_async(
+                    message,
+                    GLib.PRIORITY_DEFAULT,
+                    null,
+                    (session, result) => {
+                        if(message.get_status() === Soup.Status.OK) {
+                            try {
+                                if(result){
+                                    let bytes = session.send_and_read_finish(result);
+                                    let decoder = new TextDecoder("utf-8");
+                                    let response = decoder.decode(bytes.get_data());
+                                    let json = JSON.parse(response);
+                                    let translations = json.translations;
+                                    let toText = null;
+                                    if (translations.length > 0){
+                                        toText = translations[0].text;
+                                    }else{
+                                        toText = "";
+                                    }
+                                    callback(toText);
+                                }
+                            } catch(e) {
+                                Main.notify("Translate Assistant", `Error: ${e}`);
+                            }
+                        }else{
+                            if(message.status_code == 403){
+                                Main.notify("Translate Assistant", _("Set API Key of DeepL"));
+                            }else{
+                                const code = message.status_code;
+                                Main.notify("Translate Assistant", `Error: ${code}`);
+                            }
+                        }
+                    }
+                );
+            }
+
         }
 
         _translate(){
@@ -217,8 +353,30 @@ var TranslateAssistant = GObject.registerClass(
                 });
             });
             box.add_child(buttonPasteFromClipboard);
+            let buttonTranslateFrom = new St.Button({
+                label: "⌄",
+                x_expand: true,
+                xAlign: Clutter.ActorAlign.CENTER,
+                reactive: true,
+                marginLeft: 10,
+                marginRight: 10,
+                styleClass: "translate-assistant-button"
+            });
+            buttonTranslateFrom.connect('clicked', ()=>{
+                let fromText = this.inputEntry.get_clutter_text().get_text();
+                this._translateText(true, fromText, (toText) => {
+                    this.outputEntry.get_clutter_text().set_text(toText);
+                    if(this._notifications){
+                        Main.notify("Translate Assistant", _("Translated"));
+                    }
+                    if(this.autoCopySwitch._switch.state){
+                        Clipboard.set_text(CLIPBOARD_TYPE, toText);
+                    }
+                });
+            });
+            box.add_child(buttonTranslateFrom);
             let buttonTranslate = new St.Button({
-                label: _("Translate"),
+                label: "⌃",
                 x_expand: true,
                 xAlign: Clutter.ActorAlign.CENTER,
                 reactive: true,
@@ -227,11 +385,16 @@ var TranslateAssistant = GObject.registerClass(
                 styleClass: "translate-assistant-button"
             });
             buttonTranslate.connect('clicked', ()=>{
-                let from_text = this.inputEntry.get_clutter_text().get_text();
-                if(from_text && from_text !== ""){
-                    Clipboard.set_text(CLIPBOARD_TYPE, from_text);
-                    this._translate();
-                }
+                let fromText = this.outputEntry.get_clutter_text().get_text();
+                this._translateText(false, fromText, (toText) => {
+                    this.inputEntry.get_clutter_text().set_text(toText);
+                    if(this._notifications){
+                        Main.notify("Translate Assistant", _("Translated"));
+                    }
+                    if(this.autoCopySwitch._switch.state){
+                        Clipboard.set_text(CLIPBOARD_TYPE, toText);
+                    }
+                });
             });
             box.add_child(buttonTranslate);
             let buttonCopyToClipboard = new St.Button({
@@ -275,7 +438,7 @@ var TranslateAssistant = GObject.registerClass(
                 height: 300
             });
             scroll.add_actor(box);
-            this.menuInputExpander = new PopupMenu.PopupSubMenuMenuItem(_("From"));
+            this.menuInputExpander = new PopupMenu.PopupSubMenuMenuItem(this._source_lang);
             this.menuInputExpander.menu.box.add(scroll);
             return this.menuInputExpander;
         }
@@ -300,7 +463,7 @@ var TranslateAssistant = GObject.registerClass(
                 height: 300
             });
             scroll.add_actor(box);
-            this.menuOutputExpander = new PopupMenu.PopupSubMenuMenuItem(_("To"));
+            this.menuOutputExpander = new PopupMenu.PopupSubMenuMenuItem(this._target_lang);
             this.menuOutputExpander.menu.box.add(scroll);
             return this.menuOutputExpander;
         }
@@ -333,10 +496,15 @@ var TranslateAssistant = GObject.registerClass(
 
         _settingsChanged(){
             this._loadPreferences();
+            this.menuInputExpander.label.text = this._source_lang;
+            this.menuOutputExpander.label.text = this._target_lang;
         }
 
         destroy(){
+            this._disconnectSettings();
             this._unbindShortcut();
+            this._clearClipboardTimeout();
+            this._disconnectSelectionListener();
             super.destroy();
         }
     }
