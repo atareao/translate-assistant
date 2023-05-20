@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-19 19:14+0200\n"
+"POT-Creation-Date: 2023-05-20 10:11+0200\n"
 "PO-Revision-Date: 2022-02-25 17:55+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -105,6 +105,32 @@ msgstr "Donker thema gebruiken"
 msgid "Enable dark theme otherwise light theme"
 msgstr "Gebruik het donkere thema in plaats van het lichte"
 
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:120
+msgid "Auto paste"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:121
+msgid "Paste automatically the content of the clipboard in the input text box"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:125
+msgid "Auto copy"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:126
+msgid "Copy automatically the content of the output box in the clipboard"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:130
+msgid "Auto translate"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:131
+msgid ""
+"Translate automatically the content of the input box and the set the result "
+"in the output box"
+msgstr ""
+
 #: dialogwidgets.js:53
 msgid "Cancel"
 msgstr "Annuleren"
@@ -121,20 +147,25 @@ msgstr "Indicatorvoorkeuren"
 msgid "Theme"
 msgstr "Thema"
 
-#: prefs.js:79
+#: prefs.js:79 prefs.js:87
+#, fuzzy
+msgid "Auto Options"
+msgstr "Indicatorvoorkeuren"
+
+#: prefs.js:84
 #, fuzzy
 msgid "Translate Assistant Preferences"
 msgstr "Accustatusvoorkeuren"
 
-#: prefs.js:82
+#: prefs.js:88
 msgid "Style"
 msgstr "Stijl"
 
-#: prefs.js:83
+#: prefs.js:89
 msgid "About"
 msgstr "Over"
 
-#: prefs.js:92
+#: prefs.js:98
 #, fuzzy
 msgid "Translate Assistant Configuration"
 msgstr "Accustatusvoorkeuren"
@@ -231,40 +262,36 @@ msgstr "Meer informatie"
 msgid "Report an issue"
 msgstr "Probleem melden"
 
-#: extension.js:58
+#: extension.js:63
+msgid "Auto Paste"
+msgstr ""
+
+#: extension.js:66
+msgid "Auto Translate"
+msgstr ""
+
+#: extension.js:69
 msgid "Auto Copy"
 msgstr ""
 
-#: extension.js:73
+#: extension.js:83
 msgid "Settings"
 msgstr "Voorkeuren"
 
-#: extension.js:164
-msgid "Set API Key of DeepL"
-msgstr ""
-
-#: extension.js:189
+#: extension.js:264
 msgid "Translated"
 msgstr ""
 
-#: extension.js:204
+#: extension.js:273
+msgid "Set API Key of DeepL"
+msgstr ""
+
+#: extension.js:301
 msgid "Paste"
 msgstr ""
 
-#: extension.js:221
-msgid "Translate"
-msgstr ""
-
-#: extension.js:238
+#: extension.js:360
 msgid "Copy"
-msgstr ""
-
-#: extension.js:278
-msgid "From"
-msgstr ""
-
-#: extension.js:303
-msgid "To"
 msgstr ""
 
 #~ msgid "Check time"

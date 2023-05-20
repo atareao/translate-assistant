@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Translate Assistant - 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-19 19:14+0200\n"
+"POT-Creation-Date: 2023-05-20 10:11+0200\n"
 "PO-Revision-Date: 2020-09-15 19:23+0200\n"
 "Last-Translator: Lorenzo <atareao@atareao.es>\n"
 "Language-Team: Spanish\n"
@@ -106,6 +106,38 @@ msgstr "Tema oscuro"
 msgid "Enable dark theme otherwise light theme"
 msgstr "Establece el tema oscuro"
 
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:120
+#, fuzzy
+msgid "Auto paste"
+msgstr "Copia automática"
+
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:121
+#, fuzzy
+msgid "Paste automatically the content of the clipboard in the input text box"
+msgstr "Atajo de teclado para traducir el contenido del portapapeles"
+
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:125
+#, fuzzy
+msgid "Auto copy"
+msgstr "Copia automática"
+
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:126
+#, fuzzy
+msgid "Copy automatically the content of the output box in the clipboard"
+msgstr "Atajo de teclado para traducir el contenido del portapapeles"
+
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:130
+#, fuzzy
+msgid "Auto translate"
+msgstr "Traducir"
+
+#: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:131
+#, fuzzy
+msgid ""
+"Translate automatically the content of the input box and the set the result "
+"in the output box"
+msgstr "Atajo de teclado para traducir el contenido del portapapeles"
+
 #: dialogwidgets.js:53
 msgid "Cancel"
 msgstr "Cancelar"
@@ -122,19 +154,24 @@ msgstr "Opciones del indicador"
 msgid "Theme"
 msgstr "Tema"
 
-#: prefs.js:79
+#: prefs.js:79 prefs.js:87
+#, fuzzy
+msgid "Auto Options"
+msgstr "Opciones del indicador"
+
+#: prefs.js:84
 msgid "Translate Assistant Preferences"
 msgstr "Preferencias del Asistente de Traducción"
 
-#: prefs.js:82
+#: prefs.js:88
 msgid "Style"
 msgstr "Estilo"
 
-#: prefs.js:83
+#: prefs.js:89
 msgid "About"
 msgstr "Acerca de"
 
-#: prefs.js:92
+#: prefs.js:98
 msgid "Translate Assistant Configuration"
 msgstr "Configuración del Asistente de Traducción"
 
@@ -230,38 +267,42 @@ msgstr "Mas información"
 msgid "Report an issue"
 msgstr "Informa de un error..."
 
-#: extension.js:58
+#: extension.js:63
+#, fuzzy
+msgid "Auto Paste"
+msgstr "Pegar"
+
+#: extension.js:66
+#, fuzzy
+msgid "Auto Translate"
+msgstr "Traducir"
+
+#: extension.js:69
 msgid "Auto Copy"
 msgstr "Copia automática"
 
-#: extension.js:73
+#: extension.js:83
 msgid "Settings"
 msgstr "Configuración"
 
-#: extension.js:164
-msgid "Set API Key of DeepL"
-msgstr "Introduce la clave API de DeepL"
-
-#: extension.js:189
+#: extension.js:264
 msgid "Translated"
 msgstr "Traducido"
 
-#: extension.js:204
+#: extension.js:273
+msgid "Set API Key of DeepL"
+msgstr "Introduce la clave API de DeepL"
+
+#: extension.js:301
 msgid "Paste"
 msgstr "Pegar"
 
-#: extension.js:221
-msgid "Translate"
-msgstr "Traducir"
-
-#: extension.js:238
+#: extension.js:360
 msgid "Copy"
 msgstr "Copiar"
 
-#: extension.js:278
-msgid "From"
-msgstr "De"
+#~ msgid "From"
+#~ msgstr "De"
 
-#: extension.js:303
-msgid "To"
-msgstr "A"
+#~ msgid "To"
+#~ msgstr "A"

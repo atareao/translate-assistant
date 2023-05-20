@@ -75,10 +75,16 @@ var TranslateAssistantPreferencesWidget = GObject.registerClass(
                 "keybinding-translate-clipboard",
                 new Widgets.ShortcutSetting(settings,
                                             "keybinding-translate-clipboard"));
+            const autoPage = new Widgets.Page();
+            const autoSection = autoPage.addFrame(_("Auto Options"));
+            autoSection.addGSetting(settings, "auto-paste");
+            autoSection.addGSetting(settings, "auto-translate");
+            autoSection.addGSetting(settings, "auto-copy");
 
             this.add(_("Translate Assistant Preferences"),
                      "preferences-other-symbolic",
                      preferencesPage);
+            this.add(_("Auto Options"), "conf", autoPage);
             this.add(_("Style"), "style", themePage);
             this.add(_("About"), "help-about-symbolic", new AboutPage());
         }
