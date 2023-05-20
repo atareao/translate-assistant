@@ -2,6 +2,7 @@ StButton.translate-assistant-button {
     border-radius: 5px;
     background-color: #474747;
     transition-duration: 0.4s;
+    min-width: 24px;
     padding: 5px;
     margin: 5px;
 }
