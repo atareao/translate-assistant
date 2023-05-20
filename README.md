@@ -56,15 +56,19 @@ Enable the extension by click the switch.
 
 When you start **<span id="project_title">Translate Assistant for GNOME Shell</span>** it goes to Indicator Area, as you can see in the next screenshot,
 
-![Translate Assistant for GNOME Shell](./screenshots/screenshot_01.png)
+![Translate Assistant for GNOME Shell](./screenshots/screenshot-1.png)
 
 There are a lot of options to configure <span id="project_title">Translate Assistant for GNOME Shell</span>
 
-![Translate Assistant for GNOME Shell](./screenshots/screenshot_02.png)
+![Translate Assistant for GNOME Shell](./screenshots/screenshot-2.png)
+
+![Translate Assistant for GNOME Shell](./screenshots/screenshot-3.png)
+
+![Translate Assistant for GNOME Shell](./screenshots/screenshot-4.png)
 
 About
 
-![Translate Assistant for GNOME Shell](./screenshots/screenshot_03.png)
+![Translate Assistant for GNOME Shell](./screenshots/screenshot-3.png)
 <!-- end using -->
 
 <!-- start contributing -->

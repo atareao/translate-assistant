@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Translate Assistant - 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-20 10:11+0200\n"
+"POT-Creation-Date: 2023-05-20 11:28+0200\n"
 "PO-Revision-Date: 2020-09-15 19:23+0200\n"
 "Last-Translator: Lorenzo <atareao@atareao.es>\n"
 "Language-Team: Spanish\n"
@@ -112,7 +112,9 @@ msgstr "Pegado automático"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:121
 msgid "Paste automatically the content of the clipboard in the input text box"
-msgstr "Pegar automáticamente el contenido del portapapeles en el cuadro de texto de entrada"
+msgstr ""
+"Pegar automáticamente el contenido del portapapeles en el cuadro de texto de "
+"entrada"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:125
 msgid "Auto copy"
@@ -120,7 +122,8 @@ msgstr "Copia automática"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:126
 msgid "Copy automatically the content of the output box in the clipboard"
-msgstr "Copiar automáticamente el contenido del cuadro de salida en el portapapeles"
+msgstr ""
+"Copiar automáticamente el contenido del cuadro de salida en el portapapeles"
 
 #: schemas/org.gnome.shell.extensions.translate-assistant.gschema.xml:130
 msgid "Auto translate"
@@ -131,8 +134,8 @@ msgid ""
 "Translate automatically the content of the input box and the set the result "
 "in the output box"
 msgstr ""
-"Traduce automáticamente el contenido de la casilla de entrada y "
-"el resultado se muestra en la casilla de salida"
+"Traduce automáticamente el contenido de la casilla de entrada y el resultado "
+"se muestra en la casilla de salida"
 
 #: dialogwidgets.js:53
 msgid "Cancel"
@@ -263,17 +266,17 @@ msgstr "Mas información"
 msgid "Report an issue"
 msgstr "Informa de un error..."
 
-#: extension.js:63
+#: extension.js:64
 #, fuzzy
 msgid "Auto Paste"
 msgstr "Pegar"
 
-#: extension.js:66
+#: extension.js:67
 #, fuzzy
 msgid "Auto Translate"
 msgstr "Traducir"
 
-#: extension.js:69
+#: extension.js:70
 msgid "Auto Copy"
 msgstr "Copia automática"
 
@@ -281,21 +284,25 @@ msgstr "Copia automática"
 msgid "Settings"
 msgstr "Configuración"
 
-#: extension.js:264
+#: extension.js:260
 msgid "Translated"
 msgstr "Traducido"
 
-#: extension.js:273
+#: extension.js:269
 msgid "Set API Key of DeepL"
 msgstr "Introduce la clave API de DeepL"
 
-#: extension.js:301
+#: extension.js:297 extension.js:342
+msgid "Copy"
+msgstr "Copiar"
+
+#: extension.js:313 extension.js:358
 msgid "Paste"
 msgstr "Pegar"
 
-#: extension.js:360
-msgid "Copy"
-msgstr "Copiar"
+#: extension.js:388
+msgid "🗘"
+msgstr ""
 
 #~ msgid "From"
 #~ msgstr "De"

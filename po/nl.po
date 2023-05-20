@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-20 10:11+0200\n"
+"POT-Creation-Date: 2023-05-20 11:28+0200\n"
 "PO-Revision-Date: 2022-02-25 17:55+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -262,15 +262,15 @@ msgstr "Meer informatie"
 msgid "Report an issue"
 msgstr "Probleem melden"
 
-#: extension.js:63
+#: extension.js:64
 msgid "Auto Paste"
 msgstr ""
 
-#: extension.js:66
+#: extension.js:67
 msgid "Auto Translate"
 msgstr ""
 
-#: extension.js:69
+#: extension.js:70
 msgid "Auto Copy"
 msgstr ""
 
@@ -278,20 +278,24 @@ msgstr ""
 msgid "Settings"
 msgstr "Voorkeuren"
 
-#: extension.js:264
+#: extension.js:260
 msgid "Translated"
 msgstr ""
 
-#: extension.js:273
+#: extension.js:269
 msgid "Set API Key of DeepL"
 msgstr ""
 
-#: extension.js:301
+#: extension.js:297 extension.js:342
+msgid "Copy"
+msgstr ""
+
+#: extension.js:313 extension.js:358
 msgid "Paste"
 msgstr ""
 
-#: extension.js:360
-msgid "Copy"
+#: extension.js:388
+msgid "🗘"
 msgstr ""
 
 #~ msgid "Check time"
