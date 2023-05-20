@@ -99,6 +99,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- start table-contributors -->
 
 <table id="contributors">
+    <tr>
+    <td>
     <tr id="info_avatar">
         <td id="daPhipz" align="center">
             <a href="https://github.com/daPhipz">
@@ -120,6 +122,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
             </a>
         </td>
     </tr>
+    </td>
+    <td>
     <tr id="info_avatar">
         <td id="atareao" align="center">
             <a href="https://github.com/atareao">
@@ -140,6 +144,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
                 <span id="role">💻</span>
             </a>
         </td>
+    </tr>
+    </td>
     </tr>
 </table>
 <!-- end table-contributors -->
