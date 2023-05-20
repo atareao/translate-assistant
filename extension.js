@@ -122,9 +122,7 @@ var TranslateAssistant = GObject.registerClass(
                             this._translateText(true, fromText, (toText) => {
                                 this.outputEntry.get_clutter_text().set_text(toText);
                                 if(this.autoCopySwitch.state === true){
-                                    this.autoPasteSwitch.setToggleState(false);
-                                    Clipboard.set_text(CLIPBOARD_TYPE, toText);
-                                    this.autoPasteSwitch.setToggleState(true);
+                                    this._copyToClipboard(toText);
                                 }
                             });
                         }
@@ -133,7 +131,7 @@ var TranslateAssistant = GObject.registerClass(
             }
         }
 
-        _onSelectionChange(selection, selectionType, selectionSource){
+        _onSelectionChange(_a, selectionType, _b){
             if (selectionType === Meta.SelectionType.SELECTION_CLIPBOARD) {
                 this._translateIfAutoPaste();
             }
@@ -208,9 +206,7 @@ var TranslateAssistant = GObject.registerClass(
                         this._translateText(true, fromText, (toText) => {
                             this.outputEntry.get_clutter_text().set_text(toText);
                             if(this.autoCopySwitch.state === true){
-                                this.autoPasteSwitch.setToggleState(false);
-                                Clipboard.set_text(CLIPBOARD_TYPE, toText);
-                                this.autoPasteSwitch.setToggleState(true);
+                                this._copyToClipboard(toText);
                             }
                         });
                     });
@@ -290,14 +286,30 @@ var TranslateAssistant = GObject.registerClass(
             return null;
         }
 
-        _menuIcons(){
-            let box = new St.BoxLayout({
+        _menuIconsOut(){
+            let boxOut = new St.BoxLayout({
                 vertical: false,
                 x_expand: true,
                 trackHover: false,
                 canFocus: false
             });
-            let buttonPasteFromClipboard = new St.Button({
+            let buttonCopyToClipboardOut = new St.Button({
+                label:_("Copy"),
+                x_expand: true,
+                xAlign: Clutter.ActorAlign.CENTER,
+                reactive: true,
+                marginLeft: 10,
+                marginRight: 10,
+                styleClass: "translate-assistant-button"
+            });
+            buttonCopyToClipboardOut.connect('clicked', ()=>{
+                let inText = this.outputEntry.get_clutter_text().get_text();
+                if(inText && inText !== ""){
+                    this._copyToClipboard(inText);
+                }
+            });
+            boxOut.add_child(buttonCopyToClipboardOut);
+            let buttonPasteFromClipboardOut = new St.Button({
                 label:_("Paste"),
                 x_expand: true,
                 xAlign: Clutter.ActorAlign.CENTER,
@@ -306,14 +318,90 @@ var TranslateAssistant = GObject.registerClass(
                 marginRight: 10,
                 styleClass: "translate-assistant-button"
             });
-            buttonPasteFromClipboard.connect('clicked', ()=>{
-                Clipboard.get_text(CLIPBOARD_TYPE,(_, fromText) => {
-                    if(fromText && fromText !== ""){
-                        this.inputEntry.get_clutter_text().set_text(fromText);
+            buttonPasteFromClipboardOut.connect('clicked', ()=>{
+                Clipboard.get_text(CLIPBOARD_TYPE,(_, inText) => {
+                    if(inText && inText !== ""){
+                        this._copyToClipboard(inText);
                     }
                 });
             });
-            box.add_child(buttonPasteFromClipboard);
+            boxOut.add_child(buttonPasteFromClipboardOut);
+
+            let iconsMenuItemOut = new PopupMenu.PopupBaseMenuItem({});
+            iconsMenuItemOut.add_child(boxOut);
+            return iconsMenuItemOut;
+        }
+        _menuIconsIn(){
+            let boxIn = new St.BoxLayout({
+                vertical: false,
+                x_expand: true,
+                trackHover: false,
+                canFocus: false
+            });
+            let buttonCopyToClipboardIn = new St.Button({
+                label:_("Copy"),
+                x_expand: true,
+                xAlign: Clutter.ActorAlign.CENTER,
+                reactive: true,
+                marginLeft: 10,
+                marginRight: 10,
+                styleClass: "translate-assistant-button"
+            });
+            buttonCopyToClipboardIn.connect('clicked', ()=>{
+                let inText = this.inputEntry.get_clutter_text().get_text();
+                if(inText && inText !== ""){
+                    this._copyToClipboard(inText);
+                }
+            });
+            boxIn.add_child(buttonCopyToClipboardIn);
+            let buttonPasteFromClipboardIn = new St.Button({
+                label:_("Paste"),
+                x_expand: true,
+                xAlign: Clutter.ActorAlign.CENTER,
+                reactive: true,
+                marginLeft: 10,
+                marginRight: 10,
+                styleClass: "translate-assistant-button"
+            });
+            buttonPasteFromClipboardIn.connect('clicked', ()=>{
+                Clipboard.get_text(CLIPBOARD_TYPE,(_, inText) => {
+                    if(inText && inText !== ""){
+                        this.inputEntry.get_clutter_text().set_text(inText);
+                    }
+                });
+            });
+            boxIn.add_child(buttonPasteFromClipboardIn);
+
+            let iconsMenuItemIn = new PopupMenu.PopupBaseMenuItem({});
+            iconsMenuItemIn.add_child(boxIn);
+            return iconsMenuItemIn;
+        }
+
+        _menuIcons(){
+            let box = new St.BoxLayout({
+                vertical: false,
+                x_expand: true,
+                trackHover: false,
+                canFocus: false
+            });
+            let buttonRevert = new St.Button({
+                label:_("🗘"),
+                x_expand: true,
+                xAlign: Clutter.ActorAlign.CENTER,
+                reactive: true,
+                marginLeft: 10,
+                marginRight: 10,
+                styleClass: "translate-assistant-button"
+
+            });
+            buttonRevert.connect('clicked', ()=>{
+                const oldTargetLang = this._target_lang;
+                this._target_lang = this._source_lang;
+                this._source_lang = oldTargetLang;
+                this.menuInputExpander.label.text = this._source_lang;
+                this.menuOutputExpander.label.text = this._target_lang;
+            });
+            box.add_child(buttonRevert);
             let buttonTranslateFrom = new St.Button({
                 label: "⌄",
                 x_expand: true,
@@ -328,9 +416,7 @@ var TranslateAssistant = GObject.registerClass(
                 this._translateText(true, fromText, (toText) => {
                     this.outputEntry.get_clutter_text().set_text(toText);
                     if(this.autoCopySwitch.state === true){
-                        this.autoPasteSwitch.setToggleState(false);
-                        Clipboard.set_text(CLIPBOARD_TYPE, toText);
-                        this.autoPasteSwitch.setToggleState(true);
+                        this._copyToClipboard(toText);
                     }
                 });
             });
@@ -349,32 +435,24 @@ var TranslateAssistant = GObject.registerClass(
                 this._translateText(false, fromText, (toText) => {
                     this.inputEntry.get_clutter_text().set_text(toText);
                     if(this.autoCopySwitch.state === true){
-                        this.autoPasteSwitch.setToggleState(false);
-                        Clipboard.set_text(CLIPBOARD_TYPE, toText);
-                        this.autoPasteSwitch.setToggleState(true);
+                        this._copyToClipboard(toText);
                     }
                 });
             });
             box.add_child(buttonTranslate);
-            let buttonCopyToClipboard = new St.Button({
-                label:_("Copy"),
-                x_expand: true,
-                xAlign: Clutter.ActorAlign.CENTER,
-                reactive: true,
-                marginLeft: 10,
-                marginRight: 10,
-                styleClass: "translate-assistant-button"
-            });
-            buttonCopyToClipboard.connect('clicked', ()=>{
-                let to_text = this.outputEntry.get_clutter_text().get_text();
-                if(to_text && to_text !== ""){
-                    Clipboard.set_text(CLIPBOARD_TYPE, to_text);
-                }
-            });
-            box.add_child(buttonCopyToClipboard);
             let iconsMenuItem = new PopupMenu.PopupBaseMenuItem({});
             iconsMenuItem.add_child(box);
             return iconsMenuItem;
+        }
+
+        _copyToClipboard(inText){
+            if(this.autoPasteSwitch.state === true){
+                this.autoPasteSwitch.setToggleState(false);
+                Clipboard.set_text(CLIPBOARD_TYPE, inText);
+                this.autoPasteSwitch.setToggleState(true);
+            }else{
+                Clipboard.set_text(CLIPBOARD_TYPE, inText);
+            }
         }
 
         _menuInput(){
@@ -399,6 +477,7 @@ var TranslateAssistant = GObject.registerClass(
             scroll.add_actor(box);
             this.menuInputExpander = new PopupMenu.PopupSubMenuMenuItem(this._source_lang);
             this.menuInputExpander.menu.box.add(scroll);
+            this.menuInputExpander.menu.box.add(this._menuIconsIn())
             return this.menuInputExpander;
         }
 
@@ -424,6 +503,7 @@ var TranslateAssistant = GObject.registerClass(
             scroll.add_actor(box);
             this.menuOutputExpander = new PopupMenu.PopupSubMenuMenuItem(this._target_lang);
             this.menuOutputExpander.menu.box.add(scroll);
+            this.menuOutputExpander.menu.box.add(this._menuIconsOut())
             return this.menuOutputExpander;
         }
 
