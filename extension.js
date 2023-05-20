@@ -22,7 +22,7 @@
  * IN THE SOFTWARE.
  */
 
-const {Gtk, Gdk, Gio, Clutter, St, GObject, GLib, Pango, PangoCairo, Meta, Shell, Soup} = imports.gi;
+const {Gio, Clutter, St, GObject, GLib, Pango, PangoCairo, Meta, Shell, Soup} = imports.gi;
 const Cairo = imports.cairo;
 
 const MessageTray = imports.ui.messageTray;
