@@ -111,7 +111,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr id="info_name">
         <td id="daPhipz" align="center">
             <a href="https://github.com/daPhipz">
-                <strong>Lorenzo Carbonell</strong>
+                <strong>Philipp Kiemle</strong>
             </a>
         </td>
     </tr>
