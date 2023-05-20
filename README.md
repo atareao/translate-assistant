@@ -112,7 +112,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
         </td>
         <td id="Vistaus" align="center">
             <a href="https://github.com/Vistaus">
-                <img src="https://avatars3.githubusercontent.com/u/298055?v=4" width="100px"/>
+                <img src="https://avatars3.githubusercontent.com/u/1716229?v=4" width="100px"/>
             </a>
         </td>
         <td id="atareao" align="center">
