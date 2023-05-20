@@ -60,6 +60,12 @@ var TranslateAssistant = GObject.registerClass(
             box.add(this.icon);
             this.add_child(box);
 
+            this.autoPasteSwitch = new PopupMenu.PopupSwitchMenuItem(_('Auto Paste'),
+                                                                    {active: false})
+            this.menu.addMenuItem(this.autoPasteSwitch)
+            this.autoTranslateSwitch = new PopupMenu.PopupSwitchMenuItem(_('Auto Translate'),
+                                                                    {active: false})
+            this.menu.addMenuItem(this.autoTranslateSwitch)
             this.autoCopySwitch = new PopupMenu.PopupSwitchMenuItem(_('Auto Copy'),
                                                                     {active: false})
             this.menu.addMenuItem(this.autoCopySwitch)
@@ -107,11 +113,21 @@ var TranslateAssistant = GObject.registerClass(
             });
         }
 
-        _translateIfAutoCopy(){
-            if(this.autoCopySwitch.state === true){ 
+        _translateIfAutoPaste(){
+            if(this.autoPasteSwitch.state === true){ 
                 Clipboard.get_text(CLIPBOARD_TYPE,(_, fromText) => {
                     if(fromText && fromText !== ""){
                         this.inputEntry.get_clutter_text().set_text(fromText);
+                        if(this.autoTranslateSwitch.state === true){
+                            this._translateText(true, fromText, (toText) => {
+                                this.outputEntry.get_clutter_text().set_text(toText);
+                                if(this.autoCopySwitch.state === true){
+                                    this.autoPasteSwitch.setToggleState(false);
+                                    Clipboard.set_text(CLIPBOARD_TYPE, toText);
+                                    this.autoPasteSwitch.setToggleState(true);
+                                }
+                            });
+                        }
                     }
                 });
             }
@@ -119,7 +135,7 @@ var TranslateAssistant = GObject.registerClass(
 
         _onSelectionChange(selection, selectionType, selectionSource){
             if (selectionType === Meta.SelectionType.SELECTION_CLIPBOARD) {
-                this._translateIfAutoCopy();
+                this._translateIfAutoPaste();
             }
         }
 
@@ -128,7 +144,7 @@ var TranslateAssistant = GObject.registerClass(
             reiterate = typeof reiterate === 'boolean' ? reiterate : true;
 
             this._clipboardTimeoutId = Mainloop.timeout_add(TIMEOUT_MS, function () {
-                that._translateIfAutoCopy();
+                that._translateIfAutoPaste();
 
                 // If the timeout handler returns `false`, the source is
                 // automatically removed, so we reset the timeout-id so it won't
@@ -181,11 +197,24 @@ var TranslateAssistant = GObject.registerClass(
         }
 
         _bindShortcut(){
-            Main.wm.addKeybinding(SHORTCUT_SETTING_KEY,
-                                  this._settings,
-                                  Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
-                                  Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW,
-                                  this._translate.bind(this)
+            Main.wm.addKeybinding(
+                SHORTCUT_SETTING_KEY,
+                this._settings,
+                Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
+                Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW,
+                () => {
+                    Clipboard.get_text(CLIPBOARD_TYPE,(_, fromText) => {
+                        this.inputEntry.get_clutter_text().set_text(fromText);
+                        this._translateText(true, fromText, (toText) => {
+                            this.outputEntry.get_clutter_text().set_text(toText);
+                            if(this.autoCopySwitch.state === true){
+                                this.autoPasteSwitch.setToggleState(false);
+                                Clipboard.set_text(CLIPBOARD_TYPE, toText);
+                                this.autoPasteSwitch.setToggleState(true);
+                            }
+                        });
+                    });
+                }
             );
         }
 
@@ -231,6 +260,9 @@ var TranslateAssistant = GObject.registerClass(
                                     }else{
                                         toText = "";
                                     }
+                                    if(this._notifications){
+                                        Main.notify("Translate Assistant", _("Translated"));
+                                    }
                                     callback(toText);
                                 }
                             } catch(e) {
@@ -247,66 +279,6 @@ var TranslateAssistant = GObject.registerClass(
                     }
                 );
             }
-
-        }
-
-        _translate(){
-            Clipboard.get_text(CLIPBOARD_TYPE,(_, fromText) => {
-                if(fromText && fromText !== ""){
-                    let split_sentences = this._split_sentences?"1":"0";
-                    let preserve_formatting = this._preserve_formatting?"1":"0";
-                    let params = {
-                        auth_key: this._apikey,
-                        text: fromText,
-                        source_lang: this._source_lang,
-                        target_lang: this._target_lang,
-                        split_sentences: split_sentences,
-                        preserve_formatting: preserve_formatting,
-                        formality: this._formality,
-                    };
-                    let message = Soup.Message.new_from_encoded_form(
-                        'POST',
-                        this._url,
-                        Soup.form_encode_hash(params)
-                    );
-                    let session = new Soup.Session();
-
-                    session.send_and_read_async(
-                        message,
-                        GLib.PRIORITY_DEFAULT,
-                        null,
-                        (session, result) => {
-                            if(message.get_status() === Soup.Status.OK) {
-                                try {
-                                    if(result){
-                                        let bytes = session.send_and_read_finish(result);
-                                        let decoder = new TextDecoder("utf-8");
-                                        let response = decoder.decode(bytes.get_data());
-                                        let json = JSON.parse(response);
-                                        let translations = json.translations;
-                                        let toText = null;
-                                        if (translations.length > 0){
-                                            toText = translations[0].text;
-                                        }else{
-                                            toText = "";
-                                        }
-                                        this._update(fromText, toText);
-                                    }
-                                } catch(e) {
-                                    Main.notify("Translate Assistant", `Error: ${e}`);
-                                }
-                            }else{
-                                if(message.status_code == 403){
-                                    Main.notify("Translate Assistant", _("Set API Key of DeepL"));
-                                }else{
-                                    const code = message.status_code;
-                                    Main.notify("Translate Assistant", `Error: ${code}`);
-                                }
-                            }
-                        }
-                    );
-                }
-            });
         }
 
         _get_country_code(description){
@@ -316,17 +288,6 @@ var TranslateAssistant = GObject.registerClass(
                 return m[1];
             }
             return null;
-        }
-
-        _update(from_text, to_text){
-            this.inputEntry.get_clutter_text().set_text(from_text);
-            this.outputEntry.get_clutter_text().set_text(to_text);
-            if(this._notifications){
-                Main.notify("Translate Assistant", _("Translated"));
-            }
-            if(this.autoCopySwitch._switch.state){
-                Clipboard.set_text(CLIPBOARD_TYPE, to_text);
-            }
         }
 
         _menuIcons(){
@@ -366,11 +327,10 @@ var TranslateAssistant = GObject.registerClass(
                 let fromText = this.inputEntry.get_clutter_text().get_text();
                 this._translateText(true, fromText, (toText) => {
                     this.outputEntry.get_clutter_text().set_text(toText);
-                    if(this._notifications){
-                        Main.notify("Translate Assistant", _("Translated"));
-                    }
-                    if(this.autoCopySwitch._switch.state){
+                    if(this.autoCopySwitch.state === true){
+                        this.autoPasteSwitch.setToggleState(false);
                         Clipboard.set_text(CLIPBOARD_TYPE, toText);
+                        this.autoPasteSwitch.setToggleState(true);
                     }
                 });
             });
@@ -388,11 +348,10 @@ var TranslateAssistant = GObject.registerClass(
                 let fromText = this.outputEntry.get_clutter_text().get_text();
                 this._translateText(false, fromText, (toText) => {
                     this.inputEntry.get_clutter_text().set_text(toText);
-                    if(this._notifications){
-                        Main.notify("Translate Assistant", _("Translated"));
-                    }
-                    if(this.autoCopySwitch._switch.state){
+                    if(this.autoCopySwitch.state === true){
+                        this.autoPasteSwitch.setToggleState(false);
                         Clipboard.set_text(CLIPBOARD_TYPE, toText);
+                        this.autoPasteSwitch.setToggleState(true);
                     }
                 });
             });
@@ -473,7 +432,7 @@ var TranslateAssistant = GObject.registerClass(
         }
 
         _set_icon_indicator(){
-            let active = this.autoCopySwitch._switch.state;
+            let active = this.autoPasteSwitch._switch.state;
             let themeString = (this._darktheme?'dark': 'light');
             let statusString = (active ? 'active' : 'paused');
             let iconString = `translate-assistant-${statusString}-${themeString}`;
