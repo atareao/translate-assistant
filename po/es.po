@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Translate Assistant - 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-20 11:28+0200\n"
+"POT-Creation-Date: 2023-05-22 06:42+0200\n"
 "PO-Revision-Date: 2020-09-15 19:23+0200\n"
 "Last-Translator: Lorenzo <atareao@atareao.es>\n"
 "Language-Team: Spanish\n"
@@ -145,164 +145,119 @@ msgstr "Cancelar"
 msgid "Ok"
 msgstr "Aceptar"
 
-#: prefs.js:50
-msgid "Indicator options"
-msgstr "Opciones del indicador"
+#~ msgid "Buy me a coffee"
+#~ msgstr "Apoya con un café"
 
-#: prefs.js:70
-msgid "Theme"
-msgstr "Tema"
+#~ msgid "Version"
+#~ msgstr "Versión"
 
-#: prefs.js:79 prefs.js:87
-#, fuzzy
-msgid "Auto Options"
-msgstr "Opciones del indicador"
+#~ msgid "GNOME Version"
+#~ msgstr "Versión de GNOME"
 
-#: prefs.js:84
-msgid "Translate Assistant Preferences"
-msgstr "Preferencias del Asistente de Traducción"
+#~ msgid "OS"
+#~ msgstr "OS"
 
-#: prefs.js:88
-msgid "Style"
-msgstr "Estilo"
+#~ msgid "SessionType"
+#~ msgstr "Tipo de sesión"
 
-#: prefs.js:89
-msgid "About"
-msgstr "Acerca de"
+#~ msgid "Developers"
+#~ msgstr "Desarrolladores"
 
-#: prefs.js:98
-msgid "Translate Assistant Configuration"
-msgstr "Configuración del Asistente de Traducción"
+#~ msgid "Contributors"
+#~ msgstr "Contribuidores"
 
-#: preferenceswidget.js:248
-msgid "Nothing"
-msgstr "Nada"
+#~ msgid "Thank you to all contributors!"
+#~ msgstr "Gracias a todos los contribuidores!"
 
-#: preferenceswidget.js:261
-msgid "True"
-msgstr "Cierto"
+#~ msgid "For a list of all contributors, please visit"
+#~ msgstr "Para ver una lista de todos los contribuidores, por favor visita"
 
-#: preferenceswidget.js:274
-msgid "False"
-msgstr "Falso"
+#~ msgid "Supporters"
+#~ msgstr "Colaboradores"
 
-#: preferenceswidget.js:468 preferenceswidget.js:1001
-msgid "Edit"
-msgstr "Editar"
+#~ msgid "Thank you to all supporters!"
+#~ msgstr "Gracias a todos los colaboradores!"
 
-#: preferenceswidget.js:515 preferenceswidget.js:533 preferenceswidget.js:562
-msgid "Name"
-msgstr "Nombre"
+#~ msgid "For a list of all supporters, please visit"
+#~ msgstr "Para ver una lista de todos los colaboradores, por favor visita"
 
-#: preferenceswidget.js:521 preferenceswidget.js:533 preferenceswidget.js:562
-msgid "Service"
-msgstr "Servicio"
+#~ msgid "License"
+#~ msgstr "Licencia"
 
-#: preferenceswidget.js:1011
-msgid "Remove"
-msgstr "Borrar"
+#~ msgid "More info"
+#~ msgstr "Mas información"
 
-#: aboutpage.js:45
-msgid "Buy me a coffee"
-msgstr "Apoya con un café"
+#~ msgid "More information"
+#~ msgstr "Mas información"
 
-#: aboutpage.js:51
-msgid "Version"
-msgstr "Versión"
+#~ msgid "Report an issue"
+#~ msgstr "Informa de un error..."
 
-#: aboutpage.js:53
-msgid "GNOME Version"
-msgstr "Versión de GNOME"
+#~ msgid "Auto Paste"
+#~ msgstr "Pegado automático"
 
-#: aboutpage.js:56
-msgid "OS"
-msgstr "OS"
+#~ msgid "Auto Translate"
+#~ msgstr "Traducción automática"
 
-#: aboutpage.js:58
-msgid "SessionType"
-msgstr "Tipo de sesión"
+#~ msgid "Auto Copy"
+#~ msgstr "Copia automática"
 
-#: aboutpage.js:83
-msgid "Developers"
-msgstr "Desarrolladores"
+#~ msgid "Settings"
+#~ msgstr "Configuración"
 
-#: aboutpage.js:90
-msgid "Contributors"
-msgstr "Contribuidores"
+#~ msgid "Translated"
+#~ msgstr "Traducido"
 
-#: aboutpage.js:91
-msgid "Thank you to all contributors!"
-msgstr "Gracias a todos los contribuidores!"
+#~ msgid "Set API Key of DeepL"
+#~ msgstr "Introduce la clave API de DeepL"
 
-#: aboutpage.js:92
-msgid "For a list of all contributors, please visit"
-msgstr "Para ver una lista de todos los contribuidores, por favor visita"
+#~ msgid "Copy"
+#~ msgstr "Copiar"
 
-#: aboutpage.js:101
-msgid "Supporters"
-msgstr "Colaboradores"
+#~ msgid "Paste"
+#~ msgstr "Pegar"
 
-#: aboutpage.js:102
-msgid "Thank you to all supporters!"
-msgstr "Gracias a todos los colaboradores!"
+#~ msgid "Nothing"
+#~ msgstr "Nada"
 
-#: aboutpage.js:103
-msgid "For a list of all supporters, please visit"
-msgstr "Para ver una lista de todos los colaboradores, por favor visita"
+#~ msgid "True"
+#~ msgstr "Cierto"
 
-#: aboutpage.js:110
-msgid "License"
-msgstr "Licencia"
+#~ msgid "False"
+#~ msgstr "Falso"
 
-#: aboutpage.js:123
-msgid "More info"
-msgstr "Mas información"
+#~ msgid "Edit"
+#~ msgstr "Editar"
 
-#: aboutpage.js:133
-msgid "More information"
-msgstr "Mas información"
+#~ msgid "Name"
+#~ msgstr "Nombre"
 
-#: aboutpage.js:136
-msgid "Report an issue"
-msgstr "Informa de un error..."
+#~ msgid "Service"
+#~ msgstr "Servicio"
 
-#: extension.js:64
-#, fuzzy
-msgid "Auto Paste"
-msgstr "Pegar"
+#~ msgid "Remove"
+#~ msgstr "Borrar"
 
-#: extension.js:67
-#, fuzzy
-msgid "Auto Translate"
-msgstr "Traducir"
+#~ msgid "Indicator options"
+#~ msgstr "Opciones del indicador"
 
-#: extension.js:70
-msgid "Auto Copy"
-msgstr "Copia automática"
+#~ msgid "Theme"
+#~ msgstr "Tema"
 
-#: extension.js:83
-msgid "Settings"
-msgstr "Configuración"
+#~ msgid "Auto Options"
+#~ msgstr "Opciones automáticas"
 
-#: extension.js:260
-msgid "Translated"
-msgstr "Traducido"
+#~ msgid "Translate Assistant Preferences"
+#~ msgstr "Preferencias del Asistente de Traducción"
 
-#: extension.js:269
-msgid "Set API Key of DeepL"
-msgstr "Introduce la clave API de DeepL"
+#~ msgid "Style"
+#~ msgstr "Estilo"
 
-#: extension.js:297 extension.js:342
-msgid "Copy"
-msgstr "Copiar"
+#~ msgid "About"
+#~ msgstr "Acerca de"
 
-#: extension.js:313 extension.js:358
-msgid "Paste"
-msgstr "Pegar"
-
-#: extension.js:388
-msgid "🗘"
-msgstr ""
+#~ msgid "Translate Assistant Configuration"
+#~ msgstr "Configuración del Asistente de Traducción"
 
 #~ msgid "From"
 #~ msgstr "De"

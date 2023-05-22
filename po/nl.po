@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-20 11:28+0200\n"
+"POT-Creation-Date: 2023-05-22 06:42+0200\n"
 "PO-Revision-Date: 2022-02-25 17:55+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -139,164 +139,101 @@ msgstr "Annuleren"
 msgid "Ok"
 msgstr "Oké"
 
-#: prefs.js:50
-msgid "Indicator options"
-msgstr "Indicatorvoorkeuren"
+#~ msgid "Buy me a coffee"
+#~ msgstr "Doneren"
 
-#: prefs.js:70
-msgid "Theme"
-msgstr "Thema"
+#~ msgid "Version"
+#~ msgstr "Versie"
 
-#: prefs.js:79 prefs.js:87
+#~ msgid "GNOME Version"
+#~ msgstr "GNOME-versie"
+
+#~ msgid "OS"
+#~ msgstr "Besturingssyteem"
+
+#~ msgid "SessionType"
+#~ msgstr "Sessietype"
+
+#~ msgid "Developers"
+#~ msgstr "Ontwikkelaars"
+
+#~ msgid "Contributors"
+#~ msgstr "Bijdragers"
+
+#~ msgid "Thank you to all contributors!"
+#~ msgstr "Met dank aan alle bijdragers!"
+
+#~ msgid "For a list of all contributors, please visit"
+#~ msgstr "De lijst met bijdragers is te bekijken op"
+
+#~ msgid "Supporters"
+#~ msgstr "Ondersteuners"
+
+#~ msgid "Thank you to all supporters!"
+#~ msgstr "Met dank aan alle ondersteuners!"
+
+#~ msgid "For a list of all supporters, please visit"
+#~ msgstr "De lijst met ondersteuners is te bekijken op"
+
+#~ msgid "License"
+#~ msgstr "Licentie"
+
+#~ msgid "More info"
+#~ msgstr "Meer informatie"
+
+#~ msgid "More information"
+#~ msgstr "Meer informatie"
+
+#~ msgid "Report an issue"
+#~ msgstr "Probleem melden"
+
+#~ msgid "Settings"
+#~ msgstr "Voorkeuren"
+
+#~ msgid "Nothing"
+#~ msgstr "Niets"
+
+#~ msgid "True"
+#~ msgstr "Waar"
+
+#~ msgid "False"
+#~ msgstr "Niet waar"
+
+#~ msgid "Edit"
+#~ msgstr "Bewerken"
+
+#~ msgid "Name"
+#~ msgstr "Naam"
+
+#~ msgid "Service"
+#~ msgstr "Dienst"
+
+#~ msgid "Remove"
+#~ msgstr "Verwijderen"
+
+#~ msgid "Indicator options"
+#~ msgstr "Indicatorvoorkeuren"
+
+#~ msgid "Theme"
+#~ msgstr "Thema"
+
 #, fuzzy
-msgid "Auto Options"
-msgstr "Indicatorvoorkeuren"
+#~ msgid "Auto Options"
+#~ msgstr "Indicatorvoorkeuren"
 
-#: prefs.js:84
 #, fuzzy
-msgid "Translate Assistant Preferences"
-msgstr "Accustatusvoorkeuren"
+#~ msgid "Translate Assistant Preferences"
+#~ msgstr "Accustatusvoorkeuren"
 
-#: prefs.js:88
-msgid "Style"
-msgstr "Stijl"
+#~ msgid "Style"
+#~ msgstr "Stijl"
 
-#: prefs.js:89
-msgid "About"
-msgstr "Over"
+#~ msgid "About"
+#~ msgstr "Over"
 
-#: prefs.js:98
 #, fuzzy
-msgid "Translate Assistant Configuration"
-msgstr "Accustatusvoorkeuren"
-
-#: preferenceswidget.js:248
-msgid "Nothing"
-msgstr "Niets"
-
-#: preferenceswidget.js:261
-msgid "True"
-msgstr "Waar"
-
-#: preferenceswidget.js:274
-msgid "False"
-msgstr "Niet waar"
-
-#: preferenceswidget.js:468 preferenceswidget.js:1001
-msgid "Edit"
-msgstr "Bewerken"
-
-#: preferenceswidget.js:515 preferenceswidget.js:533 preferenceswidget.js:562
-msgid "Name"
-msgstr "Naam"
-
-#: preferenceswidget.js:521 preferenceswidget.js:533 preferenceswidget.js:562
-msgid "Service"
-msgstr "Dienst"
-
-#: preferenceswidget.js:1011
-msgid "Remove"
-msgstr "Verwijderen"
-
-#: aboutpage.js:45
-msgid "Buy me a coffee"
-msgstr "Doneren"
-
-#: aboutpage.js:51
-msgid "Version"
-msgstr "Versie"
-
-#: aboutpage.js:53
-msgid "GNOME Version"
-msgstr "GNOME-versie"
-
-#: aboutpage.js:56
-msgid "OS"
-msgstr "Besturingssyteem"
-
-#: aboutpage.js:58
-msgid "SessionType"
-msgstr "Sessietype"
-
-#: aboutpage.js:83
-msgid "Developers"
-msgstr "Ontwikkelaars"
-
-#: aboutpage.js:90
-msgid "Contributors"
-msgstr "Bijdragers"
-
-#: aboutpage.js:91
-msgid "Thank you to all contributors!"
-msgstr "Met dank aan alle bijdragers!"
-
-#: aboutpage.js:92
-msgid "For a list of all contributors, please visit"
-msgstr "De lijst met bijdragers is te bekijken op"
-
-#: aboutpage.js:101
-msgid "Supporters"
-msgstr "Ondersteuners"
-
-#: aboutpage.js:102
-msgid "Thank you to all supporters!"
-msgstr "Met dank aan alle ondersteuners!"
-
-#: aboutpage.js:103
-msgid "For a list of all supporters, please visit"
-msgstr "De lijst met ondersteuners is te bekijken op"
-
-#: aboutpage.js:110
-msgid "License"
-msgstr "Licentie"
-
-#: aboutpage.js:123
-msgid "More info"
-msgstr "Meer informatie"
-
-#: aboutpage.js:133
-msgid "More information"
-msgstr "Meer informatie"
-
-#: aboutpage.js:136
-msgid "Report an issue"
-msgstr "Probleem melden"
-
-#: extension.js:64
-msgid "Auto Paste"
-msgstr ""
-
-#: extension.js:67
-msgid "Auto Translate"
-msgstr ""
-
-#: extension.js:70
-msgid "Auto Copy"
-msgstr ""
-
-#: extension.js:83
-msgid "Settings"
-msgstr "Voorkeuren"
-
-#: extension.js:260
-msgid "Translated"
-msgstr ""
-
-#: extension.js:269
-msgid "Set API Key of DeepL"
-msgstr ""
-
-#: extension.js:297 extension.js:342
-msgid "Copy"
-msgstr ""
-
-#: extension.js:313 extension.js:358
-msgid "Paste"
-msgstr ""
-
-#: extension.js:388
-msgid "🗘"
-msgstr ""
+#~ msgid "Translate Assistant Configuration"
+#~ msgstr "Accustatusvoorkeuren"
 
 #~ msgid "Check time"
 #~ msgstr "Controleren, elke"

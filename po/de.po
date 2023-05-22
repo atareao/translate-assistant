@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: battery-status@atareao.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-20 11:28+0200\n"
+"POT-Creation-Date: 2023-05-22 06:42+0200\n"
 "PO-Revision-Date: 2022-03-28 10:22+0200\n"
 "Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
 "Language-Team: German\n"
@@ -139,164 +139,101 @@ msgstr "Abbrechen"
 msgid "Ok"
 msgstr "OK"
 
-#: prefs.js:50
-msgid "Indicator options"
-msgstr "Indikator-Optionen"
+#~ msgid "Buy me a coffee"
+#~ msgstr "Spendieren Sie mir einen Kaffee"
 
-#: prefs.js:70
-msgid "Theme"
-msgstr "Thema"
+#~ msgid "Version"
+#~ msgstr "Version"
 
-#: prefs.js:79 prefs.js:87
+#~ msgid "GNOME Version"
+#~ msgstr "GNOME-Version"
+
+#~ msgid "OS"
+#~ msgstr "OS"
+
+#~ msgid "SessionType"
+#~ msgstr "Sitzungstyp"
+
+#~ msgid "Developers"
+#~ msgstr "Entwickler"
+
+#~ msgid "Contributors"
+#~ msgstr "Mitwirkende"
+
+#~ msgid "Thank you to all contributors!"
+#~ msgstr "Vielen Dank an alle Mitwirkenden!"
+
+#~ msgid "For a list of all contributors, please visit"
+#~ msgstr "Für eine Liste aller Mitwirkenden, besuchen Sie bitte"
+
+#~ msgid "Supporters"
+#~ msgstr "Unterstützer"
+
+#~ msgid "Thank you to all supporters!"
+#~ msgstr "Vielen Dank an alle Unterstützer!"
+
+#~ msgid "For a list of all supporters, please visit"
+#~ msgstr "Für eine Liste aller Unterstützer, besuchen Sie bitte"
+
+#~ msgid "License"
+#~ msgstr "Lizenz"
+
+#~ msgid "More info"
+#~ msgstr "Mehr Infos"
+
+#~ msgid "More information"
+#~ msgstr "Weitere Informationen"
+
+#~ msgid "Report an issue"
+#~ msgstr "Einen Fehler melden"
+
+#~ msgid "Settings"
+#~ msgstr "Einstellungen"
+
+#~ msgid "Nothing"
+#~ msgstr "Nichts"
+
+#~ msgid "True"
+#~ msgstr "Wahr"
+
+#~ msgid "False"
+#~ msgstr "Falsch"
+
+#~ msgid "Edit"
+#~ msgstr "Bearbeiten"
+
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#~ msgid "Service"
+#~ msgstr "Dienst"
+
+#~ msgid "Remove"
+#~ msgstr "Entfernen"
+
+#~ msgid "Indicator options"
+#~ msgstr "Indikator-Optionen"
+
+#~ msgid "Theme"
+#~ msgstr "Thema"
+
 #, fuzzy
-msgid "Auto Options"
-msgstr "Indikator-Optionen"
+#~ msgid "Auto Options"
+#~ msgstr "Indikator-Optionen"
 
-#: prefs.js:84
 #, fuzzy
-msgid "Translate Assistant Preferences"
-msgstr "Akkustatus-Einstellungen"
+#~ msgid "Translate Assistant Preferences"
+#~ msgstr "Akkustatus-Einstellungen"
 
-#: prefs.js:88
-msgid "Style"
-msgstr "Stil"
+#~ msgid "Style"
+#~ msgstr "Stil"
 
-#: prefs.js:89
-msgid "About"
-msgstr "Info"
+#~ msgid "About"
+#~ msgstr "Info"
 
-#: prefs.js:98
 #, fuzzy
-msgid "Translate Assistant Configuration"
-msgstr "Akkustatus-Konfiguration"
-
-#: preferenceswidget.js:248
-msgid "Nothing"
-msgstr "Nichts"
-
-#: preferenceswidget.js:261
-msgid "True"
-msgstr "Wahr"
-
-#: preferenceswidget.js:274
-msgid "False"
-msgstr "Falsch"
-
-#: preferenceswidget.js:468 preferenceswidget.js:1001
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: preferenceswidget.js:515 preferenceswidget.js:533 preferenceswidget.js:562
-msgid "Name"
-msgstr "Name"
-
-#: preferenceswidget.js:521 preferenceswidget.js:533 preferenceswidget.js:562
-msgid "Service"
-msgstr "Dienst"
-
-#: preferenceswidget.js:1011
-msgid "Remove"
-msgstr "Entfernen"
-
-#: aboutpage.js:45
-msgid "Buy me a coffee"
-msgstr "Spendieren Sie mir einen Kaffee"
-
-#: aboutpage.js:51
-msgid "Version"
-msgstr "Version"
-
-#: aboutpage.js:53
-msgid "GNOME Version"
-msgstr "GNOME-Version"
-
-#: aboutpage.js:56
-msgid "OS"
-msgstr "OS"
-
-#: aboutpage.js:58
-msgid "SessionType"
-msgstr "Sitzungstyp"
-
-#: aboutpage.js:83
-msgid "Developers"
-msgstr "Entwickler"
-
-#: aboutpage.js:90
-msgid "Contributors"
-msgstr "Mitwirkende"
-
-#: aboutpage.js:91
-msgid "Thank you to all contributors!"
-msgstr "Vielen Dank an alle Mitwirkenden!"
-
-#: aboutpage.js:92
-msgid "For a list of all contributors, please visit"
-msgstr "Für eine Liste aller Mitwirkenden, besuchen Sie bitte"
-
-#: aboutpage.js:101
-msgid "Supporters"
-msgstr "Unterstützer"
-
-#: aboutpage.js:102
-msgid "Thank you to all supporters!"
-msgstr "Vielen Dank an alle Unterstützer!"
-
-#: aboutpage.js:103
-msgid "For a list of all supporters, please visit"
-msgstr "Für eine Liste aller Unterstützer, besuchen Sie bitte"
-
-#: aboutpage.js:110
-msgid "License"
-msgstr "Lizenz"
-
-#: aboutpage.js:123
-msgid "More info"
-msgstr "Mehr Infos"
-
-#: aboutpage.js:133
-msgid "More information"
-msgstr "Weitere Informationen"
-
-#: aboutpage.js:136
-msgid "Report an issue"
-msgstr "Einen Fehler melden"
-
-#: extension.js:64
-msgid "Auto Paste"
-msgstr ""
-
-#: extension.js:67
-msgid "Auto Translate"
-msgstr ""
-
-#: extension.js:70
-msgid "Auto Copy"
-msgstr ""
-
-#: extension.js:83
-msgid "Settings"
-msgstr "Einstellungen"
-
-#: extension.js:260
-msgid "Translated"
-msgstr ""
-
-#: extension.js:269
-msgid "Set API Key of DeepL"
-msgstr ""
-
-#: extension.js:297 extension.js:342
-msgid "Copy"
-msgstr ""
-
-#: extension.js:313 extension.js:358
-msgid "Paste"
-msgstr ""
-
-#: extension.js:388
-msgid "🗘"
-msgstr ""
+#~ msgid "Translate Assistant Configuration"
+#~ msgstr "Akkustatus-Konfiguration"
 
 #~ msgid "Check time"
 #~ msgstr "Überprüfungsintervall"
