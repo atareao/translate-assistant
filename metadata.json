@@ -6,9 +6,9 @@
   "name": "Translate assistant",
   "settings-schema": "org.gnome.shell.extensions.translate-assistant",
   "shell-version": [
-    "43", "44"
+    "45", "46"
   ],
   "url": "https://github.com/atareao/translate-assistant",
   "uuid": "translate-assistant@atareao.es",
-  "version": 10
+  "version": 11
 }

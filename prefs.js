@@ -22,29 +22,22 @@
  * IN THE SOFTWARE.
  */
 
-const {GLib, GObject, Gio, Gtk, Gdk} = imports.gi;
+import Adw from 'gi://Adw';
+import GObject from 'gi://GObject';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Extension = ExtensionUtils.getCurrentExtension();
-const Widgets = Extension.imports.preferenceswidget;
-const AboutPage = Extension.imports.aboutpage.AboutPage;
-const Gettext = imports.gettext.domain(Extension.uuid);
-const _ = Gettext.gettext;
+import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-const DialogWidgets = Extension.imports.dialogwidgets;
+import * as Widgets from './preferenceswidget.js';
+import {AboutPage} from './aboutpage.js';
+import {migrateApiKey} from './secret.js';
 
-function init() {
-    ExtensionUtils.initTranslations();
-}
-
-var TranslateAssistantPreferencesWidget = GObject.registerClass(
+const TranslateAssistantPreferencesWidget = GObject.registerClass(
     class TranslateAssistantPreferencesWidget extends Widgets.ListWithStack{
-        _init(){
+        _init(settings, migrated){
             super._init({});
 
             let preferencesPage = new Widgets.Page();
 
-            var settings = ExtensionUtils.getSettings();
 
             let indicatorSection = preferencesPage.addFrame(
                 _("Indicator options"));
@@ -63,7 +56,10 @@ var TranslateAssistantPreferencesWidget = GObject.registerClass(
                 "formality",
                 new Widgets.EnumSetting(settings, "formality"));
             indicatorSection.addGSetting(settings, "url");
-            indicatorSection.addGSetting(settings, "apikey");
+            indicatorSection.addWidgetSetting(
+                settings,
+                "apikey",
+                new Widgets.ApiKeySetting(migrated));
 
 
             const themePage = new Widgets.Page();
@@ -91,13 +87,22 @@ var TranslateAssistantPreferencesWidget = GObject.registerClass(
     }
 );
 
-function buildPrefsWidget() {
-    let preferencesWidget = new TranslateAssistantPreferencesWidget();
-    preferencesWidget.connect("realize", ()=>{
-        const window = preferencesWidget.get_root();
+export default class TranslateAssistantPreferences extends ExtensionPreferences {
+    // getPreferencesWidget() would be wrapped in a width-clamped
+    // Adw.PreferencesPage, cutting off this two-pane layout, so the
+    // widget replaces the window content instead.
+    fillPreferencesWindow(window) {
+        const settings = this.getSettings();
+        const migrated = migrateApiKey(settings);
+        const toolbarView = new Adw.ToolbarView({
+            content: new TranslateAssistantPreferencesWidget(settings, migrated),
+        });
+        toolbarView.add_top_bar(new Adw.HeaderBar());
+        // The prefs loader rejects windows without a visible_page,
+        // so register an empty page before swapping the content.
+        window.add(new Adw.PreferencesPage());
+        window.set_content(toolbarView);
         window.set_title(_("Translate Assistant Configuration"));
-        window.default_height = 800;
-        window.default_width = 850;
-    });
-    return preferencesWidget;
+        window.set_default_size(850, 800);
+    }
 }

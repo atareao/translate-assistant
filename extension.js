@@ -22,42 +22,59 @@
  * IN THE SOFTWARE.
  */
 
-const {Gio, Clutter, St, GObject, GLib, Pango, PangoCairo, Meta, Shell, Soup} = imports.gi;
-const Cairo = imports.cairo;
+import Gio from 'gi://Gio';
+import Clutter from 'gi://Clutter';
+import St from 'gi://St';
+import GObject from 'gi://GObject';
+import GLib from 'gi://GLib';
+import Pango from 'gi://Pango';
+import Meta from 'gi://Meta';
+import Shell from 'gi://Shell';
+import Soup from 'gi://Soup?version=3.0';
 
-const MessageTray = imports.ui.messageTray;
-const Main = imports.ui.main;
-const PanelMenu = imports.ui.panelMenu;
-const PopupMenu = imports.ui.popupMenu;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Extension = ExtensionUtils.getCurrentExtension();
+import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const Gettext = imports.gettext.domain(Extension.uuid);
-const _ = Gettext.gettext;
+import {lookupApiKey, migrateApiKey} from './secret.js';
 
-const Clipboard = St.Clipboard.get_default();
 const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 
 const SHELL_KEYBINDINGS_SCHEMA = "org.gnome.shell.keybindings";
 const SHORTCUT_SETTING_KEY = "keybinding-translate-clipboard";
+// Source language code meaning "let DeepL detect it".
+const AUTO_LANG = "AUTO";
+
+/* GNOME 45's ScrollView is an St.Bin whose set_child() skips wiring up
+ * the scroll adjustments; only add_actor() does that there. GNOME 46
+ * has its own set_child() and no add_actor(). */
+function setScrollChild(scroll, child){
+    if(scroll instanceof St.Bin)
+        scroll.add_actor(child);
+    else
+        scroll.set_child(child);
+}
 
 
-var TranslateAssistant = GObject.registerClass(
+const TranslateAssistant = GObject.registerClass(
     class TranslateAssistant extends PanelMenu.Button{
-        _init(){
-            super._init(St.Align.START);
+        _init(extension){
+            super._init(0.0);
+
+            this._extension = extension;
 
             this._settingsChangedId = null;
             this._clipboardTimeoutId = null;
             this._selectionOwnerChangedId = null;
 
-            this._settings = ExtensionUtils.getSettings();
+            this._settings = extension.getSettings();
 
             /* Icon indicator */
             let box = new St.BoxLayout();
             this.icon = new St.Icon({style_class: 'system-status-icon'});
-            box.add(this.icon);
+            box.add_child(this.icon);
             this.add_child(box);
 
             this.autoPasteSwitch = new PopupMenu.PopupSwitchMenuItem(
@@ -82,7 +99,7 @@ var TranslateAssistant = GObject.registerClass(
             /* Setings */
             this.settingsMenuItem = new PopupMenu.PopupMenuItem(_("Settings"));
             this.settingsMenuItem.connect('activate', () => {
-                ExtensionUtils.openPrefs();
+                this._extension.openPreferences();
             });
             this.menu.addMenuItem(this.settingsMenuItem);
             /* Init */
@@ -96,14 +113,8 @@ var TranslateAssistant = GObject.registerClass(
         }
 
         _setupListener(){
-            const metaDisplay = Shell.Global.get().get_display();
-            if (typeof metaDisplay.get_selection === 'function') {
-                const selection = metaDisplay.get_selection();
-                this._setupSelectionTracking(selection);
-            }
-            else {
-                this._setupTimeout();
-            }
+            const selection = global.display.get_selection();
+            this._setupSelectionTracking(selection);
         }
 
         _setupSelectionTracking (selection) {
@@ -115,7 +126,7 @@ var TranslateAssistant = GObject.registerClass(
 
         _translateIfAutoPaste(){
             if(this.autoPasteSwitch.state === true){ 
-                Clipboard.get_text(CLIPBOARD_TYPE,(_, fromText) => {
+                St.Clipboard.get_default().get_text(CLIPBOARD_TYPE,(_, fromText) => {
                     if(fromText && fromText !== ""){
                         this.inputEntry.get_clutter_text().set_text(fromText);
                         if(this.autoTranslateSwitch.state === true){
@@ -137,36 +148,12 @@ var TranslateAssistant = GObject.registerClass(
             }
         }
 
-        _setupTimeout (reiterate) {
-            let that = this;
-            reiterate = typeof reiterate === 'boolean' ? reiterate : true;
-
-            this._clipboardTimeoutId = Mainloop.timeout_add(TIMEOUT_MS, function () {
-                that._translateIfAutoPaste();
-
-                // If the timeout handler returns `false`, the source is
-                // automatically removed, so we reset the timeout-id so it won't
-                // be removed on `.destroy()`
-                if (reiterate === false)
-                    that._clipboardTimeoutId = null;
-
-                // As long as the timeout handler returns `true`, the handler
-                // will be invoked again and again as an interval
-                return reiterate;
-            });
-        }
-        _clearClipboardTimeout () {
-            if (!this._clipboardTimeoutId)
-                return;
-
-            Mainloop.source_remove(this._clipboardTimeoutId);
-            this._clipboardTimeoutId = null;
-        }
         _disconnectSelectionListener () {
             if (!this._selectionOwnerChangedId)
                 return;
 
             this.selection.disconnect(this._selectionOwnerChangedId);
+            this._selectionOwnerChangedId = null;
         }
         _disconnectSettings () {
             if (!this._settingsChangedId)
@@ -183,10 +170,8 @@ var TranslateAssistant = GObject.registerClass(
             this._preserve_formatting = this._getValue('preserve-formatting');
             this._formality = this._getValue('formality');
             this._url = this._getValue('url');
-            this._apikey = this._getValue('apikey');
             this._keybinding_translate_clipboard = this._getValue(SHORTCUT_SETTING_KEY);
-            log(this._keybinding_translate_clipboard);
-            this._notifications = this._getValue('notifications');
+                        this._notifications = this._getValue('notifications');
             this._darktheme = this._getValue('darktheme');
 
             this._set_icon_indicator();
@@ -201,7 +186,7 @@ var TranslateAssistant = GObject.registerClass(
                 Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
                 Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW,
                 () => {
-                    Clipboard.get_text(CLIPBOARD_TYPE,(_, fromText) => {
+                    St.Clipboard.get_default().get_text(CLIPBOARD_TYPE,(_, fromText) => {
                         this.inputEntry.get_clutter_text().set_text(fromText);
                         this._translateText(true, fromText, (toText) => {
                             this.outputEntry.get_clutter_text().set_text(toText);
@@ -219,23 +204,62 @@ var TranslateAssistant = GObject.registerClass(
         }
 
         _translateText(fromOrTo, fromText, callback){
-            if(fromText && fromText !== ""){
+            if(!fromText || fromText === "")
+                return;
+            // Never send the API key over plain HTTP or to a non-URL.
+            // Keep the checked URL: prefs may change this._url while the
+            // keyring lookup is pending.
+            const url = this._url;
+            if(!url.toLowerCase().startsWith('https://')){
+                Main.notify("Translate Assistant", _("DeepL URL must start with https://"));
+                return;
+            }
+            lookupApiKey().then((apikey) => {
+                if(this._destroyed)
+                    return;
+                if(!apikey){
+                    Main.notify("Translate Assistant", _("Set API Key of DeepL"));
+                    return;
+                }
+                this._sendTranslation(apikey, url, fromOrTo, fromText, callback);
+            }).catch((e) => {
+                Main.notify("Translate Assistant", `Error: ${e.message}`);
+            });
+        }
+
+        _sendTranslation(apikey, url, fromOrTo, fromText, callback){
+            if(apikey){
                 let split_sentences = this._split_sentences?"1":"0";
                 let preserve_formatting = this._preserve_formatting?"1":"0";
+                let sourceLang = fromOrTo === true?this._source_lang:this._target_lang;
+                let targetLang = fromOrTo === true?this._target_lang:this._source_lang;
+                if(targetLang === AUTO_LANG){
+                    targetLang = this._detected_lang;
+                    if(!targetLang){
+                        Main.notify("Translate Assistant",
+                            _("Translate once so the source language can be detected"));
+                        return;
+                    }
+                }
                 let params = {
-                    auth_key: this._apikey,
                     text: fromText,
-                    source_lang: fromOrTo === true?this._source_lang:this._target_lang,
-                    target_lang: fromOrTo === true?this._target_lang:this._source_lang,
+                    target_lang: targetLang,
                     split_sentences: split_sentences,
                     preserve_formatting: preserve_formatting,
                     formality: this._formality,
                 };
+                // Omitting source_lang makes DeepL detect it. Source codes
+                // carry no regional variant (EN-US -> EN).
+                if(sourceLang !== AUTO_LANG){
+                    params.source_lang = sourceLang.split('-')[0];
+                }
                 let message = Soup.Message.new_from_encoded_form(
                     'POST',
-                    this._url,
+                    url,
                     Soup.form_encode_hash(params)
                 );
+                message.get_request_headers().append(
+                    'Authorization', `DeepL-Auth-Key ${apikey}`);
                 let session = new Soup.Session();
                 session.send_and_read_async(
                     message,
@@ -253,6 +277,10 @@ var TranslateAssistant = GObject.registerClass(
                                     let toText = null;
                                     if (translations.length > 0){
                                         toText = translations[0].text;
+                                        if(fromOrTo === true){
+                                            this._detected_lang =
+                                                translations[0].detected_source_language;
+                                        }
                                     }else{
                                         toText = "";
                                     }
@@ -319,7 +347,7 @@ var TranslateAssistant = GObject.registerClass(
                 styleClass: "translate-assistant-button"
             });
             buttonPasteFromClipboardOut.connect('clicked', ()=>{
-                Clipboard.get_text(CLIPBOARD_TYPE,(_, inText) => {
+                St.Clipboard.get_default().get_text(CLIPBOARD_TYPE,(_, inText) => {
                     if(inText && inText !== ""){
                         this._copyToClipboard(inText);
                     }
@@ -364,7 +392,7 @@ var TranslateAssistant = GObject.registerClass(
                 styleClass: "translate-assistant-button"
             });
             buttonPasteFromClipboardIn.connect('clicked', ()=>{
-                Clipboard.get_text(CLIPBOARD_TYPE,(_, inText) => {
+                St.Clipboard.get_default().get_text(CLIPBOARD_TYPE,(_, inText) => {
                     if(inText && inText !== ""){
                         this.inputEntry.get_clutter_text().set_text(inText);
                     }
@@ -385,7 +413,7 @@ var TranslateAssistant = GObject.registerClass(
                 canFocus: false
             });
             let buttonRevert = new St.Button({
-                label:_("🗘"),
+                label: "⇅",
                 x_expand: true,
                 xAlign: Clutter.ActorAlign.CENTER,
                 reactive: true,
@@ -395,6 +423,14 @@ var TranslateAssistant = GObject.registerClass(
 
             });
             buttonRevert.connect('clicked', ()=>{
+                if(this._source_lang === AUTO_LANG){
+                    if(!this._detected_lang){
+                        Main.notify("Translate Assistant",
+                            _("Translate once so the source language can be detected"));
+                        return;
+                    }
+                    this._source_lang = this._detected_lang;
+                }
                 const oldTargetLang = this._target_lang;
                 this._target_lang = this._source_lang;
                 this._source_lang = oldTargetLang;
@@ -448,10 +484,10 @@ var TranslateAssistant = GObject.registerClass(
         _copyToClipboard(inText){
             if(this.autoPasteSwitch.state === true){
                 this.autoPasteSwitch.setToggleState(false);
-                Clipboard.set_text(CLIPBOARD_TYPE, inText);
+                St.Clipboard.get_default().set_text(CLIPBOARD_TYPE, inText);
                 this.autoPasteSwitch.setToggleState(true);
             }else{
-                Clipboard.set_text(CLIPBOARD_TYPE, inText);
+                St.Clipboard.get_default().set_text(CLIPBOARD_TYPE, inText);
             }
         }
 
@@ -474,10 +510,12 @@ var TranslateAssistant = GObject.registerClass(
                 width: 300,
                 height: 300
             });
-            scroll.add_actor(box);
+            setScrollChild(scroll, box);
             this.menuInputExpander = new PopupMenu.PopupSubMenuMenuItem(this._source_lang);
-            this.menuInputExpander.menu.box.add(scroll);
-            this.menuInputExpander.menu.box.add(this._menuIconsIn())
+            this.menuInputExpander.menu.box.add_child(
+                this._languagePicker('source-lang'));
+            this.menuInputExpander.menu.box.add_child(scroll);
+            this.menuInputExpander.menu.box.add_child(this._menuIconsIn())
             return this.menuInputExpander;
         }
 
@@ -500,11 +538,60 @@ var TranslateAssistant = GObject.registerClass(
                 width: 300,
                 height: 300
             });
-            scroll.add_actor(box);
+            setScrollChild(scroll, box);
             this.menuOutputExpander = new PopupMenu.PopupSubMenuMenuItem(this._target_lang);
-            this.menuOutputExpander.menu.box.add(scroll);
-            this.menuOutputExpander.menu.box.add(this._menuIconsOut())
+            this.menuOutputExpander.menu.box.add_child(
+                this._languagePicker('target-lang'));
+            this.menuOutputExpander.menu.box.add_child(scroll);
+            this.menuOutputExpander.menu.box.add_child(this._menuIconsOut())
             return this.menuOutputExpander;
+        }
+
+        /* A button showing the current language that expands into a
+         * scrollable list of all languages the setting allows. */
+        _languagePicker(keyName){
+            const box = new St.BoxLayout({
+                vertical: true,
+                x_expand: true
+            });
+            const toggle = new St.Button({
+                label: this._getValue(keyName),
+                x_expand: true,
+                style_class: "translate-assistant-button"
+            });
+            const list = new St.BoxLayout({
+                vertical: true
+            });
+            const scroll = new St.ScrollView({
+                height: 200,
+                visible: false
+            });
+            setScrollChild(scroll, list);
+            const nicks = this._settings.settings_schema.get_key(keyName)
+                .get_range().recursiveUnpack()[1];
+            for (const nick of nicks) {
+                const item = new St.Button({
+                    child: new St.Label({
+                        text: nick,
+                        x_align: Clutter.ActorAlign.START
+                    }),
+                    x_expand: true,
+                    style_class: "translate-assistant-language"
+                });
+                item.connect('clicked', () => {
+                    scroll.hide();
+                    this._settings.set_string(keyName, nick);
+                });
+                list.add_child(item);
+            }
+            toggle.connect('clicked', () => {
+                scroll.visible = !scroll.visible;
+            });
+            this._languageButtons ??= {};
+            this._languageButtons[keyName] = toggle;
+            box.add_child(toggle);
+            box.add_child(scroll);
+            return box;
         }
 
         _getValue(keyName){
@@ -520,7 +607,7 @@ var TranslateAssistant = GObject.registerClass(
         }
 
         _get_icon(iconName){
-            const basePath = Extension.dir.get_child("icons").get_path();
+            const basePath = `${this._extension.path}/icons`;
             let fileIcon = Gio.File.new_for_path(
                 `${basePath}/${iconName}.svg`);
             if(fileIcon.query_exists(null) == false){
@@ -535,32 +622,31 @@ var TranslateAssistant = GObject.registerClass(
 
         _settingsChanged(){
             this._loadPreferences();
+            for (const [keyName, button] of Object.entries(this._languageButtons))
+                button.label = this._getValue(keyName);
             this.menuInputExpander.label.text = this._source_lang;
             this.menuOutputExpander.label.text = this._target_lang;
         }
 
         destroy(){
+            this._destroyed = true;
             this._disconnectSettings();
             this._unbindShortcut();
-            this._clearClipboardTimeout();
             this._disconnectSelectionListener();
             super.destroy();
         }
     }
 );
 
-let translateAssistant;
+export default class TranslateAssistantExtension extends Extension {
+    enable() {
+        migrateApiKey(this.getSettings()).catch(logError);
+        this._translateAssistant = new TranslateAssistant(this);
+        Main.panel.addToStatusArea(this.uuid, this._translateAssistant, 0, 'right');
+    }
 
-function init(){
-    ExtensionUtils.initTranslations();
-}
-
-function enable(){
-    translateAssistant = new TranslateAssistant();
-    Main.panel.addToStatusArea('translateAssistant', translateAssistant, 0, 'right');
-}
-
-function disable() {
-    translateAssistant.destroy();
-    translateAssistant = null;
+    disable() {
+        this._translateAssistant?.destroy();
+        this._translateAssistant = null;
+    }
 }

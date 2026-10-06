@@ -1,11 +1,21 @@
-const {GObject, Gtk} = imports.gi;
+import GObject from 'gi://GObject';
+import Gtk from 'gi://Gtk';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Extension = ExtensionUtils.getCurrentExtension();
-const Gettext = imports.gettext.domain(Extension.uuid);
-const _ = Gettext.gettext;
+import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-var KeyValueDialog = GObject.registerClass(
+// The extension object is registered only after prefs.js is imported,
+// so look it up lazily; GType names need the uuid at module load.
+const Extension = {
+    uuid: 'translate-assistant@atareao.es',
+    get metadata() {
+        return ExtensionPreferences.lookupByURL(import.meta.url).metadata;
+    },
+    get path() {
+        return ExtensionPreferences.lookupByURL(import.meta.url).path;
+    },
+};
+
+export const KeyValueDialog = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.KeyValueDialog').replace(/[\W_]+/g,'_')
     },

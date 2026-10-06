@@ -22,17 +22,31 @@
  * IN THE SOFTWARE.
  */
 
-String.format = imports.format.format;
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Extension = ExtensionUtils.getCurrentExtension();
-const {Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk} = imports.gi;
-const Gettext = imports.gettext.domain(Extension.metadata['gettext-domain']);
-const _ = Gettext.gettext;
+import Gdk from 'gi://Gdk';
+import GdkPixbuf from 'gi://GdkPixbuf';
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gtk from 'gi://Gtk';
+import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-const DialogWidgets = Extension.imports.dialogwidgets;
+import * as DialogWidgets from './dialogwidgets.js';
+import {lookupApiKey, storeApiKey} from './secret.js';
 
-var ShortcutSetting = GObject.registerClass(
+// The extension object is registered only after prefs.js is imported,
+// so look it up lazily; GType names need the uuid at module load.
+const Extension = {
+    uuid: 'translate-assistant@atareao.es',
+    get metadata() {
+        return ExtensionPreferences.lookupByURL(import.meta.url).metadata;
+    },
+    get path() {
+        return ExtensionPreferences.lookupByURL(import.meta.url).path;
+    },
+};
+
+export const ShortcutSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.ShortcutSetting').replace(/[\W_]+/g,'_')
     },
@@ -75,7 +89,7 @@ var ShortcutSetting = GObject.registerClass(
     }
 );
 
-var ColorSetting = GObject.registerClass(
+export const ColorSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.ColorSetting').replace(/[\W_]+/g,'_')
     },
@@ -107,7 +121,7 @@ var ColorSetting = GObject.registerClass(
 );
 
 /** A Gtk.Switch subclass for boolean GSettings. */
-var BoolSetting = GObject.registerClass(
+export const BoolSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.BoolSetting').replace(/[\W_]+/g,'_')
     },
@@ -125,7 +139,7 @@ var BoolSetting = GObject.registerClass(
 );
 
 /** A Gtk.ComboBoxText subclass for GSetting choices and enumerations */
-var EnumSetting = GObject.registerClass(
+export const EnumSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.EnumSetting').replace(/[\W_]+/g, '_')
     },
@@ -160,7 +174,7 @@ var EnumSetting = GObject.registerClass(
 );
 
 /** A Gtk.MenuButton subclass for GSetting flags */
-var FlagsSetting = GObject.registerClass(
+export const FlagsSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.FlagsSetting').replace(/[\W_]+/g, '_')
     },
@@ -219,7 +233,7 @@ var FlagsSetting = GObject.registerClass(
 );
 
 /** A Gtk.Button/Popover subclass for GSetting nullable booleans (maybe) */
-var MaybeSetting = GObject.registerClass(
+export const MaybeSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.MaybeSetting').replace(/[\W_]+/g, '_')
     },
@@ -302,7 +316,7 @@ var MaybeSetting = GObject.registerClass(
 );
 
 /** A Gtk.SpinButton subclass for unranged integer GSettings */
-var NumberSetting = GObject.registerClass(
+export const NumberSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.NumberSetting').replace(/[\W_]+/g, '_')
     },
@@ -338,7 +352,7 @@ var NumberSetting = GObject.registerClass(
 );
 
 /** A Gtk.Scale subclass for ranged integer GSettings */
-var RangeSetting = GObject.registerClass(
+export const RangeSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.RangeSetting').replace(/[\W_]+/g, '_')
     },
@@ -375,7 +389,7 @@ var RangeSetting = GObject.registerClass(
     }
 );
 
-var ArrayKeyValueSetting = GObject.registerClass(
+export const ArrayKeyValueSetting = GObject.registerClass(
     {
         GTypeName: Extension.uuid.replace(/[\W_]+/g, '_') + 'ArrayKeyValueSetting',
         Signals: {
@@ -488,7 +502,7 @@ var ArrayKeyValueSetting = GObject.registerClass(
     }
 );
 
-var ArrayStringSetting = GObject.registerClass(
+export const ArrayStringSetting = GObject.registerClass(
     {
         GTypeName: Extension.uuid.replace(/[\W_]+/g, '_') + '_ArrayStringSetting'
     },
@@ -603,7 +617,7 @@ var ArrayStringSetting = GObject.registerClass(
     }
 );
 /** A Gtk.Entry subclass for string GSettings */
-var StringSetting = GObject.registerClass(
+export const StringSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.StringSetting').replace(/[\W_]+/g, '_')
     },
@@ -645,8 +659,62 @@ var StringSetting = GObject.registerClass(
     }
 );
 
+/** A masked entry that keeps the DeepL API key in the keyring */
+export const ApiKeySetting = GObject.registerClass(
+    {
+        GTypeName: (Extension.uuid + '.ApiKeySetting').replace(/[\W_]+/g, '_')
+    },
+    class ApiKeySetting extends Gtk.Box{
+
+        // `ready` resolves once any legacy GSettings key has been migrated.
+        _init(ready) {
+            super._init({
+                halign: Gtk.Align.END,
+                valign: Gtk.Align.CENTER,
+                visible: true
+            });
+            this._entry = new Gtk.PasswordEntry({
+                show_peek_icon: true,
+                width_chars: 16,
+                sensitive: false
+            });
+            this.append(this._entry);
+            this._saveId = 0;
+
+            Promise.resolve(ready).catch(logError).then(lookupApiKey).then((apikey) => {
+                this._entry.text = apikey ?? '';
+            }).catch(logError).finally(() => {
+                this._entry.sensitive = true;
+                this._entry.connect("changed", () => this._scheduleSave());
+            });
+
+            this.connect("destroy", () => {
+                if (this._saveId) {
+                    GLib.source_remove(this._saveId);
+                    this._save();
+                }
+            });
+        }
+
+        // Debounce so the keyring isn't written on every keystroke.
+        _scheduleSave() {
+            if (this._saveId)
+                GLib.source_remove(this._saveId);
+            this._saveId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 500, () => {
+                this._save();
+                return GLib.SOURCE_REMOVE;
+            });
+        }
+
+        _save() {
+            this._saveId = 0;
+            storeApiKey(this._entry.text).catch(logError);
+        }
+    }
+);
+
 /** A Gtk.FileChooserButton subclass for folder GSettings */
-var FolderSetting = GObject.registerClass(
+export const FolderSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.FolderSetting').replace(/[\W_]+/g, '_')
     },
@@ -670,7 +738,7 @@ var FolderSetting = GObject.registerClass(
 );
 
 /** A Gtk.Entry subclass for all other GSettings */
-var OtherSetting = GObject.registerClass(
+export const OtherSetting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.OtherSetting').replace(/[\W_]+/g, '_')
     },
@@ -717,7 +785,7 @@ var OtherSetting = GObject.registerClass(
 /**
  * Interesting classes for widgets similar to Gnome Control Center
  */
-var Row = GObject.registerClass(
+export const Row = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.Row').replace(/[\W_]+/g, '_')
     },
@@ -757,7 +825,7 @@ var Row = GObject.registerClass(
     }
 );
 
-var Setting = GObject.registerClass(
+export const Setting = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.Setting').replace(/[\W_]+/g, '_')
     },
@@ -796,7 +864,7 @@ var Setting = GObject.registerClass(
     }
 );
 
-var Frame = GObject.registerClass(
+export const Frame = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.Frame').replace(/[\W_]+/g, '_')
     },
@@ -970,7 +1038,7 @@ var Frame = GObject.registerClass(
     }
 );
 
-var KeyValueFrameRow = GObject.registerClass(
+export const KeyValueFrameRow = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.KeyValueFrameRow').replace(/[\W_]+/g, '_'),
         Signals: {
@@ -1059,7 +1127,7 @@ var KeyValueFrameRow = GObject.registerClass(
     }
 );
 
-var FrameRow = GObject.registerClass(
+export const FrameRow = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.FrameRow').replace(/[\W_]+/g, '_')
     },
@@ -1115,7 +1183,7 @@ var FrameRow = GObject.registerClass(
 );
 
 /** A composite widget resembling A Gnome Control Center panel. */
-var Page = GObject.registerClass(
+export const Page = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.Page').replace(/[\W_]+/g, '_')
     },
@@ -1250,7 +1318,7 @@ var Page = GObject.registerClass(
 );
 
 /** A GtkStack subclass with a pre-attached GtkStackSwitcher */
-var Stack = GObject.registerClass(
+export const Stack = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.Stack').replace(/[\W_]+/g, '_')
     },
@@ -1276,7 +1344,7 @@ var Stack = GObject.registerClass(
     }
 );
 
-var Notebook = GObject.registerClass(
+export const Notebook = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.Notebook').replace(/[\W_]+/g, '_')
     },
@@ -1298,7 +1366,7 @@ var Notebook = GObject.registerClass(
     }
 );
 
-var NotebookPage = GObject.registerClass(
+export const NotebookPage = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.NotebookPage').replace(/[\W_]+/g, '_')
     },
@@ -1371,7 +1439,7 @@ var NotebookPage = GObject.registerClass(
     }
 );
 
-var StackListBox = GObject.registerClass(
+export const StackListBox = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.StackListBox').replace(/[\W_]+/g, '_')
     },
@@ -1477,7 +1545,7 @@ var StackListBox = GObject.registerClass(
     }
 );
 
-var Button = GObject.registerClass(
+export const Button = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.Button').replace(/[\W_]+/g, '_')
     },
@@ -1518,7 +1586,7 @@ var Button = GObject.registerClass(
     }
 );
 
-var ListWithStack = GObject.registerClass(
+export const ListWithStack = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.ListWithStack').replace(/[\W_]+/g, '_')
     },

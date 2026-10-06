@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="translate-assistant@atareao.es">
     <enum id="org.gnome.shell.extensions.translate-assistant.source-lang">
+        <value value="26" nick="Auto-detect (AUTO)"/>
         <value value="0" nick="Bulgarian (BG)"/>
         <value value="1" nick="Czech (CS)"/>
         <value value="2" nick="Danish (DA)"/>
@@ -98,7 +99,7 @@
         <key name="apikey" type="s">
             <default>""</default>
             <summary>DeepL API key</summary>
-            <description>Set DeepL API key</description>
+            <description>Stored securely in your keyring</description>
         </key>
         <key name="keybinding-translate-clipboard" type="as">
             <default><![CDATA[['<Super>t']]]></default>

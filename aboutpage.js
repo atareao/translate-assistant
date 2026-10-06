@@ -20,13 +20,29 @@
  * IN THE SOFTWARE.
  */
 
-const {Gtk, GLib, GObject, GdkPixbuf, Gio} = imports.gi;
-const Extension = imports.misc.extensionUtils.getCurrentExtension();
-const Widgets = Extension.imports.preferenceswidget;
-const Gettext = imports.gettext.domain(Extension.metadata['gettext-domain']);
-const _ = Gettext.gettext;
+import Gtk from 'gi://Gtk';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import GdkPixbuf from 'gi://GdkPixbuf';
+import Gio from 'gi://Gio';
+import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import * as Config from 'resource:///org/gnome/Shell/Extensions/js/misc/config.js';
 
-var AboutPage = GObject.registerClass(
+import * as Widgets from './preferenceswidget.js';
+
+// The extension object is registered only after prefs.js is imported,
+// so look it up lazily; GType names need the uuid at module load.
+const Extension = {
+    uuid: 'translate-assistant@atareao.es',
+    get metadata() {
+        return ExtensionPreferences.lookupByURL(import.meta.url).metadata;
+    },
+    get path() {
+        return ExtensionPreferences.lookupByURL(import.meta.url).path;
+    },
+};
+
+export const AboutPage = GObject.registerClass(
     {
         GTypeName: (Extension.uuid + '.AboutPage').replace(/[\W_]+/g,'_')
     },
@@ -40,9 +56,6 @@ var AboutPage = GObject.registerClass(
 
             this.addFrame(null, this._getInfoFrame());
             this.addFrame(null, this._getInfoNotebook());
-            this.addLinkButton("bmc-button", 150,
-                               "https://www.buymeacoffee.com/atareao",
-                               _("Buy me a coffee"));
         }
 
         _getInfoFrame(){
@@ -51,7 +64,7 @@ var AboutPage = GObject.registerClass(
             info.addLabelRow(Extension.metadata.name + " " + _('Version'),
                              Extension.metadata.version.toString());
             info.addLabelRow(_("GNOME Version"),
-                             imports.misc.config.PACKAGE_VERSION.toString());
+                             Config.PACKAGE_VERSION.toString());
             // Translators: This string precedes the OS (Distro + version)
             info.addLabelRow(_("OS"), this._getOS());
             // Translators: This string precedes the Session type (either "Wayland" or "X11")
@@ -82,7 +95,8 @@ var AboutPage = GObject.registerClass(
         _getDevelopersPage(){
             const title = _("Developers");
             const content = `
-<b>Lorenzo Carbonell</b> a.k.a <a href="https://atareao.es">@atareao</a>"
+<b>Lorenzo Carbonell</b> a.k.a <a href="https://atareao.es">@atareao</a> (original author)
+<b>Laroy</b> <a href="https://github.com/laroy-sh">@laroy-sh</a> (GNOME 45/46 port)
 `;
             return this._getNotebookPage(title, content);
         }

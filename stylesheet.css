@@ -10,3 +10,11 @@ StButton.translate-assistant-button:hover{
     background-color: #4CAF50;
     color: white;
 }
+StButton.translate-assistant-language {
+    border-radius: 5px;
+    padding: 4px 8px;
+}
+StButton.translate-assistant-language:hover {
+    background-color: #4CAF50;
+    color: white;
+}
